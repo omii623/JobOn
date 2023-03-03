@@ -19,11 +19,37 @@ Csapattagok és a rájuk osztott feladatok listaszerű felsorolása.
 
 ## Feladat szöveges leírása
 
-Részletes leírás az elkészítendő projektről.
+Az álláskeresést nagyban megkönnyíti egy közös platform az álláskeresők és a munkaadók között. A JobOn erre kínál megoldást, egy könnyen kezelhető és átlátható felületet nyújt mindkét fél számára. A munkaadóknak lehetőségük van egy adatlapot kitölteni a cégük adatairól, valamint több állásajánlatot is meghirdetni. Az álláskeresők is rendelkeznek egy adatlappal, melyben személyes adataik szerepelnek. Az álláskeresők számára az általuk megadott adatok alapján is kínál az oldal állásajánlatok, valamint szűrők segítségével is tudnak keresni az ajánlatok között.
 
 ## Követelménykatalógus
 
-A követelménykatalógus tanult módon való megadása.
+### Funkcionális követelmények
+  * Felhasználói munkamenet megvalósítása több jogosultsági szinttel (admin, felhasználó, vendég)
+    * admin: moderálás
+    * felhasználó 1. (álláskereső): CV-k feltöltése, jelentkezni állásra, álláskeresés szűrökkel
+    * felhasználó 2. (munkáltató): állás meghirdetése
+    * vendég (nem bejelentkezett felhasználó): álláskeresés szűrökkel
+  * Felhasználók kezelése
+    * Regisztráció (e-mail cím, név, jelszó)
+    * Bejelentkezés
+    * Jelszócsere
+    * Adatlapok (álláskereső, munkáltató)
+    * CV feltöltése (akár több is)
+  * Állásajánlatok keresése
+    * Szűrés több szempont alapján (pozíció, város, bér...)
+    * Ajánlatok listázása a szempontok súlyozása alapján
+  * Jelentkezés állásajánlatra
+  * Állás meghirdetése
+  * Statisztikák több szempont alapján (munkakör, életkor...)
+  * Állásajánlatok automatikus küldése a felhasználónak
+  
+### Nem funkcionális követelmények
+  * A kliens oldal platform- és böngészőfüggetlen legyen
+  * Reszponzív megjelenés
+  * Adatvédelem
+  * Átlátható, könnyű használhatóság (aloldalak használata, navigáció mindig elérhető)
+  * Inaktív felhasználók passziválása
+  
 
 ## Adatfolyam diagram (DFD):
 
