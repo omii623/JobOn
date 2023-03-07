@@ -122,6 +122,10 @@ Tábla1: _Tábla1 tartalmának leírása._
 
 ## Egyed-esemény mátrix:
 
+<div  align="center">
+  <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/egyed_esemeny/egyed_esemeny.png" width="400">
+</div>
+
 ## Funkció megadása:
 
 ## Egyéb:
