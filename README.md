@@ -55,7 +55,9 @@ Az álláskeresést nagyban megkönnyíti egy közös platform az álláskereső
 
 A DFD 0. szintje:
 
-![0. szintű DFD](https://github.com/omii623/JobOn/blob/4555cb311f46a420dde4d971d60ee2ed60ab6dc5/Diagrams/AFD/0szint_afd.jpg "0. szintű DFD:")
+<div  align="center">
+  <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/AFD/0szint_afd.jpg" width="800">
+</div>
 
 A DFD 1. szintje: <br/>
 Logikai:<br/>
@@ -92,6 +94,7 @@ Fizikai:<br/>
 
 ![2. szintű fizikai DFD](https://github.com/omii623/JobOn/blob/4555cb311f46a420dde4d971d60ee2ed60ab6dc5/Diagrams/AFD/Fizikai/2szint_jelentkezesekMegtekintese_fizikai_afd.jpg "2. szintű fizikai DFD:")<br/>
 
+
 ## EK-diagram:
 
 ## Az EK-diagram leképezése relációsémákra:
@@ -113,55 +116,15 @@ Tábla1: _Tábla1 tartalmának leírása._
 
 ## Szerep-funkció mátrix:
 
-<table>
-  <tr>
-    <th></th>
-    <th><SPAN STYLE="writing-mode: vertical-lr; transform: rotate(180deg);">Bejelenkezés</SPAN></th>
-    <th><SPAN STYLE="writing-mode: vertical-lr; transform: rotate(180deg);"></SPAN></th>
-    <th><SPAN STYLE="writing-mode: vertical-lr; transform: rotate(180deg);"></SPAN></th>
-    <th><SPAN STYLE="writing-mode: vertical-lr; transform: rotate(180deg);"></SPAN></th>
-    <th><SPAN STYLE="writing-mode: vertical-lr; transform: rotate(180deg);"></SPAN></th>
-    <th><SPAN STYLE="writing-mode: vertical-lr; transform: rotate(180deg);"></SPAN></th>
-  </tr>
-  <tr>
-    <th>Vendég</th>
-    <td>🟥</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <th>Álláskereső</th>
-    <td>🟩</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <th>Munkáltató</th>
-    <td>🟩</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <th>Admin</th>
-    <td>🟩</td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-</table>
+<div  align="center">
+  <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/szerep_funkcio/szerep_funkcio.png" width="400">
+</div>
 
 ## Egyed-esemény mátrix:
+
+<div  align="center">
+  <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/egyed_esemeny/egyed_esemeny.png" width="400">
+</div>
 
 ## Funkció megadása:
 
