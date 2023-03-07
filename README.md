@@ -54,46 +54,77 @@ Az álláskeresést nagyban megkönnyíti egy közös platform az álláskereső
 ## Adatfolyam diagram (DFD):
 
 A DFD 0. szintje:
-
+<br/>
 <div  align="center">
   <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/AFD/0szint_afd.jpg" width="800">
 </div>
-
+<br/>
 A DFD 1. szintje: <br/>
 Logikai:<br/>
-![1. szintű logikai DFD](https://github.com/omii623/JobOn/blob/4555cb311f46a420dde4d971d60ee2ed60ab6dc5/Diagrams/AFD/Logikai/1szint_logikai_afd.jpg "1. szintű logikai DFD:")<br/>
+<div  align="center">
+  <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/AFD/Logikai/1szint_logikai_afd.jpg" width="800">
+</div><br/>
 
 Fizikai:<br/>
-![1. szintű fizikai DFD](https://github.com/omii623/JobOn/blob/4555cb311f46a420dde4d971d60ee2ed60ab6dc5/Diagrams/AFD/Fizikai/1szint_fizikai_afd.jpg "1. szintű logikai DFD:")<br/>
+<div  align="center">
+  <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/AFD/Fizikai/1szint_fizikai_afd.jpg" width="800">
+</div><br/>
+<br/>
 
 A DFD 2. szintje:<br/>
 Logikai:<br/>
-![2. szintű logikai DFD](https://github.com/omii623/JobOn/blob/4555cb311f46a420dde4d971d60ee2ed60ab6dc5/Diagrams/AFD/Logikai/2szint_regisztracio_logikai_afd.jpg "2. szintű logikai DFD:")<br/>
 
-![2. szintű logikai DFD](https://github.com/omii623/JobOn/blob/4555cb311f46a420dde4d971d60ee2ed60ab6dc5/Diagrams/AFD/Logikai/2szint_bejelentkezes_logikai_afd.jpg "2. szintű logikai DFD:")<br/>
+<div  align="center">
+  <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/AFD/Logikai/2szint_regisztracio_logikai_afd.jpg" width="800">
+</div><br/>
 
-![2. szintű logikai DFD](https://github.com/omii623/JobOn/blob/4555cb311f46a420dde4d971d60ee2ed60ab6dc5/Diagrams/AFD/Logikai/2szint_allasokKeresese_logikai_afd.jpg "2. szintű logikai DFD:")<br/>
+<div  align="center">
+  <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/AFD/Logikai/2szint_bejelentkezes_logikai_afd.jpg" width="800">
+</div><br/>
 
-![2. szintű logikai DFD](https://github.com/omii623/JobOn/blob/4555cb311f46a420dde4d971d60ee2ed60ab6dc5/Diagrams/AFD/Logikai/2szint_megfeleloAllasok_logikai_afd.jpg "2. szintű logikai DFD:")<br/>
+<div  align="center">
+  <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/AFD/Logikai/2szint_allasokKeresese_logikai_afd.jpg" width="800">
+</div><br/>
 
-![2. szintű logikai DFD](https://github.com/omii623/JobOn/blob/4555cb311f46a420dde4d971d60ee2ed60ab6dc5/Diagrams/AFD/Logikai/2szint_allasMeghirdetes_logikai_afd.jpg "2. szintű logikai DFD:")<br/>
+<div  align="center">
+  <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/AFD/Logikai/2szint_megfeleloAllasok_logikai_afd.jpg" width="800">
+</div><br/>
 
-![2. szintű logikai DFD](https://github.com/omii623/JobOn/blob/4555cb311f46a420dde4d971d60ee2ed60ab6dc5/Diagrams/AFD/Logikai/2szint_jelentkezesekMegtekintese_logikai_afd.jpg "2. szintű logikai DFD:")<br/>
+<div  align="center">
+  <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/AFD/Logikai/2szint_allasMeghirdetes_logikai_afd.jpg" width="800">
+</div><br/>
+
+<div  align="center">
+  <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/AFD/Logikai/2szint_jelentkezesekMegtekintese_logikai_afd.jpg" width="800">
+</div><br/>
+
 <br/>
 Fizikai:<br/>
 
-![2. szintű fizikai DFD](https://github.com/omii623/JobOn/blob/4555cb311f46a420dde4d971d60ee2ed60ab6dc5/Diagrams/AFD/Fizikai/2szint_regisztracio_fizikai_afd.jpg "2. szintű fizikai DFD:")<br/>
+<div  align="center">
+  <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/AFD/Fizikai/2szint_regisztracio_fizikai_afd.jpg" width="800">
+</div><br/>
 
-![2. szintű fizikai DFD](https://github.com/omii623/JobOn/blob/4555cb311f46a420dde4d971d60ee2ed60ab6dc5/Diagrams/AFD/Fizikai/2szint_bejelentkezes_fizikai_afd.jpg "2. szintű fizikai DFD:")<br/>
+<div  align="center">
+  <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/AFD/Fizikai/2szint_bejelentkezes_fizikai_afd.jpg" width="800">
+</div><br/>
 
-![2. szintű fizikai DFD](https://github.com/omii623/JobOn/blob/4555cb311f46a420dde4d971d60ee2ed60ab6dc5/Diagrams/AFD/Fizikai/2szint_allasokKeresese_fizikai_afd.jpg "2. szintű fizikai DFD:")<br/>
+<div  align="center">
+  <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/AFD/Fizikai/2szint_allasokKeresese_fizikai_afd.jpg" width="800">
+</div><br/>
 
-![2. szintű fizikai DFD](https://github.com/omii623/JobOn/blob/4555cb311f46a420dde4d971d60ee2ed60ab6dc5/Diagrams/AFD/Fizikai/2szint_megfeleloAllasok_fizikai_afd.jpg "2. szintű fizikai DFD:")<br/>
+<div  align="center">
+  <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/AFD/Fizikai/2szint_megfeleloAllasok_fizikai_afd.jpg" width="800">
+</div><br/>
 
-![2. szintű fizikai DFD](https://github.com/omii623/JobOn/blob/4555cb311f46a420dde4d971d60ee2ed60ab6dc5/Diagrams/AFD/Fizikai/2szint_allasMeghirdetes_fizikai_afd.jpg "2. szintű fizikai DFD:")<br/>
+<div  align="center">
+  <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/AFD/Fizikai/2szint_allasMeghirdetes_fizikai_afd.jpg" width="800">
+</div><br/>
 
-![2. szintű fizikai DFD](https://github.com/omii623/JobOn/blob/4555cb311f46a420dde4d971d60ee2ed60ab6dc5/Diagrams/AFD/Fizikai/2szint_jelentkezesekMegtekintese_fizikai_afd.jpg "2. szintű fizikai DFD:")<br/>
-
+<div  align="center">
+  <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/AFD/Fizikai/2szint_jelentkezesekMegtekintese_fizikai_afd.jpg" width="800">
+</div><br/>
+<br/>
 
 ## EK-diagram:
 
