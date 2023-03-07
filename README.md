@@ -15,7 +15,20 @@ Készítette:
 
 ## Munka felosztása
 
-Csapattagok és a rájuk osztott feladatok listaszerű felsorolása.
+ * Rekecki Petra
+    * Feladat szöveges leírása
+    * Követelménykatalógus
+    * EK-diagram
+    * Normalizálás
+    * Táblák
+ * Molnár Dávid
+    * Adatfolyam diagram összes szint
+    * Logo tervezés
+ * Tóth Tamás
+    * Egyed esemény mátrix
+    * Szerep-funkció mátrix
+    * Funkció megadása
+    * Munka felosztás
 
 ## Feladat szöveges leírása
 
@@ -184,6 +197,7 @@ a másik 3 táblában is minden másodlagos attribútum teljesen függ bármely 
   <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/Relaciosemak/jelentkezes.png" width="800">
 </div>
 <br/>
+
 ## Szerep-funkció mátrix:
 
 <div  align="center">
