@@ -128,23 +128,62 @@ Fizikai:<br/>
 
 ## EK-diagram:
 
+<br/>
+<div  align="center">
+  <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/EK/EK.jpg" width="800">
+</div>
+<br/>
+
 ## Az EK-diagram leképezése relációsémákra:
 
-Relációsémák megadása.
+<div  align="center">
+  <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/Relaciosemak/Relaciosemak.png" width="800">
+</div>
+<br/>
 
 ## A relációsémák normalizálása:
 
-Normalizálás „táblázatos" formában.
+1NF: minden elem atomi <br/>
+2NF: 4 táblában csak egy attribútumból áll a kulcs, ezért azok egyértelműen 2NF-ben vannak, és 
+a másik 3 táblában is minden másodlagos attribútum teljesen függ bármely kulcstól. <br/>
+3NF: minden másodlagos attribútum közvetlenül függ bármely kulcstól. <br/>
 
 ## Táblák leírása:
 
-Tábla1: _Tábla1 tartalmának leírása._
+<div  align="center">
+  <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/Relaciosemak/felhasznalo.png" width="800">
+</div>
+<br/>
 
-| **Név** | **Típus** | **Leírás** |
-| ------- | --------- | ---------- |
-| Attr1   | Típus1    | Leírás1    |
-| Attr2   | Típus2    | Leírás2    |
+<div  align="center">
+  <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/Relaciosemak/allaskereso.png" width="800">
+</div>
+<br/>
 
+<div  align="center">
+  <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/Relaciosemak/munkaltato.png" width="800">
+</div>
+<br/>
+
+<div  align="center">
+  <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/Relaciosemak/allasajanlat.png" width="800">
+</div>
+<br/>
+
+<div  align="center">
+  <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/Relaciosemak/szakma.png" width="800">
+</div>
+<br/>
+
+<div  align="center">
+  <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/Relaciosemak/cv.png" width="800">
+</div>
+<br/>
+
+<div  align="center">
+  <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/Relaciosemak/jelentkezes.png" width="800">
+</div>
+<br/>
 ## Szerep-funkció mátrix:
 
 <div  align="center">
