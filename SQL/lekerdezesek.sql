@@ -26,3 +26,15 @@
     FROM "C##SAELDC"."ALLASAJANLAT"
     WHERE MUNKAKOR='Informatikus'
     GROUP BY MUNKAKOR;
+
+    
+    SELECT POZICIO, COUNT(*) AS Jelentkezok_szama
+    FROM "C##SAELDC"."JELENTKEZES", "C##SAELDC"."ALLASAJANLAT"
+    WHERE "C##SAELDC"."JELENTKEZES".AID="C##SAELDC"."ALLASAJANLAT".ID
+    GROUP BY POZICIO
+    ORDER BY Jelentkezok_szama;                                         --statisztika: melyik pozícióra hányan jelentkeztek
+
+
+    SELECT TELJES_NEV, POZICIO
+    FROM "C##SAELDC"."JELENTKEZES", "C##SAELDC"."ALLASAJANLAT", "C##SAELDC"."ALLASKERESO"
+    WHERE "C##SAELDC"."JELENTKEZES".AID="C##SAELDC"."ALLASAJANLAT".ID AND "C##SAELDC"."JELENTKEZES".FID="C##SAELDC"."ALLASKERESO".ID  --ki melyik állásra jelentkezett
