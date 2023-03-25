@@ -96,7 +96,7 @@ CREATE TABLE "FELHASZNALO"
     "ID" NUMBER(10) NOT NULL, 
 	"CEGNEV" VARCHAR2(50),  
 	"TELEFONSZAM" VARCHAR2(15),
-    "EMAIL_CIM" VARCHAR2(50),
+    "EMAIL_CIM_HIVATALOS" VARCHAR2(50),
 	"MEGALAPITAS_EVE" DATE,
 	"VAROS" VARCHAR2(50),
     "CIM" VARCHAR2(50),
@@ -104,27 +104,27 @@ CREATE TABLE "FELHASZNALO"
     FOREIGN KEY(ID) REFERENCES FELHASZNALO(ID)
    );
    
-       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM,MEGALAPITAS_EVE,VAROS,CIM) values (4,'Vodafone Magyarország Zrt.','+36833701478','info@vodafon.hu',DATE '2005-01-01','Szeged','Kérész utca 10');
-       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM,MEGALAPITAS_EVE,VAROS,CIM) values (11,'Adevinta Classified Media Hungary Kft.','+36581970514','info@adevinta.hu',DATE '2008-01-01','Budapest','Meggyfa utca 8');
-       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM,MEGALAPITAS_EVE,VAROS,CIM) values (16,'LPP Hungary Kft. - RESERVED','+36514782946','info@lpphungary.hu',DATE '2000-01-01','Szeged','Liszt utca 10');
-       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM,MEGALAPITAS_EVE,VAROS,CIM) values (21,'Musashi Hungary Füzesabony Kft.','+36862747513','info@musashi.hu',DATE '2010-01-01','Debrecen','Dózsa utca 3');
-       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM,MEGALAPITAS_EVE,VAROS,CIM) values (22,'Hegedűs és társai Bt.','+36420064208','hegedus@gmail.com',DATE '1996-01-01','Szeged','Vásártér sor 92');
-       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM,MEGALAPITAS_EVE,VAROS,CIM) values (23,'ZeinaHotels','+36628775893','info@zeinahotels.hu',DATE '2003-01-01','Debrecen','Bokor utca 102');
-       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM,MEGALAPITAS_EVE,VAROS,CIM) values (24,'HAVANCSÁK KFT.','+36702436536','havancsak@gmail.com',DATE '2001-01-01','Budapest','Garam utca 17');
-       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM,MEGALAPITAS_EVE,VAROS,CIM) values (25,'SEMILAB zrt','+36906958591','info@semilab.hu',DATE '1998-01-01','Szeged','Czékus utca 55');
-       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM,MEGALAPITAS_EVE,VAROS,CIM) values (27,'Nemzeti Élelmiszerlánc-Biztonsági Hivatal','+36437379982','kisboglarka@gmail.com',DATE '2013-01-01','Szeged','Szabadság tér 67');
-       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM,MEGALAPITAS_EVE,VAROS,CIM) values (28,'Tesco Global Áruházak Zrt.','+36997737370','info@tesco.hu',DATE '2004-01-01','Budapest','Árpa utca 15');
-       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM,MEGALAPITAS_EVE,VAROS,CIM) values (29,'RWA Magyarország Kft.','+36710548444','info@rwahungary.hu',DATE '1986-01-01','Debrecen','Feketesas utca 42');
-       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM,MEGALAPITAS_EVE,VAROS,CIM) values (30,'Budapest Airport Zrt.','+36129035327','katonapeter@gmail.com',DATE '2011-01-01','Szeged','Gyár utca 5');
-       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM,MEGALAPITAS_EVE,VAROS,CIM) values (31,'ORLEN Unipetrol Hungary Kft.','+36165700365','info@orlen.hu',DATE '2015-01-01','Budapest','Lengyel utca 19');
-       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM,MEGALAPITAS_EVE,VAROS,CIM) values (32,'Toyota Anyagmozgatás Magyaro. Kft.','+36935963782','info@toyotahungary.hu',DATE '2006-01-01','Szeged','Hangya utca 13');
-       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM,MEGALAPITAS_EVE,VAROS,CIM) values (34,'MVM Next Energiakereskedelmi Zrt.','+36353231551','laszloandra@gmail.com',DATE '2012-01-01','Szeged','Horgony utca 1');
-       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM,MEGALAPITAS_EVE,VAROS,CIM) values (35,'Kis Nápoly Kft.','+36132591166','info@kisnapoly.hu',DATE '1999-01-01','Debrecen','Barátság utca 18');
-       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM,MEGALAPITAS_EVE,VAROS,CIM) values (36,'PIKOPACK Zrt.','+36504774020','info@pikopack.hu',DATE '2007-01-01','Szeged','Bajai út 33');
-       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM,MEGALAPITAS_EVE,VAROS,CIM) values (37,'Rondo Hullámkartongyártó Kft.','+36661078028','info@rondo.hu',DATE '2003-01-01','Budapest','Fontos Sándor utca 7');
-       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM,MEGALAPITAS_EVE,VAROS,CIM) values (38,'PLANNING & TRADING Kft.','+36382901664','info@plantrad.hu',DATE '2013-01-01','Szeged','Tisza Lajos körút 107');
-       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM,MEGALAPITAS_EVE,VAROS,CIM) values (41,'Columbus Klímaértékesítő Kft.','+36562292227','info@columbus.hu',DATE '2005-01-01','Debrecen','Kavics utca 3');
-       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM,MEGALAPITAS_EVE,VAROS,CIM) values (42,'BKK Zrt.','+36185904407','info@bkk.hu',DATE '1998-01-01','Budapest','Zápor út ');
+       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) values (4,'Vodafone Magyarország Zrt.','+36833701478','info@vodafon.hu',DATE '2005-01-01','Szeged','Kérész utca 10');
+       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) values (11,'Adevinta Classified Media Hungary Kft.','+36581970514','info@adevinta.hu',DATE '2008-01-01','Budapest','Meggyfa utca 8');
+       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) values (16,'LPP Hungary Kft. - RESERVED','+36514782946','info@lpphungary.hu',DATE '2000-01-01','Szeged','Liszt utca 10');
+       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) values (21,'Musashi Hungary Füzesabony Kft.','+36862747513','info@musashi.hu',DATE '2010-01-01','Debrecen','Dózsa utca 3');
+       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) values (22,'Hegedűs és társai Bt.','+36420064208','hegedus@gmail.com',DATE '1996-01-01','Szeged','Vásártér sor 92');
+       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) values (23,'ZeinaHotels','+36628775893','info@zeinahotels.hu',DATE '2003-01-01','Debrecen','Bokor utca 102');
+       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) values (24,'HAVANCSÁK KFT.','+36702436536','havancsak@gmail.com',DATE '2001-01-01','Budapest','Garam utca 17');
+       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) values (25,'SEMILAB zrt','+36906958591','info@semilab.hu',DATE '1998-01-01','Szeged','Czékus utca 55');
+       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) values (27,'Nemzeti Élelmiszerlánc-Biztonsági Hivatal','+36437379982','kisboglarka@gmail.com',DATE '2013-01-01','Szeged','Szabadság tér 67');
+       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) values (28,'Tesco Global Áruházak Zrt.','+36997737370','info@tesco.hu',DATE '2004-01-01','Budapest','Árpa utca 15');
+       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) values (29,'RWA Magyarország Kft.','+36710548444','info@rwahungary.hu',DATE '1986-01-01','Debrecen','Feketesas utca 42');
+       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) values (30,'Budapest Airport Zrt.','+36129035327','katonapeter@gmail.com',DATE '2011-01-01','Szeged','Gyár utca 5');
+       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) values (31,'ORLEN Unipetrol Hungary Kft.','+36165700365','info@orlen.hu',DATE '2015-01-01','Budapest','Lengyel utca 19');
+       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) values (32,'Toyota Anyagmozgatás Magyaro. Kft.','+36935963782','info@toyotahungary.hu',DATE '2006-01-01','Szeged','Hangya utca 13');
+       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) values (34,'MVM Next Energiakereskedelmi Zrt.','+36353231551','laszloandra@gmail.com',DATE '2012-01-01','Szeged','Horgony utca 1');
+       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) values (35,'Kis Nápoly Kft.','+36132591166','info@kisnapoly.hu',DATE '1999-01-01','Debrecen','Barátság utca 18');
+       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) values (36,'PIKOPACK Zrt.','+36504774020','info@pikopack.hu',DATE '2007-01-01','Szeged','Bajai út 33');
+       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) values (37,'Rondo Hullámkartongyártó Kft.','+36661078028','info@rondo.hu',DATE '2003-01-01','Budapest','Fontos Sándor utca 7');
+       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) values (38,'PLANNING & TRADING Kft.','+36382901664','info@plantrad.hu',DATE '2013-01-01','Szeged','Tisza Lajos körút 107');
+       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) values (41,'Columbus Klímaértékesítő Kft.','+36562292227','info@columbus.hu',DATE '2005-01-01','Debrecen','Kavics utca 3');
+       Insert into MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) values (42,'BKK Zrt.','+36185904407','info@bkk.hu',DATE '1998-01-01','Budapest','Zápor út ');
 	   
 	   
 	 ---------------------------------------------------------------------------------------------------

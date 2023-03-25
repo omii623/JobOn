@@ -12,4 +12,8 @@ public class Felhasznalo {
         this.email_cim = email_cim;
         this.tipus = tipus;
     }
+
+    protected Felhasznalo(){
+        
+    }
 }

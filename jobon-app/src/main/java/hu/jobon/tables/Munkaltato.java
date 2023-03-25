@@ -34,6 +34,10 @@ public class Munkaltato extends Felhasznalo{
         this.cim = "";
     }
 
+    public Munkaltato(){
+        super();
+    }
+
     public int getID() {
         return ID;
     }

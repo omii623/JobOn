@@ -7,6 +7,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import hu.jobon.database.*;
+import hu.jobon.tables.*;
+
+//import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 public class JobonAppApplication {
@@ -19,5 +23,9 @@ public class JobonAppApplication {
 		
 		Database db = new Database();
 		db.connect();
+		List<Munkaltato> AllMunkaltato = db.getMunkaltato();
+		for (Munkaltato m : AllMunkaltato) {
+			System.out.println(m.getEmail_cim() + " - " + m.getJelszo());
+		}
 	}
 }
