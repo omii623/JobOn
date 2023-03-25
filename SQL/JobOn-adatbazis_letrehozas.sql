@@ -63,30 +63,31 @@ CREATE TABLE "FELHASZNALO"
 	"SZULETESI_DATUM" DATE, 
 	"VAROS" VARCHAR2(50),
     "CIM" VARCHAR2(50),
+    "UTOLSO_BELEPES" DATE,
     PRIMARY KEY(ID),
     FOREIGN KEY(ID) REFERENCES FELHASZNALO(ID)
    );
    
-    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM) values (2,'Ábrahám Rózsa',DATE '1975-03-09','Debrecen','Dáni utca 68');
-    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM) values (3,'Árok Imola',DATE '1981-11-23','Budapest','Holló utca 7');
-    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM) values (5,'Barna Ferenc',DATE '1989-08-31','Debrecen','Lengyel utca 26');
-    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM) values (6,'Bicskei Amanda',DATE '1985-06-13','Budapest','Remény utca 11');
-    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM) values (7,'Bicskei Noémi',DATE '1995-10-07','Budapest','Sólyom utca 48');
-    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM) values (8,'Mészáros Botond',DATE '1993-06-16','Szeged','Czékus utca 40');
-    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM) values (9,'Csabai Flóra',DATE '1998-05-18','Budapest','Sándorfalvi út 15');
-    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM) values (10,'Csíkos Flóra',DATE '1980-02-26','Szeged','Közép fasor 67');
-    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM) values (12,'Eszes Olivér',DATE '1978-12-10','Debrecen','Réti utca 4');
-    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM) values (13,'Habonyi Ernő',DATE '1996-04-21','Szeged','Kálvária sugárút 77');
-    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM) values (14,'Tóth Evelin',DATE '1999-09-07','Debrecen','Béke utca 8');
-    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM) values (15,'Farkas Nikolett',DATE '2000-07-14','Szeged','Bakonyi utca 22');
-    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM) values (17,'Körmöci Hanna',DATE '1985-01-26','Budapest','Makai út 16');
-    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM) values (18,'Harmath Emma',DATE '1987-03-27','Budapest','Csillag tér 9');
-    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM) values (20,'Horváth Péter',DATE '1991-07-13','Debrecen','Fonógyári út 53');
-    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM) values (26,'Farkas Luca',DATE '1996-06-04','Budapest','Orgona utca 64');
-    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM) values (33,'Nyilas Réka',DATE '1979-09-17','Budapest','Galagonya utca 29');
-    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM) values (39,'Kovács Tamás',DATE '1988-11-25','Szeged','Piszke utca 14');
-    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM) values (40,'Tari Hilda',DATE '1994-02-09','Debrecen','Nyár köz 21');
-    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM) values (43,'Holló Viktor',DATE '1994-04-17','Szeged','Gyálai út 87');
+    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM,UTOLSO_BELEPES) values (2,'Ábrahám Rózsa',DATE '1975-03-09','Debrecen','Dáni utca 68',DATE '2023-03-25');
+    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM,UTOLSO_BELEPES) values (3,'Árok Imola',DATE '1981-11-23','Budapest','Holló utca 7',DATE '2023-03-25');
+    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM,UTOLSO_BELEPES) values (5,'Barna Ferenc',DATE '1989-08-31','Debrecen','Lengyel utca 26',DATE '2023-03-25');
+    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM,UTOLSO_BELEPES) values (6,'Bicskei Amanda',DATE '1985-06-13','Budapest','Remény utca 11',DATE '2023-03-25');
+    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM,UTOLSO_BELEPES) values (7,'Bicskei Noémi',DATE '1995-10-07','Budapest','Sólyom utca 48',DATE '2023-03-25');
+    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM,UTOLSO_BELEPES) values (8,'Mészáros Botond',DATE '1993-06-16','Szeged','Czékus utca 40',DATE '2023-03-25');
+    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM,UTOLSO_BELEPES) values (9,'Csabai Flóra',DATE '1998-05-18','Budapest','Sándorfalvi út 15',DATE '2023-03-25');
+    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM,UTOLSO_BELEPES) values (10,'Csíkos Flóra',DATE '1980-02-26','Szeged','Közép fasor 67',DATE '2023-03-25');
+    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM,UTOLSO_BELEPES) values (12,'Eszes Olivér',DATE '1978-12-10','Debrecen','Réti utca 4',DATE '2023-03-25');
+    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM,UTOLSO_BELEPES) values (13,'Habonyi Ernő',DATE '1996-04-21','Szeged','Kálvária sugárút 77',DATE '2023-03-25');
+    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM,UTOLSO_BELEPES) values (14,'Tóth Evelin',DATE '1999-09-07','Debrecen','Béke utca 8',DATE '2023-03-25');
+    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM,UTOLSO_BELEPES) values (15,'Farkas Nikolett',DATE '2000-07-14','Szeged','Bakonyi utca 22',DATE '2023-03-25');
+    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM,UTOLSO_BELEPES) values (17,'Körmöci Hanna',DATE '1985-01-26','Budapest','Makai út 16',DATE '2023-03-25');
+    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM,UTOLSO_BELEPES) values (18,'Harmath Emma',DATE '1987-03-27','Budapest','Csillag tér 9',DATE '2023-03-25');
+    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM,UTOLSO_BELEPES) values (20,'Horváth Péter',DATE '1991-07-13','Debrecen','Fonógyári út 53',DATE '2023-03-25');
+    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM,UTOLSO_BELEPES) values (26,'Farkas Luca',DATE '1996-06-04','Budapest','Orgona utca 64',DATE '2023-03-25');
+    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM,UTOLSO_BELEPES) values (33,'Nyilas Réka',DATE '1979-09-17','Budapest','Galagonya utca 29',DATE '2023-03-25');
+    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM,UTOLSO_BELEPES) values (39,'Kovács Tamás',DATE '1988-11-25','Szeged','Piszke utca 14',DATE '2023-03-25');
+    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM,UTOLSO_BELEPES) values (40,'Tari Hilda',DATE '1994-02-09','Debrecen','Nyár köz 21',DATE '2023-03-25');
+    Insert into ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM,UTOLSO_BELEPES) values (43,'Holló Viktor',DATE '1994-04-17','Szeged','Gyálai út 87',DATE '2023-03-25');
 	
    ---------------------------------------------------------------------------------------------------
    
