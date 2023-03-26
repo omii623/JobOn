@@ -20,18 +20,13 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
+        scene = new Scene(loadFXML("login"));
         stage.setScene(scene);
         stage.show();
-        Database db = new Database();
-        List<Munkaltato> AllMunkaltato = db.getMunkaltatoAll();
-        for (Munkaltato m : AllMunkaltato) {
-            System.out.println(m.getEmail_cim() + " - " + m.getJelszo() +
-                    " - " +m.getID() + " - " + m.getCegnev() + " - " + m.getMegalapitas_eve());
-        }
+
     }
 
-    static void setRoot(String fxml) throws IOException {
+    public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
 
