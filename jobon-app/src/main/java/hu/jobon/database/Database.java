@@ -17,8 +17,7 @@ public class Database {
     String user = User.userName;
     String pass = User.userPass;
 
-    //private final String GET_MUNKALTATO = "SELECT * FROM C##SAELDC.FELHASZNALO";
-    private final String GET_MUNKALTATO = "SELECT * FROM C##SAELDC.MUNKALTATO, C##SAELDC.FELHASZNALO";
+    private final String GET_MUNKALTATO = "SELECT * FROM C##SAELDC.MUNKALTATO, C##SAELDC.FELHASZNALO WHERE C##SAELDC.MUNKALTATO.ID = C##SAELDC.FELHASZNALO.ID";
 
     public Database(){
         try{
@@ -32,7 +31,7 @@ public class Database {
         }
     }
 
-    public void connect(){
+    /*public void connect(){
         try{
             Connection conn = ods.getConnection(user,pass);
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
@@ -41,9 +40,9 @@ public class Database {
             System.out.println("ERROR: Sikertelen próba lekérés. -2- ");
             System.err.print(e);
         }
-    }
+    }*/
 
-    public List<Munkaltato> getMunkaltato(){
+    public List<Munkaltato> getMunkaltatoAll(){
         List<Munkaltato> mList = new ArrayList<>();
         try{
             Connection conn = ods.getConnection(user,pass);
@@ -54,14 +53,14 @@ public class Database {
                 Munkaltato m = new Munkaltato();
                 m.setEmail_cim(rs.getString("EMAIL_CIM"));
                 m.setJelszo(rs.getString("JELSZO"));
-                ////m.setTi(rs.getInt("TIPUS")); alapból be van állitva
-                //m.setID(rs.getInt("ID"));
-                //m.setCegnev(rs.getString("CEGNEV"));
-                //m.setTelefonszam(rs.getString("TELEFONSZAM"));
+                m.setID(rs.getInt("ID"));
+                m.setCegnev(rs.getString("CEGNEV"));
+                m.setTelefonszam(rs.getString("TELEFONSZAM"));
                 //m.setEmail_cim_hivatalos(rs.getString("EMAIL_CIM_HIVATALOS"));
-                ////m.setMegalapitas_eve(rs.getString("MEGALAPITAS_EVE"));//nem bitos hogy jó
-                //m.setVaros(rs.getString("VAROS"));
-                //m.setCim(rs.getString("CIM"));
+                m.setVaros(rs.getString("VAROS"));
+                m.setCim(rs.getString("CIM"));
+                
+                m.setMegalapitas_eve(rs.getString("MEGALAPITAS_EVE"));//nem bitos hogy jó
 
                 mList.add(m);
             }

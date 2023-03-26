@@ -22,10 +22,10 @@ public class JobonAppApplication {
 		SpringApplication.run(JobonAppApplication.class, args);
 		
 		Database db = new Database();
-		db.connect();
-		List<Munkaltato> AllMunkaltato = db.getMunkaltato();
+		List<Munkaltato> AllMunkaltato = db.getMunkaltatoAll();
 		for (Munkaltato m : AllMunkaltato) {
-			System.out.println(m.getEmail_cim() + " - " + m.getJelszo());
+			System.out.println(m.getEmail_cim() + " - " + m.getJelszo() + 
+			" - " +m.getID() + " - " + m.getCegnev() + " - " + m.getMegalapitas_eve());
 		}
 	}
 }
