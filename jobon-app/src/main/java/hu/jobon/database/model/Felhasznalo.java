@@ -13,7 +13,39 @@ public class Felhasznalo {
         this.tipus = tipus;
     }
 
-    protected Felhasznalo(){
+    public Felhasznalo(){
 
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public String getJelszo() {
+        return jelszo;
+    }
+
+    public void setJelszo(String jelszo) {
+        this.jelszo = jelszo;
+    }
+
+    public String getEmail_cim() {
+        return email_cim;
+    }
+
+    public void setEmail_cim(String email_cim) {
+        this.email_cim = email_cim;
+    }
+
+    public int getTipus() {
+        return tipus;
+    }
+
+    public void setTipus(int tipus) {
+        this.tipus = tipus;
     }
 }
