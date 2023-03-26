@@ -31,17 +31,6 @@ public class Database {
         }
     }
 
-    /*public void connect(){
-        try{
-            Connection conn = ods.getConnection(user,pass);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
-            System.out.println("INFO: Sikeres próba lekérés");
-        }catch(Exception e){
-            System.out.println("ERROR: Sikertelen próba lekérés. -2- ");
-            System.err.print(e);
-        }
-    }*/
-
     public List<Munkaltato> getMunkaltatoAll(){
         List<Munkaltato> mList = new ArrayList<>();
         try{

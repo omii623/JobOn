@@ -1,4 +1,4 @@
-package hu.jobon.jobonapp;
+package hu.jobon;
 
 import javax.sql.DataSource;
 

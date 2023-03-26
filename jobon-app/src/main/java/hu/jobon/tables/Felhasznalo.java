@@ -1,6 +1,7 @@
 package hu.jobon.tables;
 
 public class Felhasznalo {
+//    @Column(name = "id")
     protected int ID;
     protected String jelszo;
     protected String email_cim;
