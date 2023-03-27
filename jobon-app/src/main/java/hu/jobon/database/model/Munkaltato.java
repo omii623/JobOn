@@ -1,4 +1,4 @@
-package hu.jobon.tables;
+package hu.jobon.database.model;
 
 public class Munkaltato extends Felhasznalo{
     private int ID;
@@ -32,6 +32,10 @@ public class Munkaltato extends Felhasznalo{
         this.megalapitas_eve = "";
         this.varos = "";
         this.cim = "";
+    }
+
+    public Munkaltato(){
+        super();
     }
 
     public int getID() {

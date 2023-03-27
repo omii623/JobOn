@@ -1,4 +1,4 @@
-package hu.jobon.tables;
+package hu.jobon.database.model;
 
 public class Allasajanlat {
     private static int last_ID = 100;

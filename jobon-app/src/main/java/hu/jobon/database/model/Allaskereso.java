@@ -1,4 +1,4 @@
-package hu.jobon.tables;
+package hu.jobon.database.model;
 
 public class Allaskereso extends Felhasznalo{
     private int ID; //felhasznalo.id
@@ -26,6 +26,10 @@ public class Allaskereso extends Felhasznalo{
         szuletesi_datum = "";
         varos = "";
         cim = "";
+    }
+
+    public Allaskereso(){
+        super();
     }
 
     public int getID() {

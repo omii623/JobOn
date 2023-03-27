@@ -1,4 +1,4 @@
-package hu.jobon.tables;
+package hu.jobon.database.model;
 
 public class Jelentkezes {
     private int allasajanlat_ID;
