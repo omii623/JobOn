@@ -8,15 +8,20 @@ public class Allasajanlat {
     private String pozicio;
     private String munkakor;
     private String leiras;
+    private String letrehozas_ideje;
     
-    public Allasajanlat(int felhasznalo_ID, int oraber, String pozicio, String munkakor, String leiras) {
+    public Allasajanlat(int felhasznalo_ID, int oraber, String pozicio, String munkakor, String leiras, String letrehozas_ideje) {
         ID = last_ID;
         this.felhasznalo_ID = felhasznalo_ID;
         this.oraber = oraber;
         this.pozicio = pozicio;
         this.munkakor = munkakor;
         this.leiras = leiras;
+        this.letrehozas_ideje = letrehozas_ideje;
         last_ID++;
+    }
+    public Allasajanlat(){
+
     }
 
     public int getID() {
@@ -61,5 +66,12 @@ public class Allasajanlat {
 
     public void setLeiras(String leiras) {
         this.leiras = leiras;
+    }
+
+    public String getLetrehozas_ideje() {
+        return letrehozas_ideje;
+    }
+    public void setLetrehozas_ideje(String letrehozas_ideje) {
+        this.letrehozas_ideje = letrehozas_ideje;
     }
 }

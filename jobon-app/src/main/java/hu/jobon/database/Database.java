@@ -1,7 +1,9 @@
 package hu.jobon.database;
 
+import hu.jobon.database.model.Allasajanlat;
 import hu.jobon.database.model.Felhasznalo;
 import hu.jobon.database.model.Munkaltato;
+import hu.jobon.user.User;
 import oracle.jdbc.pool.OracleDataSource;
 
 import java.sql.Connection;
@@ -19,6 +21,8 @@ public class Database {
 
     private final String GET_MUNKALTATO = "SELECT * FROM C##SAELDC.MUNKALTATO, C##SAELDC.FELHASZNALO WHERE C##SAELDC.MUNKALTATO.ID = C##SAELDC.FELHASZNALO.ID";
     private final String GET_FELHASZNALO = "SELECT * FROM C##SAELDC.FELHASZNALO";
+    private final String GET_ALLASAJANLAT = "SELECT * FROM C##SAELDC.ALLASAJANLAT";
+
 
     public Database(){
         try{
@@ -102,4 +106,46 @@ public class Database {
 
         return mList;
     }
+
+    public List<Allasajanlat> getAllasajanlatAll(){
+        List<Allasajanlat> aList = new ArrayList<>();
+        try{
+            Connection conn = ods.getConnection(user,pass);
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            rs = stmt.executeQuery(GET_ALLASAJANLAT);
+
+            while(rs.next()){
+                Allasajanlat a = new Allasajanlat();
+                a.setFelhasznalo_ID(rs.getInt("FID"));
+                a.setOraber(rs.getInt("ORABER"));
+                a.setPozicio(rs.getString("POZICIO"));
+                a.setMunkakor(rs.getString("MUNKAKOR"));
+                a.setLeiras(rs.getString("LEIRAS"));
+                a.setLetrehozas_ideje(rs.getString("LETREHOZAS_IDEJE"));
+                aList.add(a);
+            }
+
+            System.out.println("INFO: Sikeres lekérés (állásajánlat)");
+        }catch(Exception e){
+            System.out.println("ERROR: Sikertelen lekérés (állásajánlat)");
+            System.err.print(e);
+            return null;
+        }
+        return aList;
+    }
+
+
+    public void updateFelhasznalo(String sql){
+        try{
+            Connection conn = ods.getConnection(user,pass);
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            rs = stmt.executeQuery(sql);
+
+            System.out.println("INFO: Sikeres update (felhasználó)");
+        }catch(Exception e){
+            System.out.println("ERROR: Sikertelen update (felhasználó)");
+            System.err.print(e);
+        }
+    }
+
 }
