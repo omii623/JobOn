@@ -4,7 +4,7 @@ public class Munkaltato extends Felhasznalo{
     private int ID;
     private String cegnev;
     private String telefonszam;
-    private String email_cim;
+    private String email_cim_hivatalos;
     private String megalapitas_eve;
     private String varos;
     private String cim;
@@ -16,7 +16,7 @@ public class Munkaltato extends Felhasznalo{
         this.ID = id;
         this.cegnev = cegnev;
         this.telefonszam = telefonszam;
-        this.email_cim = email_cim_hivatalos;
+        this.email_cim_hivatalos = email_cim_hivatalos;
         this.megalapitas_eve = megalapitas_eve;
         this.varos = varos;
         this.cim = cim;
@@ -28,7 +28,7 @@ public class Munkaltato extends Felhasznalo{
         this.ID = id;
         this.cegnev = "";
         this.telefonszam = "";
-        this.email_cim = "";
+        this.email_cim_hivatalos = "";
         this.megalapitas_eve = "";
         this.varos = "";
         this.cim = "";
@@ -63,11 +63,11 @@ public class Munkaltato extends Felhasznalo{
     }
 
     public String getEmail_cim_hivatalos() {
-        return email_cim;
+        return email_cim_hivatalos;
     }
 
     public void setEmail_cim_hivatalos(String email_cim) {
-        this.email_cim = email_cim;
+        this.email_cim_hivatalos = email_cim;
     }
 
     public String getMegalapitas_eve() {
