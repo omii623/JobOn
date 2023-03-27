@@ -1,6 +1,7 @@
 package hu.jobon.controller;
 
 import hu.jobon.database.Database;
+import hu.jobon.database.model.Allasajanlat;
 import hu.jobon.database.model.Felhasznalo;
 import hu.jobon.database.model.Munkaltato;
 import javafx.application.Application;
@@ -11,6 +12,7 @@ import hu.jobon.App;
 
 import java.io.Console;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -21,11 +23,9 @@ public class LoginController {
     @FXML
     PasswordField passPassFiled;
 
+    public static Felhasznalo felhasznalo = new Felhasznalo();
     @FXML
     void login() throws IOException {
-
-
-
         Database db = new Database();
         List<Felhasznalo> AllFelhasznalo = db.getFelhasznaloAll();
         for (Felhasznalo f : AllFelhasznalo) {
@@ -34,8 +34,25 @@ public class LoginController {
             System.out.println(f.getEmail_cim() + " - " + f.getJelszo());
             if(f.getEmail_cim().equals(userTextFiled.getText()) && f.getJelszo().equals(passPassFiled.getText())){
                 System.out.println("sikeres belépés");
-                App.setRoot("home");
+                felhasznalo.setID(f.getID());
+                felhasznalo.setEmail_cim(f.getEmail_cim());
+                felhasznalo.setJelszo(f.getJelszo());
+                felhasznalo.setTipus(f.getTipus());
+                System.out.println(felhasznalo.getEmail_cim());
+                if(f.getTipus() == 1) {
+                    App.setRoot("homeAdmin");
+//                    List<Allasajanlat> allasok = db.getAllasajanlatAll();
+//                    for (Allasajanlat allas : allasok) {
+//                        System.out.println(allas.getMunkakor());
+//                    }
+                }
+                else if(f.getTipus() == 2) {
+                    App.setRoot("homeAllaskereso");
+                }
+                else if(f.getTipus() == 3){
+                    App.setRoot("homeMunkaltato");
+                }
             }
         }
-    }
+     }
 }
