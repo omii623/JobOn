@@ -2,8 +2,6 @@ package hu.jobon.controller;
 
 import hu.jobon.database.Database;
 import hu.jobon.database.model.Allasajanlat;
-import hu.jobon.database.model.Allaskereso;
-import hu.jobon.database.model.Munkaltato;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -15,7 +13,7 @@ import java.util.List;
 
 import static hu.jobon.controller.LoginController.felhasznalo;
 
-public class HomeAllaskeresoController {
+public class HomeMunkaltatoController {
     @FXML
     public TableView tv1;
     @FXML
@@ -41,9 +39,11 @@ public class HomeAllaskeresoController {
         tv1.getColumns().addAll(munkaltatoCol, oraberCol, pozicioCol, munkakorCol, leirasCol, letrehozasCol);
  }
 
+    private String GET_ALLASAJANLATAIM;
     @FXML
     void listazz() {
-        List<Allasajanlat> allasok = db.getAllasajanlatAll();
+        GET_ALLASAJANLATAIM = "SELECT * FROM C##SAELDC.ALLASAJANLAT WHERE FID= '" + felhasznalo.getID() + "'";
+        List<Allasajanlat> allasok = db.getAllasajanlataim(GET_ALLASAJANLATAIM);
         tv1.getItems().clear();
         for (Allasajanlat allas : allasok) {
             System.out.println(allas.getMunkakor());
