@@ -9,7 +9,7 @@ public class Munkaltato extends Felhasznalo{
     private String varos;
     private String cim;
 
-    public Munkaltato(int id, String jelszo, String email_cim, int tipus, String cegnev, String telefonszam,
+    public Munkaltato(int id, String jelszo, String email_cim, String cegnev, String telefonszam,
                       String email_cim_hivatalos, String megalapitas_eve, String varos, String cim){
         super(id, jelszo, email_cim, 3);
         
