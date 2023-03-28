@@ -9,6 +9,7 @@ import oracle.jdbc.pool.OracleDataSource;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
@@ -28,7 +29,6 @@ public class Database {
     private final String GET_ALLASKERESO = "SELECT * FROM C##SAELDC.ALLASKERESO, C##SAELDC.FELHASZNALO WHERE C##SAELDC.ALLASKERESO.ID = C##SAELDC.FELHASZNALO.ID";
     private final String GET_FELHASZNALO = "SELECT * FROM C##SAELDC.FELHASZNALO";
     private final String GET_ALLASAJANLAT = "SELECT * FROM C##SAELDC.ALLASAJANLAT";
-
     private final String REGIST_USER = "INSERT INTO C##SAELDC.FELHASZNALO (ID,EMAIL_CIM,JELSZO,TIPUS) VALUES (";
     private final String REGIST_MUNKALTATO = "INSERT INTO C##SAELDC.MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) VALUES (";
     private final String REGIST_ALLASKERESO = "INSERT INTO C##SAELDC.ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM,UTOLSO_BELEPES) VALUES (";
@@ -80,7 +80,9 @@ public class Database {
                 fList.add(f);
             }
 
-            System.out.println("INFO: Sikeres lekérés (felhasználó)");
+            System.out.println("INFO: Sikeres lekérés (munkáltató)");
+        }catch(SQLException e){
+            System.err.print(e);
         }catch(Exception e){
             System.out.println("ERROR: Sikertelen lekérés (felhasználó)");
             System.err.print(e);
@@ -208,7 +210,7 @@ public class Database {
             stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(GET_ALLASAJANLATAIM);
 
-            while(rs.next()){
+            while (rs.next()) {
                 Allasajanlat a = new Allasajanlat();
                 a.setFelhasznalo_ID(rs.getInt("FID"));
                 a.setOraber(rs.getInt("ORABER"));
@@ -220,7 +222,7 @@ public class Database {
             }
 
             System.out.println("INFO: Sikeres lekérés (állásajánlat)");
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("ERROR: Sikertelen lekérés (állásajánlat)");
             System.err.print(e);
             return null;
