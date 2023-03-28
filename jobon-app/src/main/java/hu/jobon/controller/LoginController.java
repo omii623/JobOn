@@ -17,21 +17,18 @@ import java.util.List;
 
 
 public class LoginController {
+    Database db = new Database();
     @FXML
     TextField userTextFiled;
-
     @FXML
     PasswordField passPassFiled;
 
     public static Felhasznalo felhasznalo = new Felhasznalo();
     @FXML
     void login() throws IOException {
-        Database db = new Database();
         List<Felhasznalo> AllFelhasznalo = db.getFelhasznaloAll();
         for (Felhasznalo f : AllFelhasznalo) {
-            //System.out.println(m.getEmail_cim() + " - " + m.getJelszo() +
-            //        " - " +m.getID() + " - " + m.getCegnev() + " - " + m.getMegalapitas_eve());
-            System.out.println(f.getEmail_cim() + " - " + f.getJelszo());
+            System.out.println(f.getEmail_cim() + " - " + f.getJelszo() + " - " + f.getTipus());
             if(f.getEmail_cim().equals(userTextFiled.getText()) && f.getJelszo().equals(passPassFiled.getText())){
                 System.out.println("sikeres belépés");
                 felhasznalo.setID(f.getID());
@@ -55,6 +52,7 @@ public class LoginController {
             }
         }
      }
+
 
     @FXML
     void regist() throws IOException {

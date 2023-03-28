@@ -115,13 +115,19 @@ public class RegistController implements Initializable {
             Munkaltato m = new Munkaltato(0,passReg.getText(),emailReg.getText(), nameE.getText(),
                     phoneE.getText(),emailE.getText(),dateE.getValue().toString(), cityE.getText(),addresE.getText());
             db.registFelhasznalo(m);
+
             App.setRoot("homeMunkaltato");
+
         }else{
             Allaskereso a = new Allaskereso(0,passReg.getText(),emailReg.getText(),nameP.getText(),
                     dateP.getValue().toString(),cityP.getText(),addresP.getText());
             db.registFelhasznalo(a);
+
             App.setRoot("homeAllaskereso");
+             //  App.setRoot("home");
         }//*/
+    
+
     }
 
     @FXML
@@ -129,3 +135,4 @@ public class RegistController implements Initializable {
         App.setRoot("login");
     }
 }
+
