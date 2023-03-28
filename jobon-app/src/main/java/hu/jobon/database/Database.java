@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,6 +83,9 @@ public class Database {
                 fList.add(f);
             }
 
+            System.out.println("INFO: Sikeres lekérés (munkáltató)");
+        }catch(SQLException e){
+            System.err.print(e);
             System.out.println("INFO: Sikeres lekérés (munkáltató)");
         }catch(SQLException e){
             System.err.print(e);
@@ -292,7 +296,7 @@ public class Database {
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(GET_MEGFELELO_ALLASAJANLAT);
 
-            while(rs.next()){
+            while (rs.next()) {
                 Allasajanlat a = new Allasajanlat();
                 a.setFelhasznalo_ID(rs.getInt("FID"));
                 a.setOraber(rs.getInt("ORABER"));
@@ -304,7 +308,7 @@ public class Database {
             }
 
             System.out.println("INFO: Sikeres lekérés (állásajánlat)");
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("ERROR: Sikertelen lekérés (állásajánlat)");
             System.err.print(e);
             return null;
@@ -334,5 +338,48 @@ public class Database {
             return null;
         }
         return szList;
+    }
+    public boolean registFelhasznalo(Munkaltato f){
+        int id = 0;
+        try {
+            Connection conn = ods.getConnection(user,pass);
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            rs = stmt.executeQuery(MAX_ID_FELHASZNALO);
+            if (rs.next()) {
+                id = rs.getInt(1);
+                System.out.println("Max ID: " + id);
+            }
+            String str = String.valueOf(++id);
+            rs = stmt.executeQuery(REGIST_USER+str+",'"+f.getEmail_cim()+"','"+f.getJelszo()+"',"+f.getTipus()+")");
+
+            rs = stmt.executeQuery(REGIST_MUNKALTATO+str+",'"+f.getCegnev()+"','"+f.getTelefonszam()+"','"+f.getEmail_cim_hivatalos()+"',TO_DATE('"+
+                    f.getMegalapitas_eve()+"','YYYY-MM-DD'),'"+f.getVaros()+"','"+f.getCim()+"')");
+        }catch (SQLException sql){
+            sql.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean registFelhasznalo(Allaskereso f){
+        int id = 0;
+        try {
+            Connection conn = ods.getConnection(user,pass);
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            rs = stmt.executeQuery(MAX_ID_FELHASZNALO);
+            if (rs.next()) {
+                id = rs.getInt(1);
+                System.out.println("Max ID: " + id);
+            }
+            String str = String.valueOf(++id);
+            rs = stmt.executeQuery(REGIST_USER+str+",'"+f.getEmail_cim()+"','"+f.getJelszo()+"',"+f.getTipus()+")");
+
+            LocalDate currentDate = LocalDate.now();
+            rs = stmt.executeQuery(REGIST_ALLASKERESO+str+",'"+f.getTeljes_nev()+"',TO_DATE('"+f.getSzuletesi_datum()+"','YYYY-MM-DD'),'"+f.getVaros()+"','"+
+                    f.getCim()+"',TO_DATE('"+currentDate.toString()+"','YYYY-MM-DD'))");
+
+        }catch (SQLException sql){
+            sql.printStackTrace();
+        }
+        return false;
     }
 }
