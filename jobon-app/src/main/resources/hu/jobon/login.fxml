@@ -10,6 +10,6 @@
       <TextField fx:id="userTextFiled" layoutX="215.0" layoutY="96.0" promptText="user" />
       <PasswordField fx:id="passPassFiled" layoutX="215.0" layoutY="136.0" promptText="pass" />
       <Button layoutX="273.0" layoutY="188.0" mnemonicParsing="false" onAction="#login" text="Login" />
-      <Button layoutX="252.0" layoutY="243.0" mnemonicParsing="false" text="Registration" />
+      <Button layoutX="252.0" layoutY="243.0" mnemonicParsing="false" onAction="#regist" text="Registration" />
    </children>
 </AnchorPane>
