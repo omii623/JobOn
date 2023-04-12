@@ -4,7 +4,7 @@ import hu.jobon.database.model.Allasajanlat;
 import hu.jobon.database.model.Allaskereso;
 import hu.jobon.database.model.Felhasznalo;
 import hu.jobon.database.model.Munkaltato;
-import hu.jobon.user.User;
+import hu.jobon.database.User;
 import oracle.jdbc.pool.OracleDataSource;
 
 import java.sql.Connection;
@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class Database {
     ResultSet rs;
@@ -25,6 +27,10 @@ public class Database {
     private final String GET_FELHASZNALO = "SELECT * FROM C##SAELDC.FELHASZNALO";
     private final String GET_ALLASAJANLAT = "SELECT * FROM C##SAELDC.ALLASAJANLAT";
 
+    private final String REGIST_USER = "INSERT INTO C##SAELDC.FELHASZNALO (ID,EMAIL_CIM,JELSZO,TIPUS) VALUES (";
+    private final String REGIST_MUNKALTATO = "INSERT INTO C##SAELDC.MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) VALUES (";
+    private final String REGIST_ALLASKERESO = "INSERT INTO C##SAELDC.ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM,UTOLSO_BELEPES) VALUES (";
+    private final String MAX_ID_FELHASZNALO = "SELECT MAX(ID) FROM C##SAELDC.FELHASZNALO";
 
     public Database(){
         try{
@@ -34,17 +40,6 @@ public class Database {
             System.out.println("INFO: Sikeres csatlakozás -1-");
         }catch(Exception e){
             System.out.println("ERROR: Sikertelen csatlakozás. -1- ");
-            System.err.print(e);
-        }
-    }
-
-    public void connect(){
-        try{
-            Connection conn = ods.getConnection(user,pass);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
-            System.out.println("INFO: Sikeres próba lekérés");
-        }catch(Exception e){
-            System.out.println("ERROR: Sikertelen próba lekérés. -2- ");
             System.err.print(e);
         }
     }
@@ -164,7 +159,6 @@ public class Database {
         return aList;
     }
 
-
     public void updateFelhasznalo(String sql){
         try{
             Connection conn = ods.getConnection(user,pass);
@@ -203,5 +197,49 @@ public class Database {
             return null;
         }
         return aList;
+    }
+
+    public boolean registFelhasznalo(Munkaltato f){
+        int id = 0;
+        try {
+            Connection conn = ods.getConnection(user,pass);
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            rs = stmt.executeQuery(MAX_ID_FELHASZNALO);
+            if (rs.next()) {
+                id = rs.getInt(1);
+                System.out.println("Max ID: " + id);
+            }
+            String str = String.valueOf(++id);
+            rs = stmt.executeQuery(REGIST_USER+str+",'"+f.getEmail_cim()+"','"+f.getJelszo()+"',"+f.getTipus()+")");
+
+            rs = stmt.executeQuery(REGIST_MUNKALTATO+str+",'"+f.getCegnev()+"','"+f.getTelefonszam()+"','"+f.getEmail_cim_hivatalos()+"',TO_DATE('"+
+                    f.getMegalapitas_eve()+"','YYYY-MM-DD'),'"+f.getVaros()+"','"+f.getCim()+"')");
+        }catch (SQLException sql){
+            sql.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean registFelhasznalo(Allaskereso f){
+        int id = 0;
+        try {
+            Connection conn = ods.getConnection(user,pass);
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            rs = stmt.executeQuery(MAX_ID_FELHASZNALO);
+            if (rs.next()) {
+                id = rs.getInt(1);
+                System.out.println("Max ID: " + id);
+            }
+            String str = String.valueOf(++id);
+            rs = stmt.executeQuery(REGIST_USER+str+",'"+f.getEmail_cim()+"','"+f.getJelszo()+"',"+f.getTipus()+")");
+
+            LocalDate currentDate = LocalDate.now();
+            rs = stmt.executeQuery(REGIST_ALLASKERESO+str+",'"+f.getTeljes_nev()+"',TO_DATE('"+f.getSzuletesi_datum()+"','YYYY-MM-DD'),'"+f.getVaros()+"','"+
+                    f.getCim()+"',TO_DATE('"+currentDate.toString()+"','YYYY-MM-DD'))");
+
+        }catch (SQLException sql){
+            sql.printStackTrace();
+        }
+        return false;
     }
 }

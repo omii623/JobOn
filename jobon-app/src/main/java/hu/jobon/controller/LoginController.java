@@ -55,4 +55,9 @@ public class LoginController {
             }
         }
      }
+
+    @FXML
+    void regist() throws IOException {
+        App.setRoot("regist");
+    }
 }
