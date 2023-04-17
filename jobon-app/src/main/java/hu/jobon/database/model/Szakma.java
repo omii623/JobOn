@@ -9,6 +9,9 @@ public class Szakma {
         this.felhasznalo_ID = felhasznalo_ID;
     }
 
+    public Szakma() {
+    }
+
     public String getSzakma() {
         return szakma;
     }

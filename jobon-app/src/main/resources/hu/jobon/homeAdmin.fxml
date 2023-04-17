@@ -84,6 +84,19 @@
                     </AnchorPane>
                 </content>
             </Tab>
+            <Tab text="Statisztika-szakma">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <children>
+                            <TableView fx:id="tv5" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="573.0">
+                                <columns>
+                                </columns>
+                            </TableView>
+                            <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzstatszakma" text="Listázz" />
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
           <Tab text="Profilom">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
