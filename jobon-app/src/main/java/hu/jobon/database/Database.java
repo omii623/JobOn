@@ -6,7 +6,6 @@ import hu.jobon.database.model.Felhasznalo;
 import hu.jobon.database.model.Munkaltato;
 import hu.jobon.database.model.*;
 import hu.jobon.user.User;
-import hu.jobon.database.User;
 import oracle.jdbc.pool.OracleDataSource;
 
 import java.sql.Connection;
@@ -18,6 +17,8 @@ import java.time.LocalDate;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static hu.jobon.controller.LoginController.felhasznalo;
 
 public class Database {
     ResultSet rs;
@@ -70,9 +71,7 @@ public class Database {
         }catch(SQLException e){
             System.err.print(e);
             System.out.println("INFO: Sikeres lekérés (munkáltató)");
-        }catch(SQLException e){
-            System.err.print(e);
-        }catch(Exception e){
+        } catch(Exception e){
             System.out.println("ERROR: Sikertelen lekérés (felhasználó)");
             System.err.print(e);
             return null;
