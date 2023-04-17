@@ -51,8 +51,7 @@ public class LoginController {
                 }
             }
         }
-     }
-
+    }
 
     @FXML
     void regist() throws IOException {

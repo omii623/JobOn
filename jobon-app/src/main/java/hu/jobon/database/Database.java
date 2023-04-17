@@ -12,7 +12,9 @@ import oracle.jdbc.pool.OracleDataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +66,9 @@ public class Database {
                 fList.add(f);
             }
 
+            System.out.println("INFO: Sikeres lekérés (munkáltató)");
+        }catch(SQLException e){
+            System.err.print(e);
             System.out.println("INFO: Sikeres lekérés (munkáltató)");
         }catch(SQLException e){
             System.err.print(e);
@@ -255,7 +260,7 @@ public class Database {
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(GET_MEGFELELO_ALLASAJANLAT);
 
-            while(rs.next()){
+            while (rs.next()) {
                 Allasajanlat a = new Allasajanlat();
                 a.setFelhasznalo_ID(rs.getInt("FID"));
                 a.setOraber(rs.getInt("ORABER"));
@@ -267,7 +272,7 @@ public class Database {
             }
 
             System.out.println("INFO: Sikeres lekérés (állásajánlat)");
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("ERROR: Sikertelen lekérés (állásajánlat)");
             System.err.print(e);
             return null;
