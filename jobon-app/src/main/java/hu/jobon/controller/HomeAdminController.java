@@ -1,10 +1,7 @@
 package hu.jobon.controller;
 
 import hu.jobon.database.Database;
-import hu.jobon.database.model.Allasajanlat;
-import hu.jobon.database.model.Allaskereso;
-import hu.jobon.database.model.Felhasznalo;
-import hu.jobon.database.model.Munkaltato;
+import hu.jobon.database.model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -41,6 +38,8 @@ public class HomeAdminController {
     public TextField pass;
     @FXML
     public TableView tv4;
+    @FXML
+    public TableView tv5;
 
     Database db = new Database();
     @FXML
@@ -99,6 +98,12 @@ public class HomeAdminController {
         TableColumn tipusCol = new TableColumn("tipus");
         tipusCol.setCellValueFactory(new PropertyValueFactory<>("tipus"));
         tv4.getColumns().addAll(felhasznaloidCol, emailCol, jelszoCol, tipusCol);
+
+        TableColumn szakmaCol = new TableColumn("szakma");
+        szakmaCol.setCellValueFactory(new PropertyValueFactory<>("szakma"));
+        TableColumn emberszamCol = new TableColumn("szam");
+        emberszamCol.setCellValueFactory(new PropertyValueFactory<>("szam"));
+        tv5.getColumns().addAll(szakmaCol, emberszamCol);
     }
 
     @FXML
@@ -153,5 +158,14 @@ public class HomeAdminController {
             System.out.println(felhasznalo.getEmail_cim());
             tv4.getItems().add(felhasznalo);
         }
+    }
+
+    public void listazzstatszakma(ActionEvent event) {
+//        List<Szakma> szakmak = db.getStatSzakmaFelhasznalo();
+//        tv5.getItems().clear();
+//        for (Szakma szakma : szakmak) {
+////            System.out.println(felhasznalo.getEmail_cim());
+//            tv5.getItems().add(szakma);
+//        }
     }
 }

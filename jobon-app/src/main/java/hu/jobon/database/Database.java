@@ -4,6 +4,8 @@ import hu.jobon.database.model.Allasajanlat;
 import hu.jobon.database.model.Allaskereso;
 import hu.jobon.database.model.Felhasznalo;
 import hu.jobon.database.model.Munkaltato;
+import hu.jobon.database.model.*;
+import hu.jobon.user.User;
 import hu.jobon.database.User;
 import oracle.jdbc.pool.OracleDataSource;
 
@@ -14,8 +16,6 @@ import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.SQLException;
-import java.time.LocalDate;
 
 public class Database {
     ResultSet rs;
@@ -28,11 +28,13 @@ public class Database {
     private final String GET_MUNKALTATO = "SELECT * FROM C##SAELDC.MUNKALTATO, C##SAELDC.FELHASZNALO WHERE C##SAELDC.MUNKALTATO.ID = C##SAELDC.FELHASZNALO.ID";
     private final String GET_ALLASKERESO = "SELECT * FROM C##SAELDC.ALLASKERESO, C##SAELDC.FELHASZNALO WHERE C##SAELDC.ALLASKERESO.ID = C##SAELDC.FELHASZNALO.ID";
     private final String GET_FELHASZNALO = "SELECT * FROM C##SAELDC.FELHASZNALO";
-    private final String GET_ALLASAJANLAT = "SELECT * FROM C##SAELDC.ALLASAJANLAT";
+    private final String GET_ALLASAJANLAT = "SELECT * FROM C##SAELDC.ALLASAJANLAT WHERE CURRENT_DATE-LETREHOZAS_IDEJE<30";
     private final String REGIST_USER = "INSERT INTO C##SAELDC.FELHASZNALO (ID,EMAIL_CIM,JELSZO,TIPUS) VALUES (";
     private final String REGIST_MUNKALTATO = "INSERT INTO C##SAELDC.MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) VALUES (";
     private final String REGIST_ALLASKERESO = "INSERT INTO C##SAELDC.ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM,UTOLSO_BELEPES) VALUES (";
     private final String MAX_ID_FELHASZNALO = "SELECT MAX(ID) FROM C##SAELDC.FELHASZNALO";
+    private final String GET_MEGFELELO_ALLASAJANLAT = "SELECT * FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.MUNKALTATO, C##SAELDC.SZAKMA WHERE C##SAELDC.ALLASAJANLAT.FID=C##SAELDC.MUNKALTATO.ID AND "+felhasznalo.getID()+"=C##SAELDC.SZAKMA.FID AND MUNKAKOR=SZAKMA";
+    private final String GET_STAT_SZAKMA_FELHASZNALO = "SELECT COUNT(*), SZAKMA FROM C##SAELDC.ALLASKERESO, C##SAELDC.SZAKMA WHERE ALLASKERESO.ID=SZAKMA.FID GROUP BY SZAKMA";
 
     public Database(){
        
@@ -283,4 +285,54 @@ public class Database {
         return false;
     }
 
+    public List<Allasajanlat> getMAllasajanlatAll() {
+        List<Allasajanlat> aList = new ArrayList<>();
+        try{
+            Connection conn = ods.getConnection(user,pass);
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            rs = stmt.executeQuery(GET_MEGFELELO_ALLASAJANLAT);
+
+            while(rs.next()){
+                Allasajanlat a = new Allasajanlat();
+                a.setFelhasznalo_ID(rs.getInt("FID"));
+                a.setOraber(rs.getInt("ORABER"));
+                a.setPozicio(rs.getString("POZICIO"));
+                a.setMunkakor(rs.getString("MUNKAKOR"));
+                a.setLeiras(rs.getString("LEIRAS"));
+                a.setLetrehozas_ideje(rs.getString("LETREHOZAS_IDEJE"));
+                aList.add(a);
+            }
+
+            System.out.println("INFO: Sikeres lekérés (állásajánlat)");
+        }catch(Exception e){
+            System.out.println("ERROR: Sikertelen lekérés (állásajánlat)");
+            System.err.print(e);
+            return null;
+        }
+        return aList;
+    }
+
+    public List<Szakma> getStatSzakmaFelhasznalo() {
+        List<Szakma> szList = new ArrayList<>();
+        try{
+            Connection conn = ods.getConnection(user,pass);
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            rs = stmt.executeQuery(GET_STAT_SZAKMA_FELHASZNALO);
+
+//            while(rs.next()){
+//                Szakma sz = new Szakma();
+//                sz.setSzakma(rs.getString("SZAKMA"));
+//                sz.setSzakma(rs.getString("COUNT(*)"));
+//
+//                szList.add(sz);
+//            }
+
+            System.out.println("INFO: Sikeres lekérés (állásajánlat)");
+        }catch(Exception e){
+            System.out.println("ERROR: Sikertelen lekérés (állásajánlat)");
+            System.err.print(e);
+            return null;
+        }
+        return szList;
+    }
 }

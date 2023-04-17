@@ -22,6 +22,8 @@ public class HomeAllaskeresoController {
     public TextField email;
     @FXML
     public TextField pass;
+    @FXML
+    public TableView tv2;
 
     Database db = new Database();
     @FXML
@@ -39,6 +41,22 @@ public class HomeAllaskeresoController {
         TableColumn letrehozasCol = new TableColumn("letrehozas_ideje");
         letrehozasCol.setCellValueFactory(new PropertyValueFactory<>("letrehozas_ideje"));
         tv1.getColumns().addAll(munkaltatoCol, oraberCol, pozicioCol, munkakorCol, leirasCol, letrehozasCol);
+
+        TableColumn mmunkaltatoCol = new TableColumn("felhasznalo_ID");
+        mmunkaltatoCol.setCellValueFactory(new PropertyValueFactory<>("felhasznalo_ID"));
+        TableColumn moraberCol = new TableColumn("oraber");
+        moraberCol.setCellValueFactory(new PropertyValueFactory<>("oraber"));
+        TableColumn mpozicioCol = new TableColumn("pozicio");
+        mpozicioCol.setCellValueFactory(new PropertyValueFactory<>("pozicio"));
+        TableColumn mmunkakorCol = new TableColumn("munkakor");
+        mmunkakorCol.setCellValueFactory(new PropertyValueFactory<>("munkakor"));
+        TableColumn mleirasCol = new TableColumn("leiras");
+        mleirasCol.setCellValueFactory(new PropertyValueFactory<>("leiras"));
+        TableColumn mletrehozasCol = new TableColumn("letrehozas_ideje");
+        mletrehozasCol.setCellValueFactory(new PropertyValueFactory<>("letrehozas_ideje"));
+        tv2.getColumns().addAll(mmunkaltatoCol, moraberCol, mpozicioCol, mmunkakorCol, mleirasCol, mletrehozasCol);
+
+
  }
 
     @FXML
@@ -69,4 +87,12 @@ public class HomeAllaskeresoController {
     }
 
 
+    public void listazzmallasokat() {
+        List<Allasajanlat> allasok = db.getMAllasajanlatAll();
+        tv2.getItems().clear();
+        for (Allasajanlat allas : allasok) {
+            System.out.println(allas.getMunkakor());
+            tv2.getItems().add(allas);
+        }
+    }
 }
