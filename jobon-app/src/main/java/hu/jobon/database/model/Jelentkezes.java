@@ -9,6 +9,10 @@ public class Jelentkezes {
         this.felhasznalo_ID = felhasznalo_ID;
     }
 
+    public Jelentkezes() {
+
+    }
+
     public int getAllasajanlat_ID() {
         return allasajanlat_ID;
     }

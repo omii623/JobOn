@@ -24,6 +24,7 @@ public class Allasajanlat {
 
     }
 
+
     public int getID() {
         return ID;
     }
