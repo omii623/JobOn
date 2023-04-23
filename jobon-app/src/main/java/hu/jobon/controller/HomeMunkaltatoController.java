@@ -1,14 +1,21 @@
 package hu.jobon.controller;
 
+import hu.jobon.App;
 import hu.jobon.database.Database;
 import hu.jobon.database.model.Allasajanlat;
+import hu.jobon.database.model.Jelentkezes;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 import static hu.jobon.controller.LoginController.felhasznalo;
@@ -17,9 +24,12 @@ public class HomeMunkaltatoController {
     @FXML
     public TableView tv1;
     @FXML
+    public TableView tv2;
+    @FXML
     public TextField email;
     @FXML
     public TextField pass;
+
 
     Database db = new Database();
     @FXML
@@ -69,4 +79,17 @@ public class HomeMunkaltatoController {
     }
 
 
+    public void ujallasajanlat(ActionEvent event) throws IOException {
+        App.setRoot("ujAllasajanlat");
+
+    }
+
+
+    public void listazzJelentkezok(ActionEvent event) {
+        List<Jelentkezes> jelentkezesek = db.getJelentkezok();
+        tv2.getItems().clear();
+        for (Jelentkezes jelentkezes : jelentkezesek) {
+            tv2.getItems().add(jelentkezes);
+        }
+    }
 }

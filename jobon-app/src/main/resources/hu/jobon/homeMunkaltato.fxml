@@ -23,10 +23,30 @@
                           </columns>
                         </TableView>
                         <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazz" text="Listázz" />
+                        <Button layoutX="81.0" layoutY="344.0" mnemonicParsing="false" onAction="#ujallasajanlat" text="Új állásajánlat" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
+            <Tab text="Jelentkezők">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <children>
+                            <TableView fx:id="tv2" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="573.0">
+                                <columns>
+                                    <!--                            <TableColumn fx:id="munkaltatoCol" prefWidth="100" text="Munkáltató név" />-->
+                                    <!--                            <TableColumn fx:id="oraberCol" prefWidth="70" text="Órabér" />-->
+                                    <!--                            <TableColumn fx:id="pozicioCol" prefWidth="90" text="Pozíció" />-->
+                                    <!--                            <TableColumn fx:id="munkakorCol" prefWidth="70" text="Munkakör" />-->
+                                    <!--                            <TableColumn fx:id="leirasCol" prefWidth="291.142826625279" text="Leírás" />-->
+                                    <!--                              <TableColumn fx:id="letrehozasCol" prefWidth="80" text="Létrehozás" />-->
+                                </columns>
+                            </TableView>
+                            <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzJelentkezok" text="Listázz" />
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
           <Tab text="Profilom">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -40,8 +60,8 @@
                         </Label>
                         <Label layoutX="158.0" layoutY="126.0" text="E-mail cím" />
                         <Label layoutX="181.0" layoutY="164.0" text="Jelszó" />
-                        <Button layoutX="264.0" layoutY="212.0" mnemonicParsing="false" text="Módosítás" onAction="#modositas" />
-                        <Button layoutX="402.0" layoutY="148.0" mnemonicParsing="false" text="Adataim" onAction="#adataim" />
+                        <Button layoutX="264.0" layoutY="212.0" mnemonicParsing="false" onAction="#modositas" text="Módosítás" />
+                        <Button layoutX="402.0" layoutY="148.0" mnemonicParsing="false" onAction="#adataim" text="Adataim" />
                      </children>
                   </AnchorPane>
             </content>

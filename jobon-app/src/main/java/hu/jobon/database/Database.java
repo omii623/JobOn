@@ -11,9 +11,7 @@ import oracle.jdbc.pool.OracleDataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +29,14 @@ public class Database {
     private final String GET_ALLASKERESO = "SELECT * FROM C##SAELDC.ALLASKERESO, C##SAELDC.FELHASZNALO WHERE C##SAELDC.ALLASKERESO.ID = C##SAELDC.FELHASZNALO.ID";
     private final String GET_FELHASZNALO = "SELECT * FROM C##SAELDC.FELHASZNALO";
     private final String GET_ALLASAJANLAT = "SELECT * FROM C##SAELDC.ALLASAJANLAT WHERE CURRENT_DATE-LETREHOZAS_IDEJE<30";
+//    private final String GET_JELENTKEZOK = "SELECT C##SAELDC.ALLASKERESO.TELJES_NEV, C##SAELDC.ALLASAJANLAT.ID FROM C##SAELDC.JELENTKEZES, C##SAELDC.ALLASAJANLAT, C##SAELDC.ALLASKERESO WHERE C##SAELDC.JELENTKEZES.FID=C##SAELDC.ALLASKERESO.ID AND C##SAELDC.ALLASAJANLAT.ID=C##SAELDC.JELENTKEZES.AID AND C##SAELDC.ALLASAJANLAT.FID= "+felhasznalo.getID()+"";
+    private final String GET_JELENTKEZOK = "SELECT  C##SAELDC.ALLASAJANLAT.ID, C##SAELDC.JELENTKEZES.FID FROM C##SAELDC.JELENTKEZES, C##SAELDC.ALLASAJANLAT, C##SAELDC.ALLASKERESO WHERE C##SAELDC.JELENTKEZES.FID=C##SAELDC.ALLASKERESO.ID AND C##SAELDC.ALLASAJANLAT.ID=C##SAELDC.JELENTKEZES.AID AND C##SAELDC.ALLASAJANLAT.FID= "+felhasznalo.getID()+"";
     private final String REGIST_USER = "INSERT INTO C##SAELDC.FELHASZNALO (ID,EMAIL_CIM,JELSZO,TIPUS) VALUES (";
+    private final String NEW_ALLASAJANLAT = "INSERT INTO C##SAELDC.ALLASAJANLAT (ID,FID,ORABER,POZICIO,MUNKAKOR,LETREHOZAS_IDEJE, LEIRAS) VALUES (";
     private final String REGIST_MUNKALTATO = "INSERT INTO C##SAELDC.MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) VALUES (";
     private final String REGIST_ALLASKERESO = "INSERT INTO C##SAELDC.ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM,UTOLSO_BELEPES) VALUES (";
     private final String MAX_ID_FELHASZNALO = "SELECT MAX(ID) FROM C##SAELDC.FELHASZNALO";
+    private final String MAX_ID_ALLASAJANLAT = "SELECT MAX(ID) FROM C##SAELDC.ALLASAJANLAT";
     private final String GET_MEGFELELO_ALLASAJANLAT = "SELECT * FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.MUNKALTATO, C##SAELDC.SZAKMA WHERE C##SAELDC.ALLASAJANLAT.FID=C##SAELDC.MUNKALTATO.ID AND "+felhasznalo.getID()+"=C##SAELDC.SZAKMA.FID AND MUNKAKOR=SZAKMA";
     private final String GET_STAT_SZAKMA_FELHASZNALO = "SELECT COUNT(*), SZAKMA FROM C##SAELDC.ALLASKERESO, C##SAELDC.SZAKMA WHERE ALLASKERESO.ID=SZAKMA.FID GROUP BY SZAKMA";
 
@@ -301,5 +303,51 @@ public class Database {
             return null;
         }
         return szList;
+    }
+
+    public void newAllasajanlat(Allasajanlat a) {
+        int id = 0;
+        try {
+            Connection conn = ods.getConnection(user,pass);
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            rs = stmt.executeQuery(MAX_ID_ALLASAJANLAT);
+            if (rs.next()) {
+                id = rs.getInt(1);
+                System.out.println("Max ID: " + id);
+            }
+            String str = String.valueOf(++id);
+            rs = stmt.executeQuery(NEW_ALLASAJANLAT+str+","+a.getFelhasznalo_ID()+","+a.getOraber()+",'"+a.getPozicio()+"','"+a.getMunkakor()+"', DATE '"+a.getLetrehozas_ideje().toString()+"','"+a.getLeiras()+"')");
+            System.out.println("INFO: Sikeres hozzáadás (állásajánlat)");
+        }catch (SQLException sql){
+            sql.printStackTrace();
+            System.out.println("ERROR: Sikertelen hozzáadás (állásajánlat)");
+        }
+
+    }
+
+    public List<Jelentkezes> getJelentkezok() {
+        //Nem jelentkezés listbe kellene beszúrni, hanem valami újba...
+        //TODO
+        List<Jelentkezes> jList = new ArrayList<>();
+        try{
+            Connection conn = ods.getConnection(user,pass);
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            rs = stmt.executeQuery(GET_JELENTKEZOK);
+
+            while (rs.next()) {
+                Jelentkezes j = new Jelentkezes();
+                j.setAllasajanlat_ID(rs.getInt("AID"));
+                j.setFelhasznalo_ID(rs.getInt("FID"));
+
+                jList.add(j);
+            }
+
+            System.out.println("INFO: Sikeres lekérés (jelentkezes)");
+        } catch (Exception e) {
+            System.out.println("ERROR: Sikertelen lekérés (jelentkezes)");
+            System.err.print(e);
+            return null;
+        }
+        return jList;
     }
 }
