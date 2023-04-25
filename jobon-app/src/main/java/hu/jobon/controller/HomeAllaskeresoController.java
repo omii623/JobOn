@@ -4,12 +4,13 @@ import hu.jobon.database.Database;
 import hu.jobon.database.model.Allasajanlat;
 import hu.jobon.database.model.Allaskereso;
 import hu.jobon.database.model.Munkaltato;
+import hu.jobon.database.servicemodel.Jelentkezeseim;
+import hu.jobon.database.servicemodel.JelentkezokMunkaltatonkent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 
 import java.util.List;
 
@@ -23,7 +24,9 @@ public class HomeAllaskeresoController {
     @FXML
     public TextField pass;
     @FXML
-    public TableView tv2;
+    public TableView<Allasajanlat> tv2;
+    @FXML
+    public TableView tv3;
 
     Database db = new Database();
     @FXML
@@ -42,6 +45,8 @@ public class HomeAllaskeresoController {
         letrehozasCol.setCellValueFactory(new PropertyValueFactory<>("letrehozas_ideje"));
         tv1.getColumns().addAll(munkaltatoCol, oraberCol, pozicioCol, munkakorCol, leirasCol, letrehozasCol);
 
+        TableColumn IdCol = new TableColumn("ID");
+        IdCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
         TableColumn mmunkaltatoCol = new TableColumn("felhasznalo_ID");
         mmunkaltatoCol.setCellValueFactory(new PropertyValueFactory<>("felhasznalo_ID"));
         TableColumn moraberCol = new TableColumn("oraber");
@@ -54,10 +59,47 @@ public class HomeAllaskeresoController {
         mleirasCol.setCellValueFactory(new PropertyValueFactory<>("leiras"));
         TableColumn mletrehozasCol = new TableColumn("letrehozas_ideje");
         mletrehozasCol.setCellValueFactory(new PropertyValueFactory<>("letrehozas_ideje"));
-        tv2.getColumns().addAll(mmunkaltatoCol, moraberCol, mpozicioCol, mmunkakorCol, mleirasCol, mletrehozasCol);
+        TableColumn actionCol = new TableColumn("action");
+        actionCol.setCellFactory(param -> new TableCell<>() {
+            private final Button applyBtn = new Button("Apply");
+
+            {
 
 
- }
+                applyBtn.setOnAction(event -> {
+                   Allasajanlat a = tv2.getSelectionModel().getSelectedItem();
+                    applyAllasajanlat(a.getID(), felhasznalo.getID());
+                    listazz();
+                });
+                HBox container = new HBox();
+                container.getChildren().addAll(applyBtn);
+                container.setSpacing(10.0);
+                setGraphic(container);
+            }
+
+
+        });
+        tv2.getColumns().addAll(IdCol, mmunkaltatoCol, moraberCol, mpozicioCol, mmunkakorCol, mleirasCol, mletrehozasCol, actionCol);
+
+
+        TableColumn allasIDCol = new TableColumn("AID");
+        allasIDCol.setCellValueFactory(new PropertyValueFactory<>("AID"));
+        TableColumn oraber2Col = new TableColumn("oraber");
+        oraber2Col.setCellValueFactory(new PropertyValueFactory<>("oraber"));
+        TableColumn pozicio2Col = new TableColumn("pozicio");
+        pozicio2Col.setCellValueFactory(new PropertyValueFactory<>("pozicio"));
+        TableColumn munkakor2Col = new TableColumn("munkakor");
+        munkakor2Col.setCellValueFactory(new PropertyValueFactory<>("munkakor"));
+        TableColumn leiras2Col = new TableColumn("leiras");
+        leiras2Col.setCellValueFactory(new PropertyValueFactory<>("leiras"));
+
+        tv3.getColumns().addAll(allasIDCol, oraberCol, pozicioCol, munkakorCol, leirasCol);
+
+    }
+
+    private void applyAllasajanlat(int aid, int fid) {
+        db.applyAllasajanlat(aid, fid);
+    }
 
     @FXML
     void listazz() {
@@ -93,6 +135,14 @@ public class HomeAllaskeresoController {
         for (Allasajanlat allas : allasok) {
             System.out.println(allas.getMunkakor());
             tv2.getItems().add(allas);
+        }
+    }
+
+    public void listazzJelentkezeseim(ActionEvent event) {
+        List<Jelentkezeseim> jelentkezesek = db.getJelentkezeseim();
+        tv3.getItems().clear();
+        for (Jelentkezeseim jelentkezes : jelentkezesek) {
+            tv3.getItems().add(jelentkezes);
         }
     }
 }

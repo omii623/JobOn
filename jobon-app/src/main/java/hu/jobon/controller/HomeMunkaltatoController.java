@@ -3,15 +3,14 @@ package hu.jobon.controller;
 import hu.jobon.App;
 import hu.jobon.database.Database;
 import hu.jobon.database.model.Allasajanlat;
+import hu.jobon.database.model.Felhasznalo;
 import hu.jobon.database.model.Jelentkezes;
 import hu.jobon.database.servicemodel.JelentkezokMunkaltatonkent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -23,7 +22,7 @@ import static hu.jobon.controller.LoginController.felhasznalo;
 
 public class HomeMunkaltatoController {
     @FXML
-    public TableView tv1;
+    public TableView<Allasajanlat> tv1;
     @FXML
     public TableView tv2;
     @FXML
@@ -35,6 +34,8 @@ public class HomeMunkaltatoController {
     Database db = new Database();
     @FXML
     public void initialize(){
+        TableColumn IdCol = new TableColumn("ID");
+        IdCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
         TableColumn munkaltatoCol = new TableColumn("felhasznalo_ID");
         munkaltatoCol.setCellValueFactory(new PropertyValueFactory<>("felhasznalo_ID"));
         TableColumn oraberCol = new TableColumn("oraber");
@@ -47,7 +48,36 @@ public class HomeMunkaltatoController {
         leirasCol.setCellValueFactory(new PropertyValueFactory<>("leiras"));
         TableColumn letrehozasCol = new TableColumn("letrehozas_ideje");
         letrehozasCol.setCellValueFactory(new PropertyValueFactory<>("letrehozas_ideje"));
-        tv1.getColumns().addAll(munkaltatoCol, oraberCol, pozicioCol, munkakorCol, leirasCol, letrehozasCol);
+        TableColumn actionCol = new TableColumn("action");
+        actionCol.setCellFactory(param -> new TableCell<>() {
+            private final Button deleteBtn = new Button("Delete");
+            private final Button editBtn = new Button("Edit");
+
+            {
+                deleteBtn.setOnAction(event -> {
+
+//                    Allasajanlat allasajanlat =  getTableRow().getItem();
+                    Allasajanlat a = tv1.getSelectionModel().getSelectedItem();
+                    deleteAllasajanlat(a.getID());
+                    listazz();
+
+                });
+
+                editBtn.setOnAction(event -> {
+//                    Order o = getTableRow().getItem();
+//                    editOrder(o);
+//                    refreshTable();
+                });
+                HBox container = new HBox();
+                container.getChildren().addAll(editBtn, deleteBtn);
+                container.setSpacing(10.0);
+                setGraphic(container);
+            }
+
+
+        });
+
+        tv1.getColumns().addAll(IdCol, munkaltatoCol, oraberCol, pozicioCol, munkakorCol, leirasCol, letrehozasCol, actionCol);
 
         TableColumn pozCol = new TableColumn("pozicio");
         pozCol.setCellValueFactory(new PropertyValueFactory<>("pozicio"));
@@ -60,6 +90,8 @@ public class HomeMunkaltatoController {
         tv2.getColumns().addAll( pozCol, munkaCol, teljes_nevCol);
 
  }
+
+
 
     private String GET_ALLASAJANLATAIM;
     @FXML
@@ -96,6 +128,10 @@ public class HomeMunkaltatoController {
 
     }
 
+    private void deleteAllasajanlat(int ID) {
+        System.out.println("Info: "+ID);
+        db.deleteAllasajanlat(ID);
+    }
 
     public void listazzJelentkezok(ActionEvent event) {
         List<JelentkezokMunkaltatonkent> jelentkezesek = db.getJelentkezok();
