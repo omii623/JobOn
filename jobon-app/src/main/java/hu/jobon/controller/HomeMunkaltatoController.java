@@ -4,6 +4,7 @@ import hu.jobon.App;
 import hu.jobon.database.Database;
 import hu.jobon.database.model.Allasajanlat;
 import hu.jobon.database.model.Jelentkezes;
+import hu.jobon.database.servicemodel.JelentkezokMunkaltatonkent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -47,6 +48,17 @@ public class HomeMunkaltatoController {
         TableColumn letrehozasCol = new TableColumn("letrehozas_ideje");
         letrehozasCol.setCellValueFactory(new PropertyValueFactory<>("letrehozas_ideje"));
         tv1.getColumns().addAll(munkaltatoCol, oraberCol, pozicioCol, munkakorCol, leirasCol, letrehozasCol);
+
+        TableColumn pozCol = new TableColumn("pozicio");
+        pozCol.setCellValueFactory(new PropertyValueFactory<>("pozicio"));
+        TableColumn munkaCol = new TableColumn("munkakor");
+        munkaCol.setCellValueFactory(new PropertyValueFactory<>("munkakor"));
+//        TableColumn leiras2Col = new TableColumn("leiras");
+//        leiras2Col.setCellValueFactory(new PropertyValueFactory<>("leiras"));
+        TableColumn teljes_nevCol = new TableColumn("allaskereso_teljes_nev");
+        teljes_nevCol.setCellValueFactory(new PropertyValueFactory<>("allaskereso_teljes_nev"));
+        tv2.getColumns().addAll( pozCol, munkaCol, teljes_nevCol);
+
  }
 
     private String GET_ALLASAJANLATAIM;
@@ -86,9 +98,9 @@ public class HomeMunkaltatoController {
 
 
     public void listazzJelentkezok(ActionEvent event) {
-        List<Jelentkezes> jelentkezesek = db.getJelentkezok();
+        List<JelentkezokMunkaltatonkent> jelentkezesek = db.getJelentkezok();
         tv2.getItems().clear();
-        for (Jelentkezes jelentkezes : jelentkezesek) {
+        for (JelentkezokMunkaltatonkent jelentkezes : jelentkezesek) {
             tv2.getItems().add(jelentkezes);
         }
     }
