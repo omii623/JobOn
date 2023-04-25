@@ -26,7 +26,9 @@ public class HomeAllaskeresoController {
     @FXML
     public TableView<Allasajanlat> tv2;
     @FXML
-    public TableView tv3;
+    public TableView<Jelentkezeseim> tv3;
+    @FXML
+    public Button denyBtn;
 
     Database db = new Database();
     @FXML
@@ -92,9 +94,33 @@ public class HomeAllaskeresoController {
         munkakor2Col.setCellValueFactory(new PropertyValueFactory<>("munkakor"));
         TableColumn leiras2Col = new TableColumn("leiras");
         leiras2Col.setCellValueFactory(new PropertyValueFactory<>("leiras"));
+        TableColumn actionCol2 = new TableColumn("action");
+        actionCol2.setCellFactory(param -> new TableCell<>() {
+            private final Button denyBtn = new Button("Deny");
 
-        tv3.getColumns().addAll(allasIDCol, oraberCol, pozicioCol, munkakorCol, leirasCol);
+            {
+                denyBtn.setOnAction(event -> {
+                    Jelentkezeseim j = tv3.getSelectionModel().getSelectedItem();
+                    deleteJelentkezeseim(j.getAID());
+                    listazzJelentkezeseim();
+                });
+//                if () {
+                    HBox container = new HBox();
+                    container.getChildren().addAll(denyBtn);
+                    container.setSpacing(10.0);
+                    setGraphic(container);
+//                }
+            }
 
+        });
+
+        tv3.getColumns().addAll(allasIDCol, oraberCol, pozicioCol, munkakorCol, leirasCol, actionCol2);
+
+    }
+
+    @FXML
+    private void deleteJelentkezeseim(int AID) {
+        db.deleteJelentkezeseim(AID);
     }
 
     private void applyAllasajanlat(int aid, int fid) {
@@ -138,11 +164,12 @@ public class HomeAllaskeresoController {
         }
     }
 
-    public void listazzJelentkezeseim(ActionEvent event) {
+    public void listazzJelentkezeseim() {
         List<Jelentkezeseim> jelentkezesek = db.getJelentkezeseim();
         tv3.getItems().clear();
         for (Jelentkezeseim jelentkezes : jelentkezesek) {
             tv3.getItems().add(jelentkezes);
         }
     }
+
 }

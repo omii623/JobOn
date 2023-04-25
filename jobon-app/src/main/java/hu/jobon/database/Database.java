@@ -45,6 +45,7 @@ public class Database {
     private final String GET_STAT_SZAKMA_FELHASZNALO = "SELECT SZAKMA FROM C##SAELDC.ALLASKERESO, C##SAELDC.SZAKMA WHERE ALLASKERESO.ID=SZAKMA.FID GROUP BY SZAKMA";
     private final String DELETE_FELHASZNALO = "DELETE FROM C##SAELDC.FELHASZNALO, C##SAELDC.ALLASKERESO, C##SAELDC.MUNKALTATO WHERE C##SAELDC.MUNKALTATO.ID = C##SAELDC.FELHASZNALO.ID AND C##SAELDC.ALLASKERESO.ID = C##SAELDC.FELHASZNALO.ID AND ID="; //itt a baj
     private final String DELETE_ALLASAJANLAT = "DELETE FROM C##SAELDC.ALLASAJANLAT WHERE ID=";
+    private final String DELETE_JELENTKEZESEIM = "DELETE FROM C##SAELDC.JELENTKEZES WHERE AID=";
 
 
     public Database(){
@@ -631,5 +632,18 @@ public class Database {
             return null;
         }
         return jList;
+    }
+
+    public void deleteJelentkezeseim(int AID) {
+        try(
+                Connection c = ods.getConnection(user,pass);
+                PreparedStatement stmt = c.prepareStatement(DELETE_JELENTKEZESEIM+AID+"AND FID="+felhasznalo.getID());
+        ) {
+//            stmt.setInt(1, felhasznalo.getID());
+            stmt.executeUpdate();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 }
