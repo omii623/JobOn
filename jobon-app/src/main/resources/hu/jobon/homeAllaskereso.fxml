@@ -8,7 +8,7 @@
    <children>
       <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Állásajánlatok">
+          <Tab text="Friss állásajánlatok">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -40,6 +40,25 @@
                     </AnchorPane>
                 </content>
           </Tab>
+            <Tab text="Jelentkezéseim">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <children>
+                            <TableView fx:id="tv3" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="573.0">
+                                <columns>
+                                    <!--                            <TableColumn fx:id="munkaltatoCol" prefWidth="100" text="Munkáltató név" />-->
+                                    <!--                            <TableColumn fx:id="oraberCol" prefWidth="70" text="Órabér" />-->
+                                    <!--                            <TableColumn fx:id="pozicioCol" prefWidth="90" text="Pozíció" />-->
+                                    <!--                            <TableColumn fx:id="munkakorCol" prefWidth="70" text="Munkakör" />-->
+                                    <!--                            <TableColumn fx:id="leirasCol" prefWidth="291.142826625279" text="Leírás" />-->
+                                    <!--                              <TableColumn fx:id="letrehozasCol" prefWidth="80" text="Létrehozás" />-->
+                                </columns>
+                            </TableView>
+                            <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzJelentkezeseim" text="Listázz" />
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
           <Tab text="Profilom">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">

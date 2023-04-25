@@ -5,10 +5,9 @@ import hu.jobon.database.model.*;
 import hu.jobon.database.servicemodel.SzakmaStat;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 
 import java.util.List;
 
@@ -98,9 +97,28 @@ public class HomeAdminController {
         jelszoCol.setCellValueFactory(new PropertyValueFactory<>("jelszo"));
         TableColumn tipusCol = new TableColumn("tipus");
         tipusCol.setCellValueFactory(new PropertyValueFactory<>("tipus"));
-//        TableColumn actionCol = new TableColumn("action");
-//        actionCol.setCellValueFactory(new PropertyValueFactory<>("action"));
-        tv4.getColumns().addAll(felhasznaloidCol, emailCol, jelszoCol, tipusCol);
+        TableColumn actionCol = new TableColumn("action");
+        actionCol.setCellFactory(param -> new TableCell<>() {
+            private final Button deleteBtn = new Button("Delete");
+            private final Button editBtn = new Button("Edit");
+
+            {
+                deleteBtn.setOnAction(event -> {
+                    Felhasznalo f = (Felhasznalo) getTableRow().getItem();
+                    deleteFelhasznalo(f);
+                    ActionEvent actionEvent = new ActionEvent();
+                    listazzFelhasznalok(actionEvent);
+                });
+
+                HBox container = new HBox();
+                container.getChildren().addAll(editBtn, deleteBtn);
+                container.setSpacing(10.0);
+                setGraphic(container);
+            }
+
+
+        });
+        tv4.getColumns().addAll(felhasznaloidCol, emailCol, jelszoCol, tipusCol, actionCol);
 
         TableColumn szakmaCol = new TableColumn("szakma");
         szakmaCol.setCellValueFactory(new PropertyValueFactory<>("szakma"));
@@ -108,6 +126,11 @@ public class HomeAdminController {
         felhasznalok_szamaCol.setCellValueFactory(new PropertyValueFactory<>("felhasznalok_szama"));
         tv5.getColumns().addAll(szakmaCol, felhasznalok_szamaCol);
     }
+
+    private void deleteFelhasznalo(Felhasznalo f) {
+        db.deleteFelhasznalo(f);
+    }
+
 
     @FXML
     void listazz() {
@@ -162,6 +185,8 @@ public class HomeAdminController {
             tv4.getItems().add(felhasznalo);
         }
     }
+
+
 
     public void listazzstatszakma(ActionEvent event) {
         List<SzakmaStat> szakmak = db.getStatSzakmaFelhasznalo();

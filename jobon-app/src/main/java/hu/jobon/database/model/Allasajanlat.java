@@ -29,6 +29,8 @@ public class Allasajanlat {
         return ID;
     }
 
+    public void setID(int ID) { this.ID = ID; }
+
     public int getFelhasznalo_ID() {
         return felhasznalo_ID;
     }
