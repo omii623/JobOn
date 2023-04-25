@@ -5,13 +5,12 @@ import hu.jobon.database.model.Allaskereso;
 import hu.jobon.database.model.Felhasznalo;
 import hu.jobon.database.model.Munkaltato;
 import hu.jobon.database.model.*;
+import hu.jobon.database.servicemodel.JelentkezokMunkaltatonkent;
+import hu.jobon.database.servicemodel.SzakmaStat;
 import hu.jobon.user.User;
 import oracle.jdbc.pool.OracleDataSource;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +29,7 @@ public class Database {
     private final String GET_FELHASZNALO = "SELECT * FROM C##SAELDC.FELHASZNALO";
     private final String GET_ALLASAJANLAT = "SELECT * FROM C##SAELDC.ALLASAJANLAT WHERE CURRENT_DATE-LETREHOZAS_IDEJE<30";
 //    private final String GET_JELENTKEZOK = "SELECT C##SAELDC.ALLASKERESO.TELJES_NEV, C##SAELDC.ALLASAJANLAT.ID FROM C##SAELDC.JELENTKEZES, C##SAELDC.ALLASAJANLAT, C##SAELDC.ALLASKERESO WHERE C##SAELDC.JELENTKEZES.FID=C##SAELDC.ALLASKERESO.ID AND C##SAELDC.ALLASAJANLAT.ID=C##SAELDC.JELENTKEZES.AID AND C##SAELDC.ALLASAJANLAT.FID= "+felhasznalo.getID()+"";
-    private final String GET_JELENTKEZOK = "SELECT  C##SAELDC.ALLASAJANLAT.ID, C##SAELDC.JELENTKEZES.FID FROM C##SAELDC.JELENTKEZES, C##SAELDC.ALLASAJANLAT, C##SAELDC.ALLASKERESO WHERE C##SAELDC.JELENTKEZES.FID=C##SAELDC.ALLASKERESO.ID AND C##SAELDC.ALLASAJANLAT.ID=C##SAELDC.JELENTKEZES.AID AND C##SAELDC.ALLASAJANLAT.FID= "+felhasznalo.getID()+"";
+    private final String GET_JELENTKEZOK = "SELECT  C##SAELDC.ALLASAJANLAT.ID, POZICIO, MUNKAKOR, LEIRAS, C##SAELDC.ALLASKERESO.TELJES_NEV FROM C##SAELDC.JELENTKEZES, C##SAELDC.ALLASAJANLAT, C##SAELDC.ALLASKERESO WHERE C##SAELDC.JELENTKEZES.FID=C##SAELDC.ALLASKERESO.ID AND C##SAELDC.ALLASAJANLAT.ID=C##SAELDC.JELENTKEZES.AID AND C##SAELDC.ALLASAJANLAT.FID= "+felhasznalo.getID()+"";
     private final String REGIST_USER = "INSERT INTO C##SAELDC.FELHASZNALO (ID,EMAIL_CIM,JELSZO,TIPUS) VALUES (";
     private final String NEW_ALLASAJANLAT = "INSERT INTO C##SAELDC.ALLASAJANLAT (ID,FID,ORABER,POZICIO,MUNKAKOR,LETREHOZAS_IDEJE, LEIRAS) VALUES (";
     private final String REGIST_MUNKALTATO = "INSERT INTO C##SAELDC.MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) VALUES (";
@@ -38,7 +37,10 @@ public class Database {
     private final String MAX_ID_FELHASZNALO = "SELECT MAX(ID) FROM C##SAELDC.FELHASZNALO";
     private final String MAX_ID_ALLASAJANLAT = "SELECT MAX(ID) FROM C##SAELDC.ALLASAJANLAT";
     private final String GET_MEGFELELO_ALLASAJANLAT = "SELECT * FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.MUNKALTATO, C##SAELDC.SZAKMA WHERE C##SAELDC.ALLASAJANLAT.FID=C##SAELDC.MUNKALTATO.ID AND "+felhasznalo.getID()+"=C##SAELDC.SZAKMA.FID AND MUNKAKOR=SZAKMA";
-    private final String GET_STAT_SZAKMA_FELHASZNALO = "SELECT COUNT(*), SZAKMA FROM C##SAELDC.ALLASKERESO, C##SAELDC.SZAKMA WHERE ALLASKERESO.ID=SZAKMA.FID GROUP BY SZAKMA";
+    private final String GET_STAT_SZAKMA_FELHASZNALO = "SELECT SZAKMA FROM C##SAELDC.ALLASKERESO, C##SAELDC.SZAKMA WHERE ALLASKERESO.ID=SZAKMA.FID GROUP BY SZAKMA";
+    private final String DELETE_FELHASZNALO = "DELETE FROM C##SAELDC.FELHASZNALO WHERE ID=" +
+            "";
+
 
     public Database(){
         try{
@@ -281,20 +283,28 @@ public class Database {
         return aList;
     }
 
-    public List<Szakma> getStatSzakmaFelhasznalo() {
-        List<Szakma> szList = new ArrayList<>();
+    public List<SzakmaStat> getStatSzakmaFelhasznalo() {
+        List<SzakmaStat> szList = new ArrayList<>();
         try{
             Connection conn = ods.getConnection(user,pass);
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(GET_STAT_SZAKMA_FELHASZNALO);
 
-//            while(rs.next()){
-//                Szakma sz = new Szakma();
-//                sz.setSzakma(rs.getString("SZAKMA"));
-//                sz.setSzakma(rs.getString("COUNT(*)"));
-//
-//                szList.add(sz);
-//            }
+            CallableStatement cstmt = conn.prepareCall("begin ? := C##BH8ERI.szakmabeliekszama(?); end;");
+
+            int szam=0;
+
+            while(rs.next()){
+                SzakmaStat sz = new SzakmaStat();
+                sz.setSzakma(rs.getString("SZAKMA"));
+                cstmt.registerOutParameter(1, Types.INTEGER);
+                cstmt.setString(2, sz.getSzakma());
+                cstmt.executeUpdate();
+                szam = cstmt.getInt(1);
+//                System.out.println("INFO: fv:"+ szam);
+                sz.setFelhasznalok_szama(szam);
+                szList.add(sz);
+            }
 
             System.out.println("INFO: Sikeres lekérés (állásajánlat)");
         }catch(Exception e){
@@ -325,19 +335,20 @@ public class Database {
 
     }
 
-    public List<Jelentkezes> getJelentkezok() {
-        //Nem jelentkezés listbe kellene beszúrni, hanem valami újba...
-        //TODO
-        List<Jelentkezes> jList = new ArrayList<>();
+    public List<JelentkezokMunkaltatonkent> getJelentkezok() {
+        List<JelentkezokMunkaltatonkent> jList = new ArrayList<>();
         try{
             Connection conn = ods.getConnection(user,pass);
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(GET_JELENTKEZOK);
 
             while (rs.next()) {
-                Jelentkezes j = new Jelentkezes();
-                j.setAllasajanlat_ID(rs.getInt("AID"));
-                j.setFelhasznalo_ID(rs.getInt("FID"));
+                JelentkezokMunkaltatonkent j = new JelentkezokMunkaltatonkent();
+                j.setMID(felhasznalo.getID());
+                j.setPozicio(rs.getString("POZICIO"));
+                j.setMunkakor(rs.getString("MUNKAKOR"));
+                j.setLeiras(rs.getString("LEIRAS"));
+                j.setAllaskereso_teljes_nev(rs.getString("TELJES_NEV"));
 
                 jList.add(j);
             }

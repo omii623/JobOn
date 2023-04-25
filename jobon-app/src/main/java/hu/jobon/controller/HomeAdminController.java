@@ -2,6 +2,7 @@ package hu.jobon.controller;
 
 import hu.jobon.database.Database;
 import hu.jobon.database.model.*;
+import hu.jobon.database.servicemodel.SzakmaStat;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -97,13 +98,15 @@ public class HomeAdminController {
         jelszoCol.setCellValueFactory(new PropertyValueFactory<>("jelszo"));
         TableColumn tipusCol = new TableColumn("tipus");
         tipusCol.setCellValueFactory(new PropertyValueFactory<>("tipus"));
+//        TableColumn actionCol = new TableColumn("action");
+//        actionCol.setCellValueFactory(new PropertyValueFactory<>("action"));
         tv4.getColumns().addAll(felhasznaloidCol, emailCol, jelszoCol, tipusCol);
 
         TableColumn szakmaCol = new TableColumn("szakma");
         szakmaCol.setCellValueFactory(new PropertyValueFactory<>("szakma"));
-        TableColumn emberszamCol = new TableColumn("szam");
-        emberszamCol.setCellValueFactory(new PropertyValueFactory<>("szam"));
-        tv5.getColumns().addAll(szakmaCol, emberszamCol);
+        TableColumn felhasznalok_szamaCol = new TableColumn("felhasznalok_szama");
+        felhasznalok_szamaCol.setCellValueFactory(new PropertyValueFactory<>("felhasznalok_szama"));
+        tv5.getColumns().addAll(szakmaCol, felhasznalok_szamaCol);
     }
 
     @FXML
@@ -161,11 +164,11 @@ public class HomeAdminController {
     }
 
     public void listazzstatszakma(ActionEvent event) {
-//        List<Szakma> szakmak = db.getStatSzakmaFelhasznalo();
-//        tv5.getItems().clear();
-//        for (Szakma szakma : szakmak) {
-////            System.out.println(felhasznalo.getEmail_cim());
-//            tv5.getItems().add(szakma);
-//        }
+        List<SzakmaStat> szakmak = db.getStatSzakmaFelhasznalo();
+        tv5.getItems().clear();
+        for (SzakmaStat szakma : szakmak) {
+//            System.out.println(felhasznalo.getEmail_cim());
+            tv5.getItems().add(szakma);
+        }
     }
 }
