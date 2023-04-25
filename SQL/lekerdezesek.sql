@@ -11,6 +11,18 @@
     WHERE ALLASKERESO.ID=SZAKMA.FID
     GROUP BY SZAKMA;                 -- statisztika: milyen szakmából hány ember
 
+    CREATE FUNCTION szakmabeliekSzama(p_szakma IN C##SAELDC.SZAKMA.szakma%TYPE)RETURN NUMBER
+    IS
+    szam NUMBER :=0;
+    BEGIN
+    SELECT COUNT(*) INTO szam
+    FROM C##SAELDC.SZAKMA
+    WHERE p_szakma=SZAKMA.szakma; 
+
+    RETURN szam;
+    END;
+
+
     SELECT EXTRACT(YEAR FROM CURRENT_DATE)-EXTRACT(YEAR FROM SZULETESI_DATUM) AS KOR, COUNT(*) AS DB
     FROM "C##SAELDC"."ALLASKERESO"
     GROUP BY  EXTRACT(YEAR FROM SZULETESI_DATUM)
