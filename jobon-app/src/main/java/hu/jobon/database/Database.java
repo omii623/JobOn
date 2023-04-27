@@ -45,7 +45,7 @@ public class Database {
     private final String GET_MEGFELELO_ALLASAJANLAT = "SELECT * FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.MUNKALTATO, C##SAELDC.SZAKMA WHERE C##SAELDC.ALLASAJANLAT.FID=C##SAELDC.MUNKALTATO.ID AND "+felhasznalo.getID()+"=C##SAELDC.SZAKMA.FID AND MUNKAKOR=SZAKMA";
     private final String GET_STAT_SZAKMA_FELHASZNALO = "SELECT SZAKMA FROM C##SAELDC.ALLASKERESO, C##SAELDC.SZAKMA WHERE ALLASKERESO.ID=SZAKMA.FID GROUP BY SZAKMA";
     private final String GET_STAT_KOR_FELHASZNALO = "SELECT EXTRACT(YEAR FROM CURRENT_DATE)-EXTRACT(YEAR FROM SZULETESI_DATUM) AS KOR, COUNT(*) AS DB FROM C##SAELDC.ALLASKERESO GROUP BY  EXTRACT(YEAR FROM SZULETESI_DATUM) ORDER BY EXTRACT(YEAR FROM CURRENT_DATE)-EXTRACT(YEAR FROM SZULETESI_DATUM)";
-    private final String DELETE_FELHASZNALO = "DELETE FROM C##SAELDC.FELHASZNALO, C##SAELDC.ALLASKERESO, C##SAELDC.MUNKALTATO WHERE C##SAELDC.MUNKALTATO.ID = C##SAELDC.FELHASZNALO.ID AND C##SAELDC.ALLASKERESO.ID = C##SAELDC.FELHASZNALO.ID AND ID="; //itt a baj
+    private final String DELETE_FELHASZNALO = "DELETE FROM C##SAELDC.FELHASZNALO WHERE ID="; 
     private final String DELETE_ALLASAJANLAT = "DELETE FROM C##SAELDC.ALLASAJANLAT WHERE ID=";
     private final String DELETE_JELENTKEZESEIM = "DELETE FROM C##SAELDC.JELENTKEZES WHERE AID=";
 
@@ -228,9 +228,9 @@ public class Database {
 //            stmt.setInt(1, felhasznalo.getID());
             stmt.executeUpdate();
 
-               System.out.println("INFO: Sikeres delete (allasajanlat)"+f.getID());
+               System.out.println("INFO: Sikeres delete (felhasznalo)"+f.getID());
         } catch (SQLException throwables) {
-               System.out.println("ERROR: Sikertelen delete (allasajanlat)"+f.getID());
+               System.out.println("ERROR: Sikertelen delete (felhasznalo)"+f.getID());
             throwables.printStackTrace();
         }
     }
