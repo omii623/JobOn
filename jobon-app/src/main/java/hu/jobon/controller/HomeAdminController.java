@@ -103,7 +103,7 @@ public class HomeAdminController {
         TableColumn actionCol = new TableColumn("action");
         actionCol.setCellFactory(param -> new TableCell<>() {
             private final Button deleteBtn = new Button("Delete");
-            private final Button editBtn = new Button("Edit");
+//            private final Button editBtn = new Button("Edit");
 
             {
                 deleteBtn.setOnAction(event -> {
@@ -114,7 +114,7 @@ public class HomeAdminController {
                 });
 
                 HBox container = new HBox();
-                container.getChildren().addAll(editBtn, deleteBtn);
+                container.getChildren().addAll(deleteBtn);
                 container.setSpacing(10.0);
                 setGraphic(container);
             }
