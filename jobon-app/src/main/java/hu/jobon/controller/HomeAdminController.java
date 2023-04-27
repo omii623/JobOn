@@ -2,6 +2,7 @@ package hu.jobon.controller;
 
 import hu.jobon.database.Database;
 import hu.jobon.database.model.*;
+import hu.jobon.database.servicemodel.KorStat;
 import hu.jobon.database.servicemodel.SzakmaStat;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,6 +41,8 @@ public class HomeAdminController {
     public TableView tv4;
     @FXML
     public TableView tv5;
+    @FXML
+    public TableView tv6;
 
     Database db = new Database();
     @FXML
@@ -125,6 +128,12 @@ public class HomeAdminController {
         TableColumn felhasznalok_szamaCol = new TableColumn("felhasznalok_szama");
         felhasznalok_szamaCol.setCellValueFactory(new PropertyValueFactory<>("felhasznalok_szama"));
         tv5.getColumns().addAll(szakmaCol, felhasznalok_szamaCol);
+
+        TableColumn korCol = new TableColumn("kor");
+        korCol.setCellValueFactory(new PropertyValueFactory<>("kor"));
+        TableColumn felhasznalok_szama2Col = new TableColumn("felhasznalok_szama");
+        felhasznalok_szama2Col.setCellValueFactory(new PropertyValueFactory<>("felhasznalok_szama"));
+        tv6.getColumns().addAll(korCol, felhasznalok_szama2Col);
     }
 
     private void deleteFelhasznalo(Felhasznalo f) {
@@ -194,6 +203,15 @@ public class HomeAdminController {
         for (SzakmaStat szakma : szakmak) {
 //            System.out.println(felhasznalo.getEmail_cim());
             tv5.getItems().add(szakma);
+        }
+    }
+
+    public void listazzstatkor() {
+        List<KorStat> eletkorok = db.getStatKorFelhasznalo();
+        tv5.getItems().clear();
+        for (KorStat eletkor : eletkorok) {
+//            System.out.println(felhasznalo.getEmail_cim());
+            tv6.getItems().add(eletkor);
         }
     }
 }

@@ -6,13 +6,13 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.jobon.controller.HomeAdminController">
    <children>
-      <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="400.0" prefWidth="680.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Állásajánlatok">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="tv1" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="573.0">
+                        <TableView fx:id="tv1" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="650.0">
                           <columns>
 <!--                            <TableColumn fx:id="munkaltatoCol" prefWidth="100" text="Munkáltató név" />-->
 <!--                            <TableColumn fx:id="oraberCol" prefWidth="70" text="Órabér" />-->
@@ -31,7 +31,7 @@
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                         <children>
-                            <TableView fx:id="tv2" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="573.0">
+                            <TableView fx:id="tv2" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="650.0">
                                 <columns>
                                     <!--                            <TableColumn fx:id="munkaltatoCol" prefWidth="100" text="Munkáltató név" />-->
                                     <!--                            <TableColumn fx:id="oraberCol" prefWidth="70" text="Órabér" />-->
@@ -50,7 +50,7 @@
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                         <children>
-                            <TableView fx:id="tv3" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="573.0">
+                            <TableView fx:id="tv3" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="650.0">
                                 <columns>
                                     <!--                            <TableColumn fx:id="munkaltatoCol" prefWidth="100" text="Munkáltató név" />-->
                                     <!--                            <TableColumn fx:id="oraberCol" prefWidth="70" text="Órabér" />-->
@@ -69,7 +69,7 @@
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                         <children>
-                            <TableView fx:id="tv4" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="573.0">
+                            <TableView fx:id="tv4" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="650.0">
                                 <columns>
                                     <!--                            <TableColumn fx:id="munkaltatoCol" prefWidth="100" text="Munkáltató név" />-->
                                     <!--                            <TableColumn fx:id="oraberCol" prefWidth="70" text="Órabér" />-->
@@ -88,11 +88,24 @@
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                         <children>
-                            <TableView fx:id="tv5" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="573.0">
+                            <TableView fx:id="tv5" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="650.0">
                                 <columns>
                                 </columns>
                             </TableView>
                             <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzstatszakma" text="Listázz" />
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
+            <Tab text="Statisztika-életkor">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <children>
+                            <TableView fx:id="tv6" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="650.0">
+                                <columns>
+                                </columns>
+                            </TableView>
+                            <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzstatkor" text="Listázz" />
                         </children>
                     </AnchorPane>
                 </content>
@@ -110,8 +123,8 @@
                         </Label>
                         <Label layoutX="158.0" layoutY="126.0" text="E-mail cím" />
                         <Label layoutX="181.0" layoutY="164.0" text="Jelszó" />
-                        <Button layoutX="264.0" layoutY="212.0" mnemonicParsing="false" text="Módosítás" onAction="#modositas" />
-                        <Button layoutX="402.0" layoutY="148.0" mnemonicParsing="false" text="Adataim" onAction="#adataim" />
+                        <Button layoutX="264.0" layoutY="212.0" mnemonicParsing="false" onAction="#modositas" text="Módosítás" />
+                        <Button layoutX="402.0" layoutY="148.0" mnemonicParsing="false" onAction="#adataim" text="Adataim" />
                      </children>
                   </AnchorPane>
             </content>

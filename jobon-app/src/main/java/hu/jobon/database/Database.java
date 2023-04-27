@@ -7,6 +7,7 @@ import hu.jobon.database.model.Munkaltato;
 import hu.jobon.database.model.*;
 import hu.jobon.database.servicemodel.Jelentkezeseim;
 import hu.jobon.database.servicemodel.JelentkezokMunkaltatonkent;
+import hu.jobon.database.servicemodel.KorStat;
 import hu.jobon.database.servicemodel.SzakmaStat;
 import hu.jobon.user.User;
 import oracle.jdbc.pool.OracleDataSource;
@@ -43,6 +44,7 @@ public class Database {
     private final String MAX_ID_ALLASAJANLAT = "SELECT MAX(ID) FROM C##SAELDC.ALLASAJANLAT";
     private final String GET_MEGFELELO_ALLASAJANLAT = "SELECT * FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.MUNKALTATO, C##SAELDC.SZAKMA WHERE C##SAELDC.ALLASAJANLAT.FID=C##SAELDC.MUNKALTATO.ID AND "+felhasznalo.getID()+"=C##SAELDC.SZAKMA.FID AND MUNKAKOR=SZAKMA";
     private final String GET_STAT_SZAKMA_FELHASZNALO = "SELECT SZAKMA FROM C##SAELDC.ALLASKERESO, C##SAELDC.SZAKMA WHERE ALLASKERESO.ID=SZAKMA.FID GROUP BY SZAKMA";
+    private final String GET_STAT_KOR_FELHASZNALO = "SELECT EXTRACT(YEAR FROM CURRENT_DATE)-EXTRACT(YEAR FROM SZULETESI_DATUM) AS KOR, COUNT(*) AS DB FROM C##SAELDC.ALLASKERESO GROUP BY  EXTRACT(YEAR FROM SZULETESI_DATUM) ORDER BY EXTRACT(YEAR FROM CURRENT_DATE)-EXTRACT(YEAR FROM SZULETESI_DATUM)";
     private final String DELETE_FELHASZNALO = "DELETE FROM C##SAELDC.FELHASZNALO, C##SAELDC.ALLASKERESO, C##SAELDC.MUNKALTATO WHERE C##SAELDC.MUNKALTATO.ID = C##SAELDC.FELHASZNALO.ID AND C##SAELDC.ALLASKERESO.ID = C##SAELDC.FELHASZNALO.ID AND ID="; //itt a baj
     private final String DELETE_ALLASAJANLAT = "DELETE FROM C##SAELDC.ALLASAJANLAT WHERE ID=";
     private final String DELETE_JELENTKEZESEIM = "DELETE FROM C##SAELDC.JELENTKEZES WHERE AID=";
@@ -365,9 +367,9 @@ public class Database {
                 szList.add(sz);
             }
 
-            System.out.println("INFO: Sikeres lekérés (állásajánlat)");
+            System.out.println("INFO: Sikeres lekérés (statszakma)");
         }catch(Exception e){
-            System.out.println("ERROR: Sikertelen lekérés (állásajánlat)");
+            System.out.println("ERROR: Sikertelen lekérés (statszakma)");
             System.err.print(e);
             return null;
         }
@@ -525,6 +527,29 @@ public class Database {
         return false;
     }
 
+    public List<KorStat> getStatKorFelhasznalo() {
+        List<KorStat> kList = new ArrayList<>();
+        try{
+            Connection conn = ods.getConnection(user,pass);
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            rs = stmt.executeQuery(GET_STAT_KOR_FELHASZNALO);
+
+            while(rs.next()){
+                KorStat k = new KorStat();
+                k.setKor(rs.getInt("KOR"));
+                k.setFelhasznalok_szama(rs.getInt("DB"));
+                kList.add(k);
+            }
+
+            System.out.println("INFO: Sikeres lekérés (statkor)");
+        }catch(Exception e){
+            System.out.println("ERROR: Sikertelen lekérés (statkor)");
+            System.err.print(e);
+            return null;
+        }
+        return kList;
+    }
+
     public void newAllasajanlat(Allasajanlat a) {
         int id = 0;
         try {
@@ -646,4 +671,6 @@ public class Database {
             throwables.printStackTrace();
         }
     }
+
+
 }
