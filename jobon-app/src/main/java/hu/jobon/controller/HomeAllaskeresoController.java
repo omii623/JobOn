@@ -29,6 +29,8 @@ public class HomeAllaskeresoController {
     public TableView<Jelentkezeseim> tv3;
     @FXML
     public Button denyBtn;
+    public TextField searchTF;
+
 
     Database db = new Database();
     @FXML
@@ -83,7 +85,6 @@ public class HomeAllaskeresoController {
         });
         tv2.getColumns().addAll(IdCol, mmunkaltatoCol, moraberCol, mpozicioCol, mmunkakorCol, mleirasCol, mletrehozasCol, actionCol);
 
-
         TableColumn allasIDCol = new TableColumn("AID");
         allasIDCol.setCellValueFactory(new PropertyValueFactory<>("AID"));
         TableColumn oraber2Col = new TableColumn("oraber");
@@ -129,10 +130,10 @@ public class HomeAllaskeresoController {
 
     @FXML
     void listazz() {
-        List<Allasajanlat> allasok = db.getAllasajanlatAll();
+        List<Allasajanlat> allasok = db.getFrissAllasajanlatAll();
         tv1.getItems().clear();
         for (Allasajanlat allas : allasok) {
-            System.out.println(allas.getMunkakor());
+//            System.out.println(allas.getMunkakor());
             tv1.getItems().add(allas);
         }
     }
@@ -159,7 +160,6 @@ public class HomeAllaskeresoController {
         List<Allasajanlat> allasok = db.getMAllasajanlatAll();
         tv2.getItems().clear();
         for (Allasajanlat allas : allasok) {
-            System.out.println(allas.getMunkakor());
             tv2.getItems().add(allas);
         }
     }
@@ -172,4 +172,11 @@ public class HomeAllaskeresoController {
         }
     }
 
+    public void listazzeszerint(ActionEvent event) {
+        List<Allasajanlat> allasok = db.getMAllasajanlat(searchTF.getText());
+        tv2.getItems().clear();
+        for (Allasajanlat allas : allasok) {
+            tv2.getItems().add(allas);
+        }
+    }
 }
