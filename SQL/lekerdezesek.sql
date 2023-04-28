@@ -10,8 +10,10 @@
     SELECT AVG(EXTRACT(YEAR FROM CURRENT_DATE)-EXTRACT(YEAR FROM SZULETESI_DATUM)) AS atlageletkor, SZAKMA
     FROM "C##SAELDC"."ALLASKERESO", "C##SAELDC"."SZAKMA"
     WHERE ALLASKERESO.ID=SZAKMA.FID
-    GROUP BY SZAKMA;                                -- statisztika: átlagéletkor szakmánként
+    GROUP BY SZAKMA
+    ORDER BY atlageletkor;                                -- statisztika: átlagéletkor szakmánként
 
+    --2.összetett lekérdezés
     SELECT COUNT(*), SZAKMA
     FROM "C##SAELDC"."ALLASKERESO", "C##SAELDC"."SZAKMA"
     WHERE ALLASKERESO.ID=SZAKMA.FID
@@ -46,20 +48,20 @@
     WHERE MUNKAKOR='Informatikus'
     GROUP BY MUNKAKOR;
 
-    --2.összetett lekérdezés
-    SELECT MIN(ORABER), VAROS
-    FROM "C##SAELDC"."ALLASAJANLAT", "C##SAELDC"."MUNKALTATO"
-    WHERE "C##SAELDC"."ALLASAJANLAT"."FID" = "C##SAELDC"."MUNKALTATO"."ID" AND MUNKAKOR='Informatikus'
-    GROUP BY VAROS;                          -- bérezési intervallumok városonként
-
     --3.összetett lekérdezés
-    SELECT MAX(ORABER), VAROS
+    SELECT MIN(ORABER), MUNKAKOR
     FROM "C##SAELDC"."ALLASAJANLAT", "C##SAELDC"."MUNKALTATO"
     WHERE "C##SAELDC"."ALLASAJANLAT"."FID" = "C##SAELDC"."MUNKALTATO"."ID" AND MUNKAKOR='Informatikus'
-    GROUP BY VAROS; 
+    GROUP BY MUNKAKOR;                          -- bérezési intervallumok városonként
 
     --4.összetett lekérdezés
-    SELECT POZICIO, COUNT(*) AS Jelentkezok_szama
+    SELECT MAX(ORABER), MUNKAKOR
+    FROM "C##SAELDC"."ALLASAJANLAT", "C##SAELDC"."MUNKALTATO"
+    WHERE "C##SAELDC"."ALLASAJANLAT"."FID" = "C##SAELDC"."MUNKALTATO"."ID" AND MUNKAKOR='Informatikus'
+    GROUP BY MUNKAKOR; 
+
+    --5.összetett lekérdezés
+    SELECT POZICIO, COUNT(*) AS jelentkezok_szama
     FROM "C##SAELDC"."JELENTKEZES", "C##SAELDC"."ALLASAJANLAT"
     WHERE "C##SAELDC"."JELENTKEZES".AID="C##SAELDC"."ALLASAJANLAT".ID
     GROUP BY POZICIO
@@ -70,7 +72,6 @@
     FROM "C##SAELDC"."JELENTKEZES", "C##SAELDC"."ALLASAJANLAT", "C##SAELDC"."ALLASKERESO"
     WHERE "C##SAELDC"."JELENTKEZES".AID="C##SAELDC"."ALLASAJANLAT".ID AND "C##SAELDC"."JELENTKEZES".FID="C##SAELDC"."ALLASKERESO".ID  --ki melyik állásra jelentkezett
 
-    --5.összetett lekérdezés
 
     --6.összetett lekérdezés
 
