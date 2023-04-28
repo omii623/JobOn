@@ -23,7 +23,7 @@
                           </columns>
                         </TableView>
                         <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazz" text="Listázz" />
-                     </children>
+                         </children>
                   </AnchorPane>
             </content>
           </Tab>
@@ -106,6 +106,21 @@
                                 </columns>
                             </TableView>
                             <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzstatkor" text="Listázz" />
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
+            <Tab text="Bérezések">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <children>
+                            <TableView fx:id="tv7" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="650.0">
+                                <columns>
+                                </columns>
+                            </TableView>
+                            <Button layoutX="20.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzminber" text="Min_bér" />
+                            <TextField fx:id="berTF" promptText="Informatikus" layoutX="100.0" layoutY="344.0" />
+                            <Button layoutX="270.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzmaxber" text="Max_bér" />
                         </children>
                     </AnchorPane>
                 </content>

@@ -6,6 +6,7 @@
     FROM "C##SAELDC"."ALLASAJANLAT"
     WHERE CURRENT_DATE-LÉTREHOZÁS_IDEJE<31;  --30 napnál frissebb hirdetések
 
+    --1.összetett lekérdezés
     SELECT AVG(EXTRACT(YEAR FROM CURRENT_DATE)-EXTRACT(YEAR FROM SZULETESI_DATUM)) AS atlageletkor, SZAKMA
     FROM "C##SAELDC"."ALLASKERESO", "C##SAELDC"."SZAKMA"
     WHERE ALLASKERESO.ID=SZAKMA.FID
@@ -16,6 +17,7 @@
     WHERE ALLASKERESO.ID=SZAKMA.FID
     GROUP BY SZAKMA;                 -- statisztika: milyen szakmából hány ember
 
+    --1.függvény
     CREATE FUNCTION szakmabeliekSzama(p_szakma IN C##SAELDC.SZAKMA.szakma%TYPE)RETURN NUMBER
     IS
     szam NUMBER :=0;
@@ -44,17 +46,19 @@
     WHERE MUNKAKOR='Informatikus'
     GROUP BY MUNKAKOR;
 
+    --2.összetett lekérdezés
     SELECT MIN(ORABER), VAROS
     FROM "C##SAELDC"."ALLASAJANLAT", "C##SAELDC"."MUNKALTATO"
     WHERE "C##SAELDC"."ALLASAJANLAT"."FID" = "C##SAELDC"."MUNKALTATO"."ID" AND MUNKAKOR='Informatikus'
     GROUP BY VAROS;                          -- bérezési intervallumok városonként
 
+    --3.összetett lekérdezés
     SELECT MAX(ORABER), VAROS
     FROM "C##SAELDC"."ALLASAJANLAT", "C##SAELDC"."MUNKALTATO"
     WHERE "C##SAELDC"."ALLASAJANLAT"."FID" = "C##SAELDC"."MUNKALTATO"."ID" AND MUNKAKOR='Informatikus'
     GROUP BY VAROS; 
 
-    
+    --4.összetett lekérdezés
     SELECT POZICIO, COUNT(*) AS Jelentkezok_szama
     FROM "C##SAELDC"."JELENTKEZES", "C##SAELDC"."ALLASAJANLAT"
     WHERE "C##SAELDC"."JELENTKEZES".AID="C##SAELDC"."ALLASAJANLAT".ID
@@ -65,3 +69,13 @@
     SELECT TELJES_NEV, POZICIO
     FROM "C##SAELDC"."JELENTKEZES", "C##SAELDC"."ALLASAJANLAT", "C##SAELDC"."ALLASKERESO"
     WHERE "C##SAELDC"."JELENTKEZES".AID="C##SAELDC"."ALLASAJANLAT".ID AND "C##SAELDC"."JELENTKEZES".FID="C##SAELDC"."ALLASKERESO".ID  --ki melyik állásra jelentkezett
+
+    --5.összetett lekérdezés
+
+    --6.összetett lekérdezés
+
+    --2.függvény
+
+    --1.trigger
+
+    --2.trigger

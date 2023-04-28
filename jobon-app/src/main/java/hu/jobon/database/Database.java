@@ -5,10 +5,7 @@ import hu.jobon.database.model.Allaskereso;
 import hu.jobon.database.model.Felhasznalo;
 import hu.jobon.database.model.Munkaltato;
 import hu.jobon.database.model.*;
-import hu.jobon.database.servicemodel.Jelentkezeseim;
-import hu.jobon.database.servicemodel.JelentkezokMunkaltatonkent;
-import hu.jobon.database.servicemodel.KorStat;
-import hu.jobon.database.servicemodel.SzakmaStat;
+import hu.jobon.database.servicemodel.*;
 import hu.jobon.user.User;
 import oracle.jdbc.pool.OracleDataSource;
 
@@ -38,7 +35,9 @@ public class Database {
     private final String GET_MEGFELELO_ALLASAJANLAT = "SELECT * FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.MUNKALTATO, C##SAELDC.SZAKMA WHERE C##SAELDC.ALLASAJANLAT.FID=C##SAELDC.MUNKALTATO.ID AND "+felhasznalo.getID()+"=C##SAELDC.SZAKMA.FID AND MUNKAKOR=SZAKMA";
     private final String GET_MEGFELELO_ALLASAJANLAT_SZ = "SELECT * FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.MUNKALTATO WHERE C##SAELDC.ALLASAJANLAT.FID=C##SAELDC.MUNKALTATO.ID AND MUNKAKOR=";
     private final String GET_STAT_SZAKMA_FELHASZNALO = "SELECT SZAKMA FROM C##SAELDC.ALLASKERESO, C##SAELDC.SZAKMA WHERE ALLASKERESO.ID=SZAKMA.FID GROUP BY SZAKMA";
-    private final String GET_STAT_KOR_FELHASZNALO = "SELECT EXTRACT(YEAR FROM CURRENT_DATE)-EXTRACT(YEAR FROM SZULETESI_DATUM) AS KOR, COUNT(*) AS DB FROM C##SAELDC.ALLASKERESO GROUP BY  EXTRACT(YEAR FROM SZULETESI_DATUM) ORDER BY EXTRACT(YEAR FROM CURRENT_DATE)-EXTRACT(YEAR FROM SZULETESI_DATUM)";
+    private final String GET_STAT_KOR_FELHASZNALO = "SELECT AVG(EXTRACT(YEAR FROM CURRENT_DATE)-EXTRACT(YEAR FROM SZULETESI_DATUM)) AS atlageletkor, SZAKMA FROM C##SAELDC.ALLASKERESO, C##SAELDC.SZAKMA WHERE ALLASKERESO.ID=SZAKMA.FID GROUP BY  SZAKMA ORDER BY atlageletkor";
+    private final String GET_STAT_JELENTKEZOK = "SELECT POZICIO, COUNT(*) AS jelentkezok_szama FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.JELENTKEZES WHERE ALLASAJANLAT.ID=JELENTKEZES.AID AND ALLASAJANLAT.FID="+felhasznalo.getID()+" GROUP BY POZICIO ORDER BY Jelentkezok_szama";
+    private final String GET_STAT_BER = "ORABER) AS ber, MUNKAKOR FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.MUNKALTATO WHERE ALLASAJANLAT.FID=MUNKALTATO.ID AND MUNKAKOR=";
     private final String REGIST_USER = "INSERT INTO C##SAELDC.FELHASZNALO (ID,EMAIL_CIM,JELSZO,TIPUS) VALUES (";
     private final String NEW_ALLASAJANLAT = "INSERT INTO C##SAELDC.ALLASAJANLAT (ID,FID,ORABER,POZICIO,MUNKAKOR,LETREHOZAS_IDEJE, LEIRAS) VALUES (";
     private final String NEW_JELENTKEZES = "INSERT INTO C##SAELDC.JELENTKEZES (AID,FID) VALUES (";
@@ -770,8 +769,8 @@ public class Database {
 
             while(rs.next()){
                 KorStat k = new KorStat();
-                k.setKor(rs.getInt("KOR"));
-                k.setFelhasznalok_szama(rs.getInt("DB"));
+                k.setAtlag_eletkor(rs.getFloat("atlageletkor"));
+                k.setSzakma(rs.getString("SZAKMA"));
                 kList.add(k);
             }
 
@@ -785,4 +784,72 @@ public class Database {
     }
 
 
+    public List<BerStat> getStatMinBer(String min) {
+        List<BerStat> bList = new ArrayList<>();
+        try{
+            Connection conn = ods.getConnection(user,pass);
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            rs = stmt.executeQuery("SELECT MIN("+GET_STAT_BER+"'"+min+"'"+"GROUP BY MUNKAKOR");
+
+            while(rs.next()){
+                BerStat b = new BerStat();
+                b.setBer(rs.getInt("ber"));
+                b.setMunkakor(rs.getString("MUNKAKOR"));
+                bList.add(b);
+            }
+
+            System.out.println("INFO: Sikeres lekérés (statber)");
+        }catch(Exception e){
+            System.out.println("ERROR: Sikertelen lekérés (statber)");
+            System.err.print(e);
+            return null;
+        }
+        return bList;
+    }
+
+    public List<BerStat> getStatMaxBer(String max) {
+        List<BerStat> bList = new ArrayList<>();
+        try{
+            Connection conn = ods.getConnection(user,pass);
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            rs = stmt.executeQuery("SELECT MAX("+GET_STAT_BER+"'"+max+"'"+"GROUP BY MUNKAKOR");
+
+            while(rs.next()){
+                BerStat b = new BerStat();
+                b.setBer(rs.getInt("ber"));
+                b.setMunkakor(rs.getString("MUNKAKOR"));
+                bList.add(b);
+            }
+
+            System.out.println("INFO: Sikeres lekérés (statber)");
+        }catch(Exception e){
+            System.out.println("ERROR: Sikertelen lekérés (statber)");
+            System.err.print(e);
+            return null;
+        }
+        return bList;
+    }
+
+    public List<JelentkezokStat> getJelentkezokStat() {
+        List<JelentkezokStat> jList = new ArrayList<>();
+        try{
+            Connection conn = ods.getConnection(user,pass);
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            rs = stmt.executeQuery(GET_STAT_JELENTKEZOK);
+
+            while(rs.next()){
+                JelentkezokStat j = new JelentkezokStat();
+                j.setPozicio(rs.getString("POZICIO"));
+                j.setJelentkezok_szama(rs.getInt("jelentkezok_szama"));
+                jList.add(j);
+            }
+
+            System.out.println("INFO: Sikeres lekérés (statber)");
+        }catch(Exception e){
+            System.out.println("ERROR: Sikertelen lekérés (statber)");
+            System.err.print(e);
+            return null;
+        }
+        return jList;
+    }
 }

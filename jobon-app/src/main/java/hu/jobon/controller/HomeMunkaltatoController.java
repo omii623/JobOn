@@ -6,6 +6,7 @@ import hu.jobon.database.model.Allasajanlat;
 import hu.jobon.database.model.Felhasznalo;
 import hu.jobon.database.model.Jelentkezes;
 import hu.jobon.database.servicemodel.JelentkezokMunkaltatonkent;
+import hu.jobon.database.servicemodel.JelentkezokStat;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -29,6 +30,8 @@ public class HomeMunkaltatoController {
     public TextField email;
     @FXML
     public TextField pass;
+    @FXML
+    public TableView tv3;
 
 
     Database db = new Database();
@@ -89,6 +92,12 @@ public class HomeMunkaltatoController {
         teljes_nevCol.setCellValueFactory(new PropertyValueFactory<>("allaskereso_teljes_nev"));
         tv2.getColumns().addAll( pozCol, munkaCol, teljes_nevCol);
 
+        TableColumn pozicio2Col = new TableColumn("pozicio");
+        pozicio2Col.setCellValueFactory(new PropertyValueFactory<>("pozicio"));
+        TableColumn jelentkezokszCol = new TableColumn("jelentkezok_szama");
+        jelentkezokszCol.setCellValueFactory(new PropertyValueFactory<>("jelentkezok_szama"));
+        tv3.getColumns().addAll( pozicio2Col, jelentkezokszCol);
+
  }
 
 
@@ -138,6 +147,14 @@ public class HomeMunkaltatoController {
         tv2.getItems().clear();
         for (JelentkezokMunkaltatonkent jelentkezes : jelentkezesek) {
             tv2.getItems().add(jelentkezes);
+        }
+    }
+
+    public void listazzJelentkezokStat(ActionEvent event) {
+        List<JelentkezokStat> jelentkezesek = db.getJelentkezokStat();
+        tv3.getItems().clear();
+        for (JelentkezokStat jelentkezes : jelentkezesek) {
+            tv3.getItems().add(jelentkezes);
         }
     }
 }

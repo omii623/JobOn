@@ -1,30 +1,31 @@
 package hu.jobon.database.servicemodel;
 
 public class KorStat {
-    private int kor;
-    private int felhasznalok_szama;
+    private float atlag_eletkor;
+    private String szakma;
 
-    public KorStat(int kor, int felhasznalok_szama) {
-        this.kor = kor;
-        this.felhasznalok_szama = felhasznalok_szama;
+    public KorStat(int atlag_eletkor, String szakma) {
+        this.atlag_eletkor = atlag_eletkor;
+        this.szakma = szakma;
     }
 
     public KorStat() {
+
     }
 
-    public int getKor() {
-        return kor;
+    public float getAtlag_eletkor() {
+        return atlag_eletkor;
     }
 
-    public void setKor(int kor) {
-        this.kor = kor;
+    public void setAtlag_eletkor(float atlag_eletkor) {
+        this.atlag_eletkor = atlag_eletkor;
     }
 
-    public int getFelhasznalok_szama() {
-        return felhasznalok_szama;
+    public String getSzakma() {
+        return szakma;
     }
 
-    public void setFelhasznalok_szama(int felhasznalok_szama) {
-        this.felhasznalok_szama = felhasznalok_szama;
+    public void setSzakma(String szakma) {
+        this.szakma = szakma;
     }
 }
