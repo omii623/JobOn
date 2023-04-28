@@ -2,6 +2,7 @@ package hu.jobon.controller;
 
 import hu.jobon.database.Database;
 import hu.jobon.database.model.*;
+import hu.jobon.database.servicemodel.BerStat;
 import hu.jobon.database.servicemodel.KorStat;
 import hu.jobon.database.servicemodel.SzakmaStat;
 import javafx.event.ActionEvent;
@@ -43,6 +44,9 @@ public class HomeAdminController {
     public TableView tv5;
     @FXML
     public TableView tv6;
+    public TextField berTF;
+    @FXML
+    public TableView tv7;
 
     Database db = new Database();
     @FXML
@@ -129,11 +133,17 @@ public class HomeAdminController {
         felhasznalok_szamaCol.setCellValueFactory(new PropertyValueFactory<>("felhasznalok_szama"));
         tv5.getColumns().addAll(szakmaCol, felhasznalok_szamaCol);
 
-        TableColumn korCol = new TableColumn("kor");
-        korCol.setCellValueFactory(new PropertyValueFactory<>("kor"));
-        TableColumn felhasznalok_szama2Col = new TableColumn("felhasznalok_szama");
-        felhasznalok_szama2Col.setCellValueFactory(new PropertyValueFactory<>("felhasznalok_szama"));
-        tv6.getColumns().addAll(korCol, felhasznalok_szama2Col);
+        TableColumn korCol = new TableColumn("atlag_eletkor");
+        korCol.setCellValueFactory(new PropertyValueFactory<>("atlag_eletkor"));
+        TableColumn szakma2Col = new TableColumn("szakma");
+        szakma2Col.setCellValueFactory(new PropertyValueFactory<>("szakma"));
+        tv6.getColumns().addAll(korCol, szakma2Col);
+
+        TableColumn berCol = new TableColumn("ber");
+        berCol.setCellValueFactory(new PropertyValueFactory<>("ber"));
+        TableColumn munkakor2Col = new TableColumn("munkakor");
+        munkakor2Col.setCellValueFactory(new PropertyValueFactory<>("munkakor"));
+        tv7.getColumns().addAll(berCol, munkakor2Col);
     }
 
     private void deleteFelhasznalo(Felhasznalo f) {
@@ -208,10 +218,26 @@ public class HomeAdminController {
 
     public void listazzstatkor() {
         List<KorStat> eletkorok = db.getStatKorFelhasznalo();
-        tv5.getItems().clear();
+        tv6.getItems().clear();
         for (KorStat eletkor : eletkorok) {
 //            System.out.println(felhasznalo.getEmail_cim());
             tv6.getItems().add(eletkor);
+        }
+    }
+
+    public void listazzminber(ActionEvent event) {
+        List<BerStat> berek = db.getStatMinBer(berTF.getText());
+        tv7.getItems().clear();
+        for (BerStat ber : berek) {
+            tv7.getItems().add(ber);
+        }
+    }
+
+    public void listazzmaxber(ActionEvent event) {
+        List<BerStat> berek = db.getStatMaxBer(berTF.getText());
+        tv7.getItems().clear();
+        for (BerStat ber : berek) {
+            tv7.getItems().add(ber);
         }
     }
 }
