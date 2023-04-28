@@ -4,6 +4,7 @@ import hu.jobon.database.Database;
 import hu.jobon.database.model.Allasajanlat;
 import hu.jobon.database.model.Allaskereso;
 import hu.jobon.database.model.Munkaltato;
+import hu.jobon.database.servicemodel.AllasajanlatCegesAdatokkal;
 import hu.jobon.database.servicemodel.Jelentkezeseim;
 import hu.jobon.database.servicemodel.JelentkezokMunkaltatonkent;
 import javafx.event.ActionEvent;
@@ -24,7 +25,7 @@ public class HomeAllaskeresoController {
     @FXML
     public TextField pass;
     @FXML
-    public TableView<Allasajanlat> tv2;
+    public TableView<AllasajanlatCegesAdatokkal> tv2;
     @FXML
     public TableView<Jelentkezeseim> tv3;
     @FXML
@@ -51,8 +52,12 @@ public class HomeAllaskeresoController {
 
         TableColumn IdCol = new TableColumn("ID");
         IdCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
-        TableColumn mmunkaltatoCol = new TableColumn("felhasznalo_ID");
-        mmunkaltatoCol.setCellValueFactory(new PropertyValueFactory<>("felhasznalo_ID"));
+        TableColumn cegnevCol = new TableColumn("cegnev");
+        cegnevCol.setCellValueFactory(new PropertyValueFactory<>("cegnev"));
+        TableColumn varosCol = new TableColumn("varos");
+        varosCol.setCellValueFactory(new PropertyValueFactory<>("varos"));
+        TableColumn cimCol = new TableColumn("cim");
+        cimCol.setCellValueFactory(new PropertyValueFactory<>("cim"));
         TableColumn moraberCol = new TableColumn("oraber");
         moraberCol.setCellValueFactory(new PropertyValueFactory<>("oraber"));
         TableColumn mpozicioCol = new TableColumn("pozicio");
@@ -61,8 +66,6 @@ public class HomeAllaskeresoController {
         mmunkakorCol.setCellValueFactory(new PropertyValueFactory<>("munkakor"));
         TableColumn mleirasCol = new TableColumn("leiras");
         mleirasCol.setCellValueFactory(new PropertyValueFactory<>("leiras"));
-        TableColumn mletrehozasCol = new TableColumn("letrehozas_ideje");
-        mletrehozasCol.setCellValueFactory(new PropertyValueFactory<>("letrehozas_ideje"));
         TableColumn actionCol = new TableColumn("action");
         actionCol.setCellFactory(param -> new TableCell<>() {
             private final Button applyBtn = new Button("Apply");
@@ -71,7 +74,7 @@ public class HomeAllaskeresoController {
 
 
                 applyBtn.setOnAction(event -> {
-                   Allasajanlat a = tv2.getSelectionModel().getSelectedItem();
+                   AllasajanlatCegesAdatokkal a = tv2.getSelectionModel().getSelectedItem();
                     applyAllasajanlat(a.getID(), felhasznalo.getID());
                     listazz();
                 });
@@ -83,7 +86,7 @@ public class HomeAllaskeresoController {
 
 
         });
-        tv2.getColumns().addAll(IdCol, mmunkaltatoCol, moraberCol, mpozicioCol, mmunkakorCol, mleirasCol, mletrehozasCol, actionCol);
+        tv2.getColumns().addAll(IdCol, cegnevCol, varosCol, cimCol, moraberCol, mpozicioCol, mmunkakorCol, mleirasCol, actionCol);
 
         TableColumn allasIDCol = new TableColumn("AID");
         allasIDCol.setCellValueFactory(new PropertyValueFactory<>("AID"));
@@ -157,9 +160,9 @@ public class HomeAllaskeresoController {
 
 
     public void listazzmallasokat() {
-        List<Allasajanlat> allasok = db.getMAllasajanlatAll();
+        List<AllasajanlatCegesAdatokkal> allasok = db.getMAllasajanlatAll();
         tv2.getItems().clear();
-        for (Allasajanlat allas : allasok) {
+        for (AllasajanlatCegesAdatokkal allas : allasok) {
             tv2.getItems().add(allas);
         }
     }
@@ -172,10 +175,26 @@ public class HomeAllaskeresoController {
         }
     }
 
-    public void listazzeszerint(ActionEvent event) {
-        List<Allasajanlat> allasok = db.getMAllasajanlat(searchTF.getText());
+    public void listazzeszerintm(ActionEvent event) {
+        List<AllasajanlatCegesAdatokkal> allasok = db.getMAllasajanlat(searchTF.getText(), 1);
         tv2.getItems().clear();
-        for (Allasajanlat allas : allasok) {
+        for (AllasajanlatCegesAdatokkal allas : allasok) {
+            tv2.getItems().add(allas);
+        }
+    }
+
+    public void listazzeszerintv(ActionEvent event) {
+        List<AllasajanlatCegesAdatokkal> allasok = db.getMAllasajanlat(searchTF.getText(), 2);
+        tv2.getItems().clear();
+        for (AllasajanlatCegesAdatokkal allas : allasok) {
+            tv2.getItems().add(allas);
+        }
+    }
+
+    public void listazzeszerinto(ActionEvent event) {
+        List<AllasajanlatCegesAdatokkal> allasok = db.getMAllasajanlat(searchTF.getText(),3);
+        tv2.getItems().clear();
+        for (AllasajanlatCegesAdatokkal allas : allasok) {
             tv2.getItems().add(allas);
         }
     }
