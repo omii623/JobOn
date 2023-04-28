@@ -31,7 +31,9 @@ public class Database {
     private final String GET_JELENTKEZOK = "SELECT  C##SAELDC.ALLASAJANLAT.ID, POZICIO, MUNKAKOR, LEIRAS, C##SAELDC.ALLASKERESO.TELJES_NEV FROM C##SAELDC.JELENTKEZES, C##SAELDC.ALLASAJANLAT, C##SAELDC.ALLASKERESO WHERE C##SAELDC.JELENTKEZES.FID=C##SAELDC.ALLASKERESO.ID AND C##SAELDC.ALLASAJANLAT.ID=C##SAELDC.JELENTKEZES.AID AND C##SAELDC.ALLASAJANLAT.FID= "+felhasznalo.getID()+"";
     private final String GET_JELENTKEZESEIM = "SELECT  C##SAELDC.ALLASAJANLAT.ID, ORABER, POZICIO, MUNKAKOR, LEIRAS FROM C##SAELDC.JELENTKEZES, C##SAELDC.ALLASAJANLAT, C##SAELDC.ALLASKERESO WHERE C##SAELDC.JELENTKEZES.FID=C##SAELDC.ALLASKERESO.ID AND C##SAELDC.ALLASAJANLAT.ID=C##SAELDC.JELENTKEZES.AID AND C##SAELDC.JELENTKEZES.FID= "+felhasznalo.getID()+"";
     private final String GET_MEGFELELO_ALLASAJANLAT = "SELECT * FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.MUNKALTATO, C##SAELDC.SZAKMA WHERE C##SAELDC.ALLASAJANLAT.FID=C##SAELDC.MUNKALTATO.ID AND "+felhasznalo.getID()+"=C##SAELDC.SZAKMA.FID AND MUNKAKOR=SZAKMA";
-    private final String GET_MEGFELELO_ALLASAJANLAT_SZ = "SELECT * FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.MUNKALTATO WHERE C##SAELDC.ALLASAJANLAT.FID=C##SAELDC.MUNKALTATO.ID AND MUNKAKOR=";
+    private final String GET_MEGFELELO_ALLASAJANLAT_M = "SELECT * FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.MUNKALTATO WHERE C##SAELDC.ALLASAJANLAT.FID=C##SAELDC.MUNKALTATO.ID AND MUNKAKOR=";
+    private final String GET_MEGFELELO_ALLASAJANLAT_V = "SELECT * FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.MUNKALTATO WHERE C##SAELDC.ALLASAJANLAT.FID=C##SAELDC.MUNKALTATO.ID AND VAROS=";
+    private final String GET_MEGFELELO_ALLASAJANLAT_O = "SELECT * FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.MUNKALTATO WHERE C##SAELDC.ALLASAJANLAT.FID=C##SAELDC.MUNKALTATO.ID AND ORABER>";
     private final String GET_STAT_SZAKMA_FELHASZNALO = "SELECT SZAKMA FROM C##SAELDC.ALLASKERESO, C##SAELDC.SZAKMA WHERE ALLASKERESO.ID=SZAKMA.FID GROUP BY SZAKMA";
     private final String GET_STAT_KOR_FELHASZNALO = "SELECT AVG(EXTRACT(YEAR FROM CURRENT_DATE)-EXTRACT(YEAR FROM SZULETESI_DATUM)) AS atlageletkor, SZAKMA FROM C##SAELDC.ALLASKERESO, C##SAELDC.SZAKMA WHERE ALLASKERESO.ID=SZAKMA.FID GROUP BY  SZAKMA ORDER BY atlageletkor";
     private final String GET_STAT_JELENTKEZOK = "SELECT POZICIO, COUNT(*) AS jelentkezok_szama FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.JELENTKEZES WHERE ALLASAJANLAT.ID=JELENTKEZES.AID AND ALLASAJANLAT.FID="+felhasznalo.getID()+" GROUP BY POZICIO ORDER BY Jelentkezok_szama";
@@ -276,22 +278,24 @@ public class Database {
         return aList;
     }
 
-    public List<Allasajanlat> getMAllasajanlatAll() {
-        List<Allasajanlat> aList = new ArrayList<>();
+    public List<AllasajanlatCegesAdatokkal> getMAllasajanlatAll() {
+        List<AllasajanlatCegesAdatokkal> aList = new ArrayList<>();
         try{
             Connection conn = ods.getConnection(user,pass);
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(GET_MEGFELELO_ALLASAJANLAT);
 
             while (rs.next()) {
-                Allasajanlat a = new Allasajanlat();
-                a.setID((rs.getInt("ID")));
-                a.setFelhasznalo_ID(rs.getInt("FID"));
+                AllasajanlatCegesAdatokkal a = new AllasajanlatCegesAdatokkal();
+                a.setID(rs.getInt("ID"));
+                a.setCegnev(rs.getString("CEGNEV"));
+                a.setVaros(rs.getString("VAROS"));
+                a.setCim(rs.getString("CIM"));
                 a.setOraber(rs.getInt("ORABER"));
                 a.setPozicio(rs.getString("POZICIO"));
                 a.setMunkakor(rs.getString("MUNKAKOR"));
                 a.setLeiras(rs.getString("LEIRAS"));
-                a.setLetrehozas_ideje(rs.getString("LETREHOZAS_IDEJE"));
+
                 aList.add(a);
 
             }
@@ -304,22 +308,31 @@ public class Database {
         }
         return aList;
     }
-    public List<Allasajanlat> getMAllasajanlat(String text) {
-        List<Allasajanlat> aList = new ArrayList<>();
+    public List<AllasajanlatCegesAdatokkal> getMAllasajanlat(String text, int i) {
+        List<AllasajanlatCegesAdatokkal> aList = new ArrayList<>();
         try{
             Connection conn = ods.getConnection(user,pass);
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
-            rs = stmt.executeQuery(GET_MEGFELELO_ALLASAJANLAT_SZ+"'"+text+"'"); //gyűjtőtábla a megfelelőkből és ott szűrés
+            if(i==1) {
+                rs = stmt.executeQuery(GET_MEGFELELO_ALLASAJANLAT_M + "'" + text + "'"); //gyűjtőtábla a megfelelőkből és ott szűrés
+            }
+            if(i==2) {
+                rs = stmt.executeQuery(GET_MEGFELELO_ALLASAJANLAT_V + "'" + text + "'");
+            }
+            if(i==3) {
+                rs = stmt.executeQuery(GET_MEGFELELO_ALLASAJANLAT_O + text );
+            }
 
             while (rs.next()) {
-                Allasajanlat a = new Allasajanlat();
-                a.setID((rs.getInt("ID")));
-                a.setFelhasznalo_ID(rs.getInt("FID"));
+                AllasajanlatCegesAdatokkal a = new AllasajanlatCegesAdatokkal();
+                a.setID(rs.getInt("ID"));
+                a.setCegnev(rs.getString("CEGNEV"));
+                a.setVaros(rs.getString("VAROS"));
+                a.setCim(rs.getString("CIM"));
                 a.setOraber(rs.getInt("ORABER"));
                 a.setPozicio(rs.getString("POZICIO"));
                 a.setMunkakor(rs.getString("MUNKAKOR"));
                 a.setLeiras(rs.getString("LEIRAS"));
-                a.setLetrehozas_ideje(rs.getString("LETREHOZAS_IDEJE"));
                 aList.add(a);
 
             }

@@ -36,8 +36,11 @@
                                 </columns>
                             </TableView>
                             <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzmallasokat" text="Listázz" />
-                            <Button layoutX="117.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzeszerint" text="Szűrés" />
-                        <TextField fx:id="searchTF" promptText="Informatikus" layoutX="180.0" layoutY="344.0" />
+                            <Button layoutX="110.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzeszerintm" text="Szűrés munkakörre" />
+                            <TextField fx:id="searchTF" promptText="Informatikus/Szeged/2000" layoutX="420.0" layoutY="344.0" />
+                            <Button layoutX="235.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzeszerintv" text="Szűrés városra" />
+                            <Button layoutX="335.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzeszerinto" text="Min órabér" />
+
                         </children>
                     </AnchorPane>
                 </content>
