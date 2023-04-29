@@ -10,6 +10,7 @@ import oracle.jdbc.pool.OracleDataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.SQLException;
@@ -21,6 +22,7 @@ public class Database {
     OracleDataSource ods;
     String user = User.name;
     String pass = User.pass;
+    Connection connection;
 
     private final String GET_MUNKALTATO = "SELECT * FROM C##SAELDC.MUNKALTATO, C##SAELDC.FELHASZNALO WHERE C##SAELDC.MUNKALTATO.ID = C##SAELDC.FELHASZNALO.ID";
     private final String GET_ALLASKERESO = "SELECT * FROM C##SAELDC.ALLASKERESO, C##SAELDC.FELHASZNALO WHERE C##SAELDC.ALLASKERESO.ID = C##SAELDC.FELHASZNALO.ID";
@@ -33,22 +35,39 @@ public class Database {
     private final String MAX_ID_FELHASZNALO = "SELECT MAX(ID) FROM C##SAELDC.FELHASZNALO";
 
     public Database(){
+       
+    }
+
+    public void DatabaseConnect(){
         try{
             ods = new OracleDataSource();
             Class.forName("oracle.jdbc.OracleDriver");
             ods.setURL("jdbc:oracle:thin:@localhost:1521:orania2");
+            connection = ods.getConnection(user,pass);
             System.out.println("INFO: Sikeres csatlakozás -1-");
         }catch(Exception e){
-            System.out.println("ERROR: Sikertelen csatlakozás. -1- ");
+            System.out.println("ERROR: Sikertelen csatlakozás. -1-");
+            System.err.println(e);
+        }
+    }
+
+    public void DatabaseDisconnect(){
+        try{
+            connection.close();
+            rs.close();
+            stmt.close();
+            System.out.println("INFO: Sikeres kicsatlakozás.");
+        }catch(Exception e){
+            System.out.println("ERROR: Sikertelen kicsatlakozás.");
             System.err.print(e);
         }
     }
 
     public List<Felhasznalo> getFelhasznaloAll(){
+        DatabaseConnect();
         List<Felhasznalo> fList = new ArrayList<>();
         try{
-            Connection conn = ods.getConnection(user,pass);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(GET_FELHASZNALO);
 
             while(rs.next()){
@@ -68,14 +87,16 @@ public class Database {
             return null;
         }
 
+        DatabaseDisconnect();
+
         return fList;
     }
 
     public List<Allaskereso> getAllaskeresoAll(){
+        DatabaseConnect();
         List<Allaskereso> aList = new ArrayList<>();
         try{
-            Connection conn = ods.getConnection(user,pass);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(GET_ALLASKERESO);
 
             while(rs.next()){
@@ -96,14 +117,16 @@ public class Database {
             return null;
         }
 
+        DatabaseDisconnect();
+
         return aList;
     }
 
     public List<Munkaltato> getMunkaltatoAll(){
+        DatabaseConnect();
         List<Munkaltato> mList = new ArrayList<>();
         try{
-            Connection conn = ods.getConnection(user,pass);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(GET_MUNKALTATO);
 
             while(rs.next()){
@@ -129,14 +152,16 @@ public class Database {
             return null;
         }
 
+        DatabaseDisconnect();
+
         return mList;
     }
 
     public List<Allasajanlat> getAllasajanlatAll(){
+        DatabaseConnect();
         List<Allasajanlat> aList = new ArrayList<>();
         try{
-            Connection conn = ods.getConnection(user,pass);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(GET_ALLASAJANLAT);
 
             while(rs.next()){
@@ -156,13 +181,16 @@ public class Database {
             System.err.print(e);
             return null;
         }
+
+        DatabaseDisconnect();
+
         return aList;
     }
 
     public void updateFelhasznalo(String sql){
+        DatabaseConnect();
         try{
-            Connection conn = ods.getConnection(user,pass);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(sql);
 
             System.out.println("INFO: Sikeres update (felhasználó)");
@@ -170,13 +198,14 @@ public class Database {
             System.out.println("ERROR: Sikertelen update (felhasználó)");
             System.err.print(e);
         }
+        DatabaseDisconnect();
     }
 
     public List<Allasajanlat> getAllasajanlataim(String GET_ALLASAJANLATAIM) {
+        DatabaseConnect();
         List<Allasajanlat> aList = new ArrayList<>();
         try{
-            Connection conn = ods.getConnection(user,pass);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(GET_ALLASAJANLATAIM);
 
             while(rs.next()){
@@ -196,14 +225,17 @@ public class Database {
             System.err.print(e);
             return null;
         }
+
+        DatabaseDisconnect();
+
         return aList;
     }
 
     public boolean registFelhasznalo(Munkaltato f){
+        DatabaseConnect();
         int id = 0;
         try {
-            Connection conn = ods.getConnection(user,pass);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(MAX_ID_FELHASZNALO);
             if (rs.next()) {
                 id = rs.getInt(1);
@@ -217,14 +249,17 @@ public class Database {
         }catch (SQLException sql){
             sql.printStackTrace();
         }
+
+        DatabaseDisconnect();
+
         return false;
     }
 
     public boolean registFelhasznalo(Allaskereso f){
+        DatabaseConnect();
         int id = 0;
         try {
-            Connection conn = ods.getConnection(user,pass);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(MAX_ID_FELHASZNALO);
             if (rs.next()) {
                 id = rs.getInt(1);
@@ -240,6 +275,10 @@ public class Database {
         }catch (SQLException sql){
             sql.printStackTrace();
         }
+
+        DatabaseDisconnect();
+
         return false;
     }
+
 }
