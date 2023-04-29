@@ -34,7 +34,6 @@ public class Database {
     private final String GET_ALLASKERESO = "SELECT * FROM C##SAELDC.ALLASKERESO, C##SAELDC.FELHASZNALO WHERE C##SAELDC.ALLASKERESO.ID = C##SAELDC.FELHASZNALO.ID";
     private final String GET_FELHASZNALO = "SELECT * FROM C##SAELDC.FELHASZNALO";
     private final String GET_FRISS_ALLASAJANLAT = "SELECT * FROM C##SAELDC.ALLASAJANLAT WHERE CURRENT_DATE-LETREHOZAS_IDEJE<30";
-    private final String GET_FRISS_ALLASAJANLAT = "SELECT * FROM C##SAELDC.ALLASAJANLAT WHERE CURRENT_DATE-LETREHOZAS_IDEJE<30";
     private final String GET_ALLASAJANLAT = "SELECT * FROM C##SAELDC.ALLASAJANLAT";
     private final String GET_ATLAGON_FELULI_ALLASAJANLAT = "SELECT * FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.MUNKALTATO, C##SAELDC.ALLASKERESO WHERE C##SAELDC.ALLASAJANLAT.FID=C##SAELDC.MUNKALTATO.ID AND C##SAELDC.ALLASKERESO.ID="+felhasznalo.getID()+" AND ORABER> (SELECT AVG(ORABER) FROM C##SAELDC.ALLASAJANLAT) AND C##SAELDC.MUNKALTATO.VAROS=C##SAELDC.ALLASKERESO.VAROS";
     private final String GET_JELENTKEZOK = "SELECT  C##SAELDC.ALLASAJANLAT.ID, POZICIO, MUNKAKOR, LEIRAS, C##SAELDC.ALLASKERESO.TELJES_NEV FROM C##SAELDC.JELENTKEZES, C##SAELDC.ALLASAJANLAT, C##SAELDC.ALLASKERESO WHERE C##SAELDC.JELENTKEZES.FID=C##SAELDC.ALLASKERESO.ID AND C##SAELDC.ALLASAJANLAT.ID=C##SAELDC.JELENTKEZES.AID AND C##SAELDC.ALLASAJANLAT.FID= "+felhasznalo.getID()+"";
@@ -47,30 +46,12 @@ public class Database {
     private final String GET_STAT_KOR_FELHASZNALO = "SELECT AVG(EXTRACT(YEAR FROM CURRENT_DATE)-EXTRACT(YEAR FROM SZULETESI_DATUM)) AS atlageletkor, SZAKMA FROM C##SAELDC.ALLASKERESO, C##SAELDC.SZAKMA WHERE ALLASKERESO.ID=SZAKMA.FID GROUP BY  SZAKMA ORDER BY atlageletkor";
     private final String GET_STAT_JELENTKEZOK = "SELECT POZICIO, COUNT(*) AS jelentkezok_szama FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.JELENTKEZES WHERE ALLASAJANLAT.ID=JELENTKEZES.AID AND ALLASAJANLAT.FID="+felhasznalo.getID()+" GROUP BY POZICIO ORDER BY Jelentkezok_szama";
     private final String GET_STAT_BER = "ORABER) AS ber, MUNKAKOR FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.MUNKALTATO WHERE ALLASAJANLAT.FID=MUNKALTATO.ID AND MUNKAKOR=";
-    private final String GET_ATLAGON_FELULI_ALLASAJANLAT = "SELECT * FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.MUNKALTATO, C##SAELDC.ALLASKERESO WHERE C##SAELDC.ALLASAJANLAT.FID=C##SAELDC.MUNKALTATO.ID AND C##SAELDC.ALLASKERESO.ID="+felhasznalo.getID()+" AND ORABER> (SELECT AVG(ORABER) FROM C##SAELDC.ALLASAJANLAT) AND C##SAELDC.MUNKALTATO.VAROS=C##SAELDC.ALLASKERESO.VAROS";
-    private final String GET_JELENTKEZOK = "SELECT  C##SAELDC.ALLASAJANLAT.ID, POZICIO, MUNKAKOR, LEIRAS, C##SAELDC.ALLASKERESO.TELJES_NEV FROM C##SAELDC.JELENTKEZES, C##SAELDC.ALLASAJANLAT, C##SAELDC.ALLASKERESO WHERE C##SAELDC.JELENTKEZES.FID=C##SAELDC.ALLASKERESO.ID AND C##SAELDC.ALLASAJANLAT.ID=C##SAELDC.JELENTKEZES.AID AND C##SAELDC.ALLASAJANLAT.FID= "+felhasznalo.getID()+"";
-    private final String GET_JELENTKEZESEIM = "SELECT  C##SAELDC.ALLASAJANLAT.ID, ORABER, POZICIO, MUNKAKOR, LEIRAS FROM C##SAELDC.JELENTKEZES, C##SAELDC.ALLASAJANLAT, C##SAELDC.ALLASKERESO WHERE C##SAELDC.JELENTKEZES.FID=C##SAELDC.ALLASKERESO.ID AND C##SAELDC.ALLASAJANLAT.ID=C##SAELDC.JELENTKEZES.AID AND C##SAELDC.JELENTKEZES.FID= "+felhasznalo.getID()+"";
-    private final String GET_MEGFELELO_ALLASAJANLAT = "SELECT * FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.MUNKALTATO, C##SAELDC.SZAKMA WHERE C##SAELDC.ALLASAJANLAT.FID=C##SAELDC.MUNKALTATO.ID AND "+felhasznalo.getID()+"=C##SAELDC.SZAKMA.FID AND MUNKAKOR=SZAKMA";
-    private final String GET_MEGFELELO_ALLASAJANLAT_M = "SELECT * FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.MUNKALTATO WHERE C##SAELDC.ALLASAJANLAT.FID=C##SAELDC.MUNKALTATO.ID AND MUNKAKOR=";
-    private final String GET_MEGFELELO_ALLASAJANLAT_V = "SELECT * FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.MUNKALTATO WHERE C##SAELDC.ALLASAJANLAT.FID=C##SAELDC.MUNKALTATO.ID AND VAROS=";
-    private final String GET_MEGFELELO_ALLASAJANLAT_O = "SELECT * FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.MUNKALTATO WHERE C##SAELDC.ALLASAJANLAT.FID=C##SAELDC.MUNKALTATO.ID AND ORABER>";
-    private final String GET_STAT_SZAKMA_FELHASZNALO = "SELECT SZAKMA FROM C##SAELDC.ALLASKERESO, C##SAELDC.SZAKMA WHERE ALLASKERESO.ID=SZAKMA.FID GROUP BY SZAKMA";
-    private final String GET_STAT_KOR_FELHASZNALO = "SELECT AVG(EXTRACT(YEAR FROM CURRENT_DATE)-EXTRACT(YEAR FROM SZULETESI_DATUM)) AS atlageletkor, SZAKMA FROM C##SAELDC.ALLASKERESO, C##SAELDC.SZAKMA WHERE ALLASKERESO.ID=SZAKMA.FID GROUP BY  SZAKMA ORDER BY atlageletkor";
-    private final String GET_STAT_JELENTKEZOK = "SELECT POZICIO, COUNT(*) AS jelentkezok_szama FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.JELENTKEZES WHERE ALLASAJANLAT.ID=JELENTKEZES.AID AND ALLASAJANLAT.FID="+felhasznalo.getID()+" GROUP BY POZICIO ORDER BY Jelentkezok_szama";
-    private final String GET_STAT_BER = "ORABER) AS ber, MUNKAKOR FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.MUNKALTATO WHERE ALLASAJANLAT.FID=MUNKALTATO.ID AND MUNKAKOR=";
-    private final String REGIST_USER = "INSERT INTO C##SAELDC.FELHASZNALO (ID,EMAIL_CIM,JELSZO,TIPUS) VALUES (";
+   private final String REGIST_USER = "INSERT INTO C##SAELDC.FELHASZNALO (ID,EMAIL_CIM,JELSZO,TIPUS) VALUES (";
     private final String NEW_ALLASAJANLAT = "INSERT INTO C##SAELDC.ALLASAJANLAT (ID,FID,ORABER,POZICIO,MUNKAKOR,LETREHOZAS_IDEJE, LEIRAS) VALUES (";
     private final String NEW_JELENTKEZES = "INSERT INTO C##SAELDC.JELENTKEZES (AID,FID) VALUES (";
-    private final String NEW_ALLASAJANLAT = "INSERT INTO C##SAELDC.ALLASAJANLAT (ID,FID,ORABER,POZICIO,MUNKAKOR,LETREHOZAS_IDEJE, LEIRAS) VALUES (";
-    private final String NEW_JELENTKEZES = "INSERT INTO C##SAELDC.JELENTKEZES (AID,FID) VALUES (";
-    private final String REGIST_MUNKALTATO = "INSERT INTO C##SAELDC.MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) VALUES (";
+   private final String REGIST_MUNKALTATO = "INSERT INTO C##SAELDC.MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) VALUES (";
     private final String REGIST_ALLASKERESO = "INSERT INTO C##SAELDC.ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM,UTOLSO_BELEPES) VALUES (";
     private final String MAX_ID_FELHASZNALO = "SELECT MAX(ID) FROM C##SAELDC.FELHASZNALO";
-    private final String MAX_ID_ALLASAJANLAT = "SELECT MAX(ID) FROM C##SAELDC.ALLASAJANLAT";
-     private final String DELETE_FELHASZNALO = "DELETE FROM C##SAELDC.FELHASZNALO WHERE ID=";
-    private final String DELETE_ALLASAJANLAT = "DELETE FROM C##SAELDC.ALLASAJANLAT WHERE ID=";
-    private final String DELETE_JELENTKEZESEIM = "DELETE FROM C##SAELDC.JELENTKEZES WHERE AID=";
-
     private final String MAX_ID_ALLASAJANLAT = "SELECT MAX(ID) FROM C##SAELDC.ALLASAJANLAT";
      private final String DELETE_FELHASZNALO = "DELETE FROM C##SAELDC.FELHASZNALO WHERE ID=";
     private final String DELETE_ALLASAJANLAT = "DELETE FROM C##SAELDC.ALLASAJANLAT WHERE ID=";
@@ -123,15 +104,8 @@ public class Database {
                 fList.add(f);
             }
 
-            System.out.println("INFO: Sikeres lekérés (munkáltató)");
-        }catch(SQLException e){
-            System.err.print(e);
-            System.out.println("INFO: Sikeres lekérés (munkáltató)");
-        } catch(Exception e){
-            System.out.println("INFO: Sikeres lekérés (munkáltató)");
-        }catch(SQLException e){
-            System.err.print(e);
-            System.out.println("INFO: Sikeres lekérés (munkáltató)");
+            System.out.println("INFO: Sikeres lekérés (felhasználó)");
+
         } catch(Exception e){
             System.out.println("ERROR: Sikertelen lekérés (felhasználó)");
             System.err.print(e);
@@ -348,32 +322,6 @@ public class Database {
         return false;
     }
 
-    public List<Allasajanlat> getAllasajanlatAll(){
-        List<Allasajanlat> aList = new ArrayList<>();
-        try{
-            Connection conn = ods.getConnection(user,pass);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
-            rs = stmt.executeQuery(GET_ALLASAJANLAT);
-
-            while(rs.next()){
-                Allasajanlat a = new Allasajanlat();
-                a.setFelhasznalo_ID(rs.getInt("FID"));
-                a.setOraber(rs.getInt("ORABER"));
-                a.setPozicio(rs.getString("POZICIO"));
-                a.setMunkakor(rs.getString("MUNKAKOR"));
-                a.setLeiras(rs.getString("LEIRAS"));
-                a.setLetrehozas_ideje(rs.getString("LETREHOZAS_IDEJE"));
-                aList.add(a);
-            }
-
-            System.out.println("INFO: Sikeres lekérés (állásajánlat)");
-        }catch(Exception e){
-            System.out.println("ERROR: Sikertelen lekérés (állásajánlat)");
-            System.err.print(e);
-            return null;
-        }
-        return aList;
-    }
 
     public List<Allasajanlat> getFrissAllasajanlatAll(){
         List<Allasajanlat> aList = new ArrayList<>();
@@ -402,36 +350,7 @@ public class Database {
         return aList;
     }
 
-    public List<AllasajanlatCegesAdatokkal> getMAllasajanlatAll() {
-        List<AllasajanlatCegesAdatokkal> aList = new ArrayList<>();
-        try{
-            Connection conn = ods.getConnection(user,pass);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
-            rs = stmt.executeQuery(GET_MEGFELELO_ALLASAJANLAT);
 
-            while (rs.next()) {
-                AllasajanlatCegesAdatokkal a = new AllasajanlatCegesAdatokkal();
-                a.setID(rs.getInt("ID"));
-                a.setCegnev(rs.getString("CEGNEV"));
-                a.setVaros(rs.getString("VAROS"));
-                a.setCim(rs.getString("CIM"));
-                a.setOraber(rs.getInt("ORABER"));
-                a.setPozicio(rs.getString("POZICIO"));
-                a.setMunkakor(rs.getString("MUNKAKOR"));
-                a.setLeiras(rs.getString("LEIRAS"));
-
-                aList.add(a);
-
-            }
-
-            System.out.println("INFO: Sikeres lekérés (állásajánlat)");
-        } catch (Exception e) {
-            System.out.println("ERROR: Sikertelen lekérés (állásajánlat)");
-            System.err.print(e);
-            return null;
-        }
-        return aList;
-    }
     public List<AllasajanlatCegesAdatokkal> getMAllasajanlat(String text, int i) {
         List<AllasajanlatCegesAdatokkal> aList = new ArrayList<>();
         try{
@@ -469,55 +388,7 @@ public class Database {
         }
         return aList;
     }
-    public boolean registFelhasznalo(Munkaltato f){
-        DatabaseConnect();
-        int id = 0;
-        try {
-            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
-            rs = stmt.executeQuery(MAX_ID_FELHASZNALO);
-            if (rs.next()) {
-                id = rs.getInt(1);
-                System.out.println("Max ID: " + id);
-            }
-            String str = String.valueOf(++id);
-            rs = stmt.executeQuery(REGIST_USER+str+",'"+f.getEmail_cim()+"','"+f.getJelszo()+"',"+f.getTipus()+")");
 
-            rs = stmt.executeQuery(REGIST_MUNKALTATO+str+",'"+f.getCegnev()+"','"+f.getTelefonszam()+"','"+f.getEmail_cim_hivatalos()+"',TO_DATE('"+
-                    f.getMegalapitas_eve()+"','YYYY-MM-DD'),'"+f.getVaros()+"','"+f.getCim()+"')");
-        }catch (SQLException sql){
-            sql.printStackTrace();
-        }
-
-        DatabaseDisconnect();
-
-        return false;
-    }
-
-    public boolean registFelhasznalo(Allaskereso f){
-        DatabaseConnect();
-        int id = 0;
-        try {
-            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
-            rs = stmt.executeQuery(MAX_ID_FELHASZNALO);
-            if (rs.next()) {
-                id = rs.getInt(1);
-                System.out.println("Max ID: " + id);
-            }
-            String str = String.valueOf(++id);
-            rs = stmt.executeQuery(REGIST_USER+str+",'"+f.getEmail_cim()+"','"+f.getJelszo()+"',"+f.getTipus()+")");
-
-            LocalDate currentDate = LocalDate.now();
-            rs = stmt.executeQuery(REGIST_ALLASKERESO+str+",'"+f.getTeljes_nev()+"',TO_DATE('"+f.getSzuletesi_datum()+"','YYYY-MM-DD'),'"+f.getVaros()+"','"+
-                    f.getCim()+"',TO_DATE('"+currentDate.toString()+"','YYYY-MM-DD'))");
-
-        }catch (SQLException sql){
-            sql.printStackTrace();
-        }
-
-        DatabaseDisconnect();
-
-        return false;
-    }
 
     public List<Allasajanlat> getMAllasajanlatAll() {
         List<Allasajanlat> aList = new ArrayList<>();
@@ -546,108 +417,9 @@ public class Database {
         return aList;
     }
 
-    public List<SzakmaStat> getStatSzakmaFelhasznalo() {
-        List<SzakmaStat> szList = new ArrayList<>();
-        try{
-            Connection conn = ods.getConnection(user,pass);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
-            rs = stmt.executeQuery(GET_STAT_SZAKMA_FELHASZNALO);
 
-            CallableStatement cstmt = conn.prepareCall("begin ? := C##BH8ERI.szakmabeliekszama(?); end;");
 
-            int szam=0;
 
-            while(rs.next()){
-                SzakmaStat sz = new SzakmaStat();
-                sz.setSzakma(rs.getString("SZAKMA"));
-                cstmt.registerOutParameter(1, Types.INTEGER);
-                cstmt.setString(2, sz.getSzakma());
-                cstmt.executeUpdate();
-                szam = cstmt.getInt(1);
-//                System.out.println("INFO: fv:"+ szam);
-                sz.setFelhasznalok_szama(szam);
-                szList.add(sz);
-            }
-
-            System.out.println("INFO: Sikeres lekérés (állásajánlat)");
-        }catch(Exception e){
-            System.out.println("ERROR: Sikertelen lekérés (állásajánlat)");
-            System.err.print(e);
-            return null;
-        }
-        return szList;
-    }
-    public boolean registFelhasznalo(Munkaltato f){
-        int id = 0;
-        try {
-            Connection conn = ods.getConnection(user,pass);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
-            rs = stmt.executeQuery(MAX_ID_FELHASZNALO);
-            if (rs.next()) {
-                id = rs.getInt(1);
-                System.out.println("Max ID: " + id);
-            }
-            String str = String.valueOf(++id);
-            rs = stmt.executeQuery(REGIST_USER+str+",'"+f.getEmail_cim()+"','"+f.getJelszo()+"',"+f.getTipus()+")");
-
-            rs = stmt.executeQuery(REGIST_MUNKALTATO+str+",'"+f.getCegnev()+"','"+f.getTelefonszam()+"','"+f.getEmail_cim_hivatalos()+"',TO_DATE('"+
-                    f.getMegalapitas_eve()+"','YYYY-MM-DD'),'"+f.getVaros()+"','"+f.getCim()+"')");
-        }catch (SQLException sql){
-            sql.printStackTrace();
-        }
-        return false;
-    }
-
-    public boolean registFelhasznalo(Allaskereso f){
-        int id = 0;
-        try {
-            Connection conn = ods.getConnection(user,pass);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
-            rs = stmt.executeQuery(MAX_ID_FELHASZNALO);
-            if (rs.next()) {
-                id = rs.getInt(1);
-                System.out.println("Max ID: " + id);
-            }
-            String str = String.valueOf(++id);
-            rs = stmt.executeQuery(REGIST_USER+str+",'"+f.getEmail_cim()+"','"+f.getJelszo()+"',"+f.getTipus()+")");
-
-            LocalDate currentDate = LocalDate.now();
-            rs = stmt.executeQuery(REGIST_ALLASKERESO+str+",'"+f.getTeljes_nev()+"',TO_DATE('"+f.getSzuletesi_datum()+"','YYYY-MM-DD'),'"+f.getVaros()+"','"+
-                    f.getCim()+"',TO_DATE('"+currentDate.toString()+"','YYYY-MM-DD'))");
-
-        }catch (SQLException sql){
-            sql.printStackTrace();
-        }
-        return false;
-    }
-
-    public List<Allasajanlat> getAllasajanlataim(String GET_ALLASAJANLATAIM) {
-        List<Allasajanlat> aList = new ArrayList<>();
-        try {
-            Connection conn = ods.getConnection(user, pass);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            rs = stmt.executeQuery(GET_ALLASAJANLATAIM);
-
-            while (rs.next()) {
-                Allasajanlat a = new Allasajanlat();
-                a.setID(rs.getInt("ID"));
-                a.setFelhasznalo_ID(rs.getInt("FID"));
-                a.setOraber(rs.getInt("ORABER"));
-                a.setPozicio(rs.getString("POZICIO"));
-                a.setMunkakor(rs.getString("MUNKAKOR"));
-                a.setLeiras(rs.getString("LEIRAS"));
-                a.setLetrehozas_ideje(rs.getString("LETREHOZAS_IDEJE"));
-                aList.add(a);
-            }
-
-            System.out.println("INFO: Sikeres lekérés (állásajánlat)");
-        } catch (Exception e) {
-            System.out.println("ERROR: Sikertelen lekérés (állásajánlat)");
-            System.err.print(e);
-            return null;
-        }
-        return aList;
-    }
     public void newAllasajanlat(Allasajanlat a) {
         int id = 0;
         try {
