@@ -40,36 +40,44 @@ public class HomeAllaskeresoController {
     Database db = new Database();
     @FXML
     public void initialize(){
-        TableColumn munkaltatoCol = new TableColumn("felhasznalo_ID");
-        munkaltatoCol.setCellValueFactory(new PropertyValueFactory<>("felhasznalo_ID"));
-        TableColumn oraberCol = new TableColumn("oraber");
-        oraberCol.setCellValueFactory(new PropertyValueFactory<>("oraber"));
-        TableColumn pozicioCol = new TableColumn("pozicio");
-        pozicioCol.setCellValueFactory(new PropertyValueFactory<>("pozicio"));
-        TableColumn munkakorCol = new TableColumn("munkakor");
-        munkakorCol.setCellValueFactory(new PropertyValueFactory<>("munkakor"));
-        TableColumn leirasCol = new TableColumn("leiras");
-        leirasCol.setCellValueFactory(new PropertyValueFactory<>("leiras"));
-        TableColumn letrehozasCol = new TableColumn("letrehozas_ideje");
-        letrehozasCol.setCellValueFactory(new PropertyValueFactory<>("letrehozas_ideje"));
-        tv1.getColumns().addAll(munkaltatoCol, oraberCol, pozicioCol, munkakorCol, leirasCol, letrehozasCol);
+//        TableColumn munkaltatoCol = new TableColumn("felhasznalo_ID");
+//        munkaltatoCol.setCellValueFactory(new PropertyValueFactory<>("felhasznalo_ID"));
+//        TableColumn oraberCol = new TableColumn("oraber");
+//        oraberCol.setCellValueFactory(new PropertyValueFactory<>("oraber"));
+//        TableColumn pozicioCol = new TableColumn("pozicio");
+//        pozicioCol.setCellValueFactory(new PropertyValueFactory<>("pozicio"));
+//        pozicioCol.setMinWidth(150);
+//        TableColumn munkakorCol = new TableColumn("munkakor");
+//        munkakorCol.setCellValueFactory(new PropertyValueFactory<>("munkakor"));
+//        TableColumn leirasCol = new TableColumn("leiras");
+//        leirasCol.setCellValueFactory(new PropertyValueFactory<>("leiras"));
+//        leirasCol.setMinWidth(180);
+//        TableColumn letrehozasCol = new TableColumn("letrehozas_ideje");
+//        letrehozasCol.setCellValueFactory(new PropertyValueFactory<>("letrehozas_ideje"));
+//        leirasCol.setMinWidth(130);
+//        tv1.getColumns().addAll(munkaltatoCol, oraberCol, pozicioCol, munkakorCol, leirasCol, letrehozasCol);
+
 
         TableColumn IdCol = new TableColumn("ID");
         IdCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
         TableColumn cegnevCol = new TableColumn("cegnev");
         cegnevCol.setCellValueFactory(new PropertyValueFactory<>("cegnev"));
+        cegnevCol.setMinWidth(130);
         TableColumn varosCol = new TableColumn("varos");
         varosCol.setCellValueFactory(new PropertyValueFactory<>("varos"));
         TableColumn cimCol = new TableColumn("cim");
         cimCol.setCellValueFactory(new PropertyValueFactory<>("cim"));
+        cimCol.setMinWidth(150);
         TableColumn moraberCol = new TableColumn("oraber");
         moraberCol.setCellValueFactory(new PropertyValueFactory<>("oraber"));
         TableColumn mpozicioCol = new TableColumn("pozicio");
         mpozicioCol.setCellValueFactory(new PropertyValueFactory<>("pozicio"));
+        mpozicioCol.setMinWidth(150);
         TableColumn mmunkakorCol = new TableColumn("munkakor");
         mmunkakorCol.setCellValueFactory(new PropertyValueFactory<>("munkakor"));
         TableColumn mleirasCol = new TableColumn("leiras");
         mleirasCol.setCellValueFactory(new PropertyValueFactory<>("leiras"));
+        mleirasCol.setMinWidth(180);
         TableColumn actionCol = new TableColumn("action");
         actionCol.setCellFactory(param -> new TableCell<>() {
             private final Button applyBtn = new Button("Apply");
@@ -82,10 +90,15 @@ public class HomeAllaskeresoController {
                     applyAllasajanlat(a.getID(), felhasznalo.getID());
                     listazz();
                 });
+//                System.out.println(IdCol.getCellData(i));
+
+//                if(IdCol.getCellData(i)!=null){
                 HBox container = new HBox();
                 container.getChildren().addAll(applyBtn);
                 container.setSpacing(10.0);
                 setGraphic(container);
+//                }
+//                i++;
             }
 
 
@@ -98,10 +111,12 @@ public class HomeAllaskeresoController {
         oraber2Col.setCellValueFactory(new PropertyValueFactory<>("oraber"));
         TableColumn pozicio2Col = new TableColumn("pozicio");
         pozicio2Col.setCellValueFactory(new PropertyValueFactory<>("pozicio"));
+        pozicio2Col.setMinWidth(150);
         TableColumn munkakor2Col = new TableColumn("munkakor");
         munkakor2Col.setCellValueFactory(new PropertyValueFactory<>("munkakor"));
         TableColumn leiras2Col = new TableColumn("leiras");
         leiras2Col.setCellValueFactory(new PropertyValueFactory<>("leiras"));
+        leiras2Col.setMinWidth(180);
         TableColumn actionCol2 = new TableColumn("action");
         actionCol2.setCellFactory(param -> new TableCell<>() {
             private final Button denyBtn = new Button("Deny");
@@ -112,17 +127,19 @@ public class HomeAllaskeresoController {
                     deleteJelentkezeseim(j.getAID());
                     listazzJelentkezeseim();
                 });
-//                if () {
+//                System.out.println(allasIDCol.getCellData(k));
+//                if(allasIDCol.getCellData(k)!=null){
                     HBox container = new HBox();
                     container.getChildren().addAll(denyBtn);
                     container.setSpacing(10.0);
                     setGraphic(container);
 //                }
+//                k++;
             }
 
         });
 
-        tv3.getColumns().addAll(allasIDCol, oraberCol, pozicioCol, munkakorCol, leirasCol, actionCol2);
+        tv3.getColumns().addAll(allasIDCol, oraber2Col, pozicio2Col, munkakor2Col, leiras2Col, actionCol2);
 
     }
 

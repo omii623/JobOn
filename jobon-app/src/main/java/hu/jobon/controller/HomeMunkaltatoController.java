@@ -45,57 +45,66 @@ public class HomeMunkaltatoController {
         oraberCol.setCellValueFactory(new PropertyValueFactory<>("oraber"));
         TableColumn pozicioCol = new TableColumn("pozicio");
         pozicioCol.setCellValueFactory(new PropertyValueFactory<>("pozicio"));
+        pozicioCol.setMinWidth(150);
         TableColumn munkakorCol = new TableColumn("munkakor");
         munkakorCol.setCellValueFactory(new PropertyValueFactory<>("munkakor"));
         TableColumn leirasCol = new TableColumn("leiras");
         leirasCol.setCellValueFactory(new PropertyValueFactory<>("leiras"));
+        leirasCol.setMinWidth(180);
         TableColumn letrehozasCol = new TableColumn("letrehozas_ideje");
         letrehozasCol.setCellValueFactory(new PropertyValueFactory<>("letrehozas_ideje"));
+        letrehozasCol.setMinWidth(130);
         TableColumn actionCol = new TableColumn("action");
         actionCol.setCellFactory(param -> new TableCell<>() {
             private final Button deleteBtn = new Button("Delete");
-            private final Button editBtn = new Button("Edit");
+//            private final Button editBtn = new Button("Edit");
 
             {
                 deleteBtn.setOnAction(event -> {
-
-//                    Allasajanlat allasajanlat =  getTableRow().getItem();
                     Allasajanlat a = tv1.getSelectionModel().getSelectedItem();
                     deleteAllasajanlat(a.getID());
                     listazz();
 
                 });
 
-                editBtn.setOnAction(event -> {
-//                    Order o = getTableRow().getItem();
-//                    editOrder(o);
-//                    refreshTable();
-                });
+//                editBtn.setOnAction(event -> {
+//                    Allasajanlat a = tv1.getSelectionModel().getSelectedItem();
+//                    deleteAllasajanlat(a.getID());
+//                    try {
+//                        ujallasajanlat();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+
+//                });
                 HBox container = new HBox();
-                container.getChildren().addAll(editBtn, deleteBtn);
+                container.getChildren().addAll( deleteBtn);
                 container.setSpacing(10.0);
                 setGraphic(container);
             }
 
 
         });
+        actionCol.setMinWidth(140);
 
         tv1.getColumns().addAll(IdCol, munkaltatoCol, oraberCol, pozicioCol, munkakorCol, leirasCol, letrehozasCol, actionCol);
 
         TableColumn pozCol = new TableColumn("pozicio");
         pozCol.setCellValueFactory(new PropertyValueFactory<>("pozicio"));
+        pozCol.setMinWidth(130);
         TableColumn munkaCol = new TableColumn("munkakor");
         munkaCol.setCellValueFactory(new PropertyValueFactory<>("munkakor"));
-//        TableColumn leiras2Col = new TableColumn("leiras");
-//        leiras2Col.setCellValueFactory(new PropertyValueFactory<>("leiras"));
         TableColumn teljes_nevCol = new TableColumn("allaskereso_teljes_nev");
         teljes_nevCol.setCellValueFactory(new PropertyValueFactory<>("allaskereso_teljes_nev"));
+        teljes_nevCol.setMinWidth(130);
         tv2.getColumns().addAll( pozCol, munkaCol, teljes_nevCol);
 
         TableColumn pozicio2Col = new TableColumn("pozicio");
         pozicio2Col.setCellValueFactory(new PropertyValueFactory<>("pozicio"));
+        pozicio2Col.setMinWidth(150);
         TableColumn jelentkezokszCol = new TableColumn("jelentkezok_szama");
         jelentkezokszCol.setCellValueFactory(new PropertyValueFactory<>("jelentkezok_szama"));
+        jelentkezokszCol.setMinWidth(120);
         tv3.getColumns().addAll( pozicio2Col, jelentkezokszCol);
 
  }
@@ -132,7 +141,7 @@ public class HomeMunkaltatoController {
     }
 
 
-    public void ujallasajanlat(ActionEvent event) throws IOException {
+    public void ujallasajanlat() throws IOException {
         App.setRoot("ujAllasajanlat");
 
     }
