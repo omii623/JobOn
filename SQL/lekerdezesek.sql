@@ -81,11 +81,27 @@
     AND ORABER> (SELECT AVG(ORABER) FROM "C##SAELDC"."ALLASAJANLAT") AND "C##SAELDC"."MUNKALTATO"."VAROS"="C##SAELDC"."ALLASKERESO"."VAROS";
 
     --2.függvény 
-    CREATE OR REPLACE PROCEDURE newCV(p_id IN NUMBER, p_szakma IN VARCHAR2(200))
-    BEGIN
+    CREATE OR REPLACE PROCEDURE newSzakma(p_id IN NUMBER, p_szakma IN VARCHAR2)
+    IS BEGIN
     INSERT INTO "C##SAELDC"."SZAKMA" (SZAKMA,FID) values (p_szakma, p_id);
     END;
 
     --1.trigger
-
+    CREATE OR REPLACE TRIGGER log_trigger
+    AFTER UPDATE OR INSERT OF ALLASKERESO ON 'utolsó belépés'
+    FOR EACH ROW
+    WHEN (OLD.'utolsó belépés' != NEW.'utolsó belépés')
+    BEGIN
+        INSERT INTO log_table (id, login) VALUES (NEW.id, NEW.'utolsó belépés')
+    END;
+    /
+    
     --2.trigger
+    CREATE OR REPLACE TRIGGER log_trigger
+    AFTER UPDATE OF UTOLSO_BELEPES ON ALLASKERESO
+    FOR EACH ROW
+    WHEN (OLD.UTOLSO_BELEPES != NEW.UTOLSO_BELEPES)
+    BEGIN
+	    INSERT INTO log_table (ID, login) VALUES (:NEW.id, :NEW.UTOLSO_BELEPES);
+    END;
+    /
