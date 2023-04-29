@@ -4,6 +4,7 @@ import hu.jobon.database.Database;
 import hu.jobon.database.model.Allasajanlat;
 import hu.jobon.database.model.Allaskereso;
 import hu.jobon.database.model.Munkaltato;
+import hu.jobon.database.model.Szakma;
 import hu.jobon.database.servicemodel.AllasajanlatCegesAdatokkal;
 import hu.jobon.database.servicemodel.Jelentkezeseim;
 import hu.jobon.database.servicemodel.JelentkezokMunkaltatonkent;
@@ -31,7 +32,10 @@ public class HomeAllaskeresoController {
     @FXML
     public Button denyBtn;
     public TextField searchTF;
+    @FXML
+    public TextField szakmaa;
 
+    public static Szakma szakma = new Szakma();
 
     Database db = new Database();
     @FXML
@@ -158,6 +162,20 @@ public class HomeAllaskeresoController {
         db.updateFelhasznalo(UPDATE_ADMIN);
     }
 
+    private String INSERT_SZAKMA;
+
+    public void szakmahozzaadas(ActionEvent actionEvent) {
+        szakma.setSzakma(szakmaa.getText());
+        szakma.setFelhasznalo_ID(felhasznalo.getID());
+        //INSERT_SZAKMA = "INSERT INTO C##SAELDC.SZAKMA (SZAKMA, FID)  VALUES (" + "'" + szakma.getSzakma() + "', " + szakma.getFelhasznalo_ID() + " )";
+        INSERT_SZAKMA = "BEGIN C##SAELDC.newSzakma(" + szakma.getFelhasznalo_ID() + ", '" +  szakma.getSzakma() + "'); END;";
+        System.out.println(szakma.getSzakma());
+        System.out.println(szakma.getFelhasznalo_ID());
+        System.out.println(INSERT_SZAKMA);
+        db.insertSzakma(INSERT_SZAKMA);
+        szakmaa.setText("");
+    }
+
 
     public void listazzmallasokat() {
         List<AllasajanlatCegesAdatokkal> allasok = db.getMAllasajanlatAll();
@@ -206,4 +224,5 @@ public class HomeAllaskeresoController {
             tv2.getItems().add(allas);
         }
     }
+
 }
