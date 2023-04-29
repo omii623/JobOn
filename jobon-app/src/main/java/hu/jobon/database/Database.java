@@ -24,6 +24,7 @@ import static hu.jobon.controller.LoginController.felhasznalo;
 
 public class Database {
     ResultSet rs;
+    Boolean rss;
     Statement stmt;
     OracleDataSource ods;
     String user = User.name;
@@ -79,6 +80,17 @@ public class Database {
         try{
             connection.close();
             rs.close();
+            stmt.close();
+            System.out.println("INFO: Sikeres kicsatlakozás.");
+        }catch(Exception e){
+            System.out.println("ERROR: Sikertelen kicsatlakozás.");
+            System.err.print(e);
+        }
+    }
+
+    public void DatabaseDisconnect2(){
+        try{
+            connection.close();
             stmt.close();
             System.out.println("INFO: Sikeres kicsatlakozás.");
         }catch(Exception e){
@@ -221,13 +233,25 @@ public class Database {
         try{
             stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(sql);
-
             System.out.println("INFO: Sikeres update (felhasználó)");
         }catch(Exception e){
             System.out.println("ERROR: Sikertelen update (felhasználó)");
             System.err.print(e);
         }
         DatabaseDisconnect();
+    }
+
+    public void insertSzakma(String sql){
+        DatabaseConnect();
+        try{
+            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            rss = stmt.execute(sql);
+            System.out.println("INFO: Sikeres inser szakma");
+        }catch(Exception e){
+            System.out.println("ERROR: Sikertelen insert szakma");
+            System.err.print(e);
+        }
+        DatabaseDisconnect2();
     }
 
     public void deleteFelhasznalo(Felhasznalo f) {
