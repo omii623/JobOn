@@ -1,10 +1,7 @@
 package hu.jobon.controller;
 
 import hu.jobon.database.Database;
-import hu.jobon.database.model.Allasajanlat;
-import hu.jobon.database.model.Allaskereso;
-import hu.jobon.database.model.Felhasznalo;
-import hu.jobon.database.model.Munkaltato;
+import hu.jobon.database.model.*;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
@@ -24,6 +21,7 @@ public class LoginController {
     @FXML
     PasswordField passPassFiled;
     public static Felhasznalo felhasznalo = new Felhasznalo();
+
     @FXML
     void login() throws IOException {
         List<Felhasznalo> AllFelhasznalo = db.getFelhasznaloAll();
