@@ -390,22 +390,26 @@ public class Database {
     }
 
 
-    public List<Allasajanlat> getMAllasajanlatAll() {
-        List<Allasajanlat> aList = new ArrayList<>();
+    public List<AllasajanlatCegesAdatokkal> getMAllasajanlatAll() {
+        List<AllasajanlatCegesAdatokkal> aList = new ArrayList<>();
         try{
             Connection conn = ods.getConnection(user,pass);
             stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(GET_MEGFELELO_ALLASAJANLAT);
 
             while (rs.next()) {
-                Allasajanlat a = new Allasajanlat();
-                a.setFelhasznalo_ID(rs.getInt("FID"));
+                AllasajanlatCegesAdatokkal a = new AllasajanlatCegesAdatokkal();
+                a.setID(rs.getInt("ID"));
+                a.setCegnev(rs.getString("CEGNEV"));
+                a.setVaros(rs.getString("VAROS"));
+                a.setCim(rs.getString("CIM"));
                 a.setOraber(rs.getInt("ORABER"));
                 a.setPozicio(rs.getString("POZICIO"));
                 a.setMunkakor(rs.getString("MUNKAKOR"));
                 a.setLeiras(rs.getString("LEIRAS"));
-                a.setLetrehozas_ideje(rs.getString("LETREHOZAS_IDEJE"));
+
                 aList.add(a);
+
             }
 
             System.out.println("INFO: Sikeres lekérés (állásajánlat)");
