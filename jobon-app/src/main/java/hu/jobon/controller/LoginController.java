@@ -2,6 +2,7 @@ package hu.jobon.controller;
 
 import hu.jobon.database.Database;
 import hu.jobon.database.model.Allasajanlat;
+import hu.jobon.database.model.Allaskereso;
 import hu.jobon.database.model.Felhasznalo;
 import hu.jobon.database.model.Munkaltato;
 import javafx.application.Application;
@@ -22,7 +23,6 @@ public class LoginController {
     TextField userTextFiled;
     @FXML
     PasswordField passPassFiled;
-
     public static Felhasznalo felhasznalo = new Felhasznalo();
     @FXML
     void login() throws IOException {
