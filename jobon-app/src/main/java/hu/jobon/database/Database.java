@@ -109,6 +109,7 @@ public class Database {
         } catch(Exception e){
             System.out.println("ERROR: Sikertelen lekérés (felhasználó)");
             System.err.print(e);
+            DatabaseDisconnect();
             return null;
         }
 
@@ -139,6 +140,7 @@ public class Database {
         }catch(Exception e){
             System.out.println("ERROR: Sikertelen lekérés (álláskereső)");
             System.err.print(e);
+            DatabaseDisconnect();
             return null;
         }
 
@@ -174,6 +176,7 @@ public class Database {
         }catch(Exception e){
             System.out.println("ERROR: Sikertelen lekérés (munkáltató)");
             System.err.print(e);
+            DatabaseDisconnect();
             return null;
         }
 
@@ -204,6 +207,7 @@ public class Database {
         }catch(Exception e){
             System.out.println("ERROR: Sikertelen lekérés (állásajánlat)");
             System.err.print(e);
+            DatabaseDisconnect();
             return null;
         }
 
@@ -227,6 +231,7 @@ public class Database {
     }
 
     public void deleteFelhasznalo(Felhasznalo f) {
+        DatabaseConnect();
         try(
                 Connection c = ods.getConnection(user,pass);
                 PreparedStatement stmt = c.prepareStatement(DELETE_FELHASZNALO+f.getID());
@@ -239,6 +244,7 @@ public class Database {
             System.out.println("ERROR: Sikertelen delete (felhasznalo)"+f.getID());
             throwables.printStackTrace();
         }
+        DatabaseDisconnect();
     }
 
     public List<Allasajanlat> getAllasajanlataim(String GET_ALLASAJANLATAIM) {
@@ -264,6 +270,7 @@ public class Database {
         } catch (Exception e) {
             System.out.println("ERROR: Sikertelen lekérés (állásajánlat)");
             System.err.print(e);
+            DatabaseDisconnect();
             return null;
         }
 
@@ -324,6 +331,7 @@ public class Database {
 
 
     public List<Allasajanlat> getFrissAllasajanlatAll(){
+        DatabaseConnect();
         List<Allasajanlat> aList = new ArrayList<>();
         try{
             Connection conn = ods.getConnection(user,pass);
@@ -345,13 +353,16 @@ public class Database {
         }catch(Exception e){
             System.out.println("ERROR: Sikertelen lekérés (állásajánlat)");
             System.err.print(e);
+            DatabaseDisconnect();
             return null;
         }
+        DatabaseDisconnect();
         return aList;
     }
 
 
     public List<AllasajanlatCegesAdatokkal> getMAllasajanlat(String text, int i) {
+        DatabaseConnect();
         List<AllasajanlatCegesAdatokkal> aList = new ArrayList<>();
         try{
             Connection conn = ods.getConnection(user,pass);
@@ -384,13 +395,16 @@ public class Database {
         } catch (Exception e) {
             System.out.println("ERROR: Sikertelen lekérés (állásajánlat)");
             System.err.print(e);
+            DatabaseDisconnect();
             return null;
         }
+        DatabaseDisconnect();
         return aList;
     }
 
 
     public List<AllasajanlatCegesAdatokkal> getMAllasajanlatAll() {
+        DatabaseConnect();
         List<AllasajanlatCegesAdatokkal> aList = new ArrayList<>();
         try{
             Connection conn = ods.getConnection(user,pass);
@@ -416,8 +430,10 @@ public class Database {
         } catch (Exception e) {
             System.out.println("ERROR: Sikertelen lekérés (állásajánlat)");
             System.err.print(e);
+            DatabaseDisconnect();
             return null;
         }
+        DatabaseDisconnect();
         return aList;
     }
 
@@ -425,6 +441,7 @@ public class Database {
 
 
     public void newAllasajanlat(Allasajanlat a) {
+        DatabaseConnect();
         int id = 0;
         try {
             Connection conn = ods.getConnection(user,pass);
@@ -441,10 +458,11 @@ public class Database {
             sql.printStackTrace();
             System.out.println("ERROR: Sikertelen hozzáadás (állásajánlat)");
         }
-
+        DatabaseDisconnect();
     }
 
     public void deleteAllasajanlat(int ID) {
+        DatabaseConnect();
         try(
                 Connection c = ods.getConnection(user,pass);
                 PreparedStatement stmt = c.prepareStatement(DELETE_ALLASAJANLAT+ID);
@@ -455,10 +473,11 @@ public class Database {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
+        DatabaseDisconnect();
     }
 
     public void applyAllasajanlat(int aid, int fid) {
+        DatabaseConnect();
         int id = 0;
         try {
             Connection conn = ods.getConnection(user,pass);
@@ -475,10 +494,12 @@ public class Database {
             sql.printStackTrace();
             System.out.println("ERROR: Sikertelen hozzáadás (jelentkezes)");
         }
+        DatabaseDisconnect();
     }
 
 
     public List<JelentkezokMunkaltatonkent> getJelentkezok() {
+        DatabaseConnect();
         List<JelentkezokMunkaltatonkent> jList = new ArrayList<>();
         try{
             Connection conn = ods.getConnection(user,pass);
@@ -500,13 +521,16 @@ public class Database {
         } catch (Exception e) {
             System.out.println("ERROR: Sikertelen lekérés (jelentkezes)");
             System.err.print(e);
+            DatabaseDisconnect();
             return null;
         }
+        DatabaseDisconnect();
         return jList;
     }
 
 
     public List<Jelentkezeseim> getJelentkezeseim() {
+        DatabaseConnect();
         List<Jelentkezeseim> jList = new ArrayList<>();
         try{
             Connection conn = ods.getConnection(user,pass);
@@ -529,12 +553,15 @@ public class Database {
         } catch (Exception e) {
             System.out.println("ERROR: Sikertelen lekérés (jelentkezes)");
             System.err.print(e);
+            DatabaseDisconnect();
             return null;
         }
+        DatabaseDisconnect();
         return jList;
     }
 
     public void deleteJelentkezeseim(int AID) {
+        DatabaseConnect();
         try(
                 Connection c = ods.getConnection(user,pass);
                 PreparedStatement stmt = c.prepareStatement(DELETE_JELENTKEZESEIM+AID+"AND FID="+felhasznalo.getID());
@@ -545,9 +572,11 @@ public class Database {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        DatabaseDisconnect();
     }
 
     public List<SzakmaStat> getStatSzakmaFelhasznalo() {
+        DatabaseConnect();
         List<SzakmaStat> szList = new ArrayList<>();
         try{
             Connection conn = ods.getConnection(user,pass);
@@ -574,12 +603,15 @@ public class Database {
         }catch(Exception e){
             System.out.println("ERROR: Sikertelen lekérés (statszakma)");
             System.err.print(e);
+            DatabaseDisconnect();
             return null;
         }
+        DatabaseDisconnect();
         return szList;
     }
 
     public List<KorStat> getStatKorFelhasznalo() {
+        DatabaseConnect();
         List<KorStat> kList = new ArrayList<>();
         try{
             Connection conn = ods.getConnection(user,pass);
@@ -597,13 +629,16 @@ public class Database {
         }catch(Exception e){
             System.out.println("ERROR: Sikertelen lekérés (statkor)");
             System.err.print(e);
+            DatabaseDisconnect();
             return null;
         }
+        DatabaseDisconnect();
         return kList;
     }
 
 
     public List<BerStat> getStatMinBer(String min) {
+        DatabaseConnect();
         List<BerStat> bList = new ArrayList<>();
         try{
             Connection conn = ods.getConnection(user,pass);
@@ -621,12 +656,15 @@ public class Database {
         }catch(Exception e){
             System.out.println("ERROR: Sikertelen lekérés (statber)");
             System.err.print(e);
+            DatabaseDisconnect();
             return null;
         }
+        DatabaseDisconnect();
         return bList;
     }
 
     public List<BerStat> getStatMaxBer(String max) {
+        DatabaseConnect();
         List<BerStat> bList = new ArrayList<>();
         try{
             Connection conn = ods.getConnection(user,pass);
@@ -644,12 +682,15 @@ public class Database {
         }catch(Exception e){
             System.out.println("ERROR: Sikertelen lekérés (statber)");
             System.err.print(e);
+            DatabaseDisconnect();
             return null;
         }
+        DatabaseDisconnect();
         return bList;
     }
 
     public List<JelentkezokStat> getJelentkezokStat() {
+        DatabaseConnect();
         List<JelentkezokStat> jList = new ArrayList<>();
         try{
             Connection conn = ods.getConnection(user,pass);
@@ -667,12 +708,15 @@ public class Database {
         }catch(Exception e){
             System.out.println("ERROR: Sikertelen lekérés (statber)");
             System.err.print(e);
+            DatabaseDisconnect();
             return null;
         }
+        DatabaseDisconnect();
         return jList;
     }
 
     public List<AllasajanlatCegesAdatokkal> getAtlagonFeluliAllasajanlat() {
+        DatabaseConnect();
         List<AllasajanlatCegesAdatokkal> aList = new ArrayList<>();
         try{
             Connection conn = ods.getConnection(user,pass);
@@ -698,8 +742,10 @@ public class Database {
         } catch (Exception e) {
             System.out.println("ERROR: Sikertelen lekérés (állásajánlat)");
             System.err.print(e);
+            DatabaseDisconnect();
             return null;
         }
+        DatabaseDisconnect();
         return aList;
     }
 }
