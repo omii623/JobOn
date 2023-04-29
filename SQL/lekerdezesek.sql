@@ -75,22 +75,15 @@
 
     --6.összetett lekérdezés
     --átlagtól jobban fizető munkakörök a felhasznaló városában
-    SELECT  ORABER, VAROS, MUNKAKOR, POZICIO
-    FROM "C##SAELDC"."ALLASAJANLAT", "C##SAELDC"."MUNKALTATO"
-    WHERE "C##SAELDC"."ALLASAJANLAT"."FID"="C##SAELDC"."MUNKALTATO"."ID" AND ORABER> (SELECT AVG(ORABER) FROM "C##SAELDC"."ALLASAJANLAT") AND VAROS='Szeged';
+    SELECT  *
+    FROM "C##SAELDC"."ALLASAJANLAT", "C##SAELDC"."MUNKALTATO", "C##SAELDC"."ALLASKERESO"
+    WHERE "C##SAELDC"."ALLASAJANLAT"."FID"="C##SAELDC"."MUNKALTATO"."ID" AND "C##SAELDC"."ALLASKERESO"."ID"=2 
+    AND ORABER> (SELECT AVG(ORABER) FROM "C##SAELDC"."ALLASAJANLAT") AND "C##SAELDC"."MUNKALTATO"."VAROS"="C##SAELDC"."ALLASKERESO"."VAROS";
 
     --2.függvény 
-    CREATE OR REPLACE FUNCTION megfeleloAllasok(p_id IN C##SAELDC.FELHASZNALO.id%TYPE)RETURN allasok_lista
-    IS
-    TYPE allasok_tipus IS RECORD(id NUMBER, cegnev VARCHAR2, varos VARCHAR2, cim VARCHAR2, oraber NUMBER, pozicio VARCHAR2, munkakor VARCHAR2, leiras VARCHAR2);
-    TYPE allasok_lista IS TABLE OF allasok_tipus INDEX BY PLS_INTEGER;
-    megfelelo_allas allasok_lista;
+    CREATE OR REPLACE PROCEDURE newCV(p_id IN NUMBER, p_szakma IN VARCHAR2(200))
     BEGIN
-    SELECT  * BULK COLLECT INTO megfelelo_allas
-    FROM "C##SAELDC"."ALLASAJANLAT", "C##SAELDC"."MUNKALTATO", , "C##SAELDC"."SZAKMA"
-    WHERE "C##SAELDC"."ALLASAJANLAT".FID="C##SAELDC"."MUNKALTATO".ID AND p_id="C##SAELDC"."SZAKMA".FID AND MUNKAKOR=SZAKMA;  
-
-    RETURN megfelelo_allas;
+    INSERT INTO "C##SAELDC"."SZAKMA" (SZAKMA,FID) values (p_szakma, p_id);
     END;
 
     --1.trigger

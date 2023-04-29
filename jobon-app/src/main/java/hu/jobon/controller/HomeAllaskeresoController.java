@@ -198,4 +198,12 @@ public class HomeAllaskeresoController {
             tv2.getItems().add(allas);
         }
     }
+
+    public void listazzAtlagonFeluli(ActionEvent event) {
+        List<AllasajanlatCegesAdatokkal> allasok = db.getAtlagonFeluliAllasajanlat();
+        tv2.getItems().clear();
+        for (AllasajanlatCegesAdatokkal allas : allasok) {
+            tv2.getItems().add(allas);
+        }
+    }
 }

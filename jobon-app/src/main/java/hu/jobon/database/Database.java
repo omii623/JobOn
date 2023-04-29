@@ -28,6 +28,7 @@ public class Database {
     private final String GET_FELHASZNALO = "SELECT * FROM C##SAELDC.FELHASZNALO";
     private final String GET_FRISS_ALLASAJANLAT = "SELECT * FROM C##SAELDC.ALLASAJANLAT WHERE CURRENT_DATE-LETREHOZAS_IDEJE<30";
     private final String GET_ALLASAJANLAT = "SELECT * FROM C##SAELDC.ALLASAJANLAT";
+    private final String GET_ATLAGON_FELULI_ALLASAJANLAT = "SELECT * FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.MUNKALTATO, C##SAELDC.ALLASKERESO WHERE C##SAELDC.ALLASAJANLAT.FID=C##SAELDC.MUNKALTATO.ID AND C##SAELDC.ALLASKERESO.ID="+felhasznalo.getID()+" AND ORABER> (SELECT AVG(ORABER) FROM C##SAELDC.ALLASAJANLAT) AND C##SAELDC.MUNKALTATO.VAROS=C##SAELDC.ALLASKERESO.VAROS";
     private final String GET_JELENTKEZOK = "SELECT  C##SAELDC.ALLASAJANLAT.ID, POZICIO, MUNKAKOR, LEIRAS, C##SAELDC.ALLASKERESO.TELJES_NEV FROM C##SAELDC.JELENTKEZES, C##SAELDC.ALLASAJANLAT, C##SAELDC.ALLASKERESO WHERE C##SAELDC.JELENTKEZES.FID=C##SAELDC.ALLASKERESO.ID AND C##SAELDC.ALLASAJANLAT.ID=C##SAELDC.JELENTKEZES.AID AND C##SAELDC.ALLASAJANLAT.FID= "+felhasznalo.getID()+"";
     private final String GET_JELENTKEZESEIM = "SELECT  C##SAELDC.ALLASAJANLAT.ID, ORABER, POZICIO, MUNKAKOR, LEIRAS FROM C##SAELDC.JELENTKEZES, C##SAELDC.ALLASAJANLAT, C##SAELDC.ALLASKERESO WHERE C##SAELDC.JELENTKEZES.FID=C##SAELDC.ALLASKERESO.ID AND C##SAELDC.ALLASAJANLAT.ID=C##SAELDC.JELENTKEZES.AID AND C##SAELDC.JELENTKEZES.FID= "+felhasznalo.getID()+"";
     private final String GET_MEGFELELO_ALLASAJANLAT = "SELECT * FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.MUNKALTATO, C##SAELDC.SZAKMA WHERE C##SAELDC.ALLASAJANLAT.FID=C##SAELDC.MUNKALTATO.ID AND "+felhasznalo.getID()+"=C##SAELDC.SZAKMA.FID AND MUNKAKOR=SZAKMA";
@@ -619,5 +620,36 @@ public class Database {
             return null;
         }
         return jList;
+    }
+
+    public List<AllasajanlatCegesAdatokkal> getAtlagonFeluliAllasajanlat() {
+        List<AllasajanlatCegesAdatokkal> aList = new ArrayList<>();
+        try{
+            Connection conn = ods.getConnection(user,pass);
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            rs = stmt.executeQuery(GET_ATLAGON_FELULI_ALLASAJANLAT);
+
+            while (rs.next()) {
+                AllasajanlatCegesAdatokkal a = new AllasajanlatCegesAdatokkal();
+                a.setID(rs.getInt("ID"));
+                a.setCegnev(rs.getString("CEGNEV"));
+                a.setVaros(rs.getString("VAROS"));
+                a.setCim(rs.getString("CIM"));
+                a.setOraber(rs.getInt("ORABER"));
+                a.setPozicio(rs.getString("POZICIO"));
+                a.setMunkakor(rs.getString("MUNKAKOR"));
+                a.setLeiras(rs.getString("LEIRAS"));
+
+                aList.add(a);
+
+            }
+
+            System.out.println("INFO: Sikeres lekérés (állásajánlat)");
+        } catch (Exception e) {
+            System.out.println("ERROR: Sikertelen lekérés (állásajánlat)");
+            System.err.print(e);
+            return null;
+        }
+        return aList;
     }
 }
