@@ -358,8 +358,7 @@ public class Database {
         DatabaseConnect();
         List<Allasajanlat> aList = new ArrayList<>();
         try{
-            Connection conn = ods.getConnection(user,pass);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(GET_FRISS_ALLASAJANLAT);
 
             while(rs.next()){
@@ -389,8 +388,8 @@ public class Database {
         DatabaseConnect();
         List<AllasajanlatCegesAdatokkal> aList = new ArrayList<>();
         try{
-            Connection conn = ods.getConnection(user,pass);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+
             if(i==1) {
                 rs = stmt.executeQuery(GET_MEGFELELO_ALLASAJANLAT_M + "'" + text + "'"); //gyűjtőtábla a megfelelőkből és ott szűrés
             }
@@ -431,8 +430,7 @@ public class Database {
         DatabaseConnect();
         List<AllasajanlatCegesAdatokkal> aList = new ArrayList<>();
         try{
-            Connection conn = ods.getConnection(user,pass);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(GET_MEGFELELO_ALLASAJANLAT);
 
             while (rs.next()) {
@@ -468,8 +466,7 @@ public class Database {
         DatabaseConnect();
         int id = 0;
         try {
-            Connection conn = ods.getConnection(user,pass);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(MAX_ID_ALLASAJANLAT);
             if (rs.next()) {
                 id = rs.getInt(1);
@@ -504,14 +501,7 @@ public class Database {
         DatabaseConnect();
         int id = 0;
         try {
-            Connection conn = ods.getConnection(user,pass);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
-//            rs = stmt.executeQuery(MAX_ID_ALLASAJANLAT);
-//            if (rs.next()) {
-//                id = rs.getInt(1);
-//                System.out.println("Max ID: " + id);
-//            }
-//            String str = String.valueOf(++id);
+            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(NEW_JELENTKEZES+aid+","+fid+")");
             System.out.println("INFO: Sikeres hozzáadás (jelentkezes)");
         }catch (SQLException sql){
@@ -526,8 +516,7 @@ public class Database {
         DatabaseConnect();
         List<JelentkezokMunkaltatonkent> jList = new ArrayList<>();
         try{
-            Connection conn = ods.getConnection(user,pass);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(GET_JELENTKEZOK);
 
             while (rs.next()) {
@@ -557,8 +546,7 @@ public class Database {
         DatabaseConnect();
         List<Jelentkezeseim> jList = new ArrayList<>();
         try{
-            Connection conn = ods.getConnection(user,pass);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(GET_JELENTKEZESEIM);
 
             while (rs.next()) {
@@ -638,8 +626,7 @@ public class Database {
         DatabaseConnect();
         List<KorStat> kList = new ArrayList<>();
         try{
-            Connection conn = ods.getConnection(user,pass);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(GET_STAT_KOR_FELHASZNALO);
 
             while(rs.next()){
@@ -665,8 +652,7 @@ public class Database {
         DatabaseConnect();
         List<BerStat> bList = new ArrayList<>();
         try{
-            Connection conn = ods.getConnection(user,pass);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery("SELECT MIN("+GET_STAT_BER+"'"+min+"'"+"GROUP BY MUNKAKOR");
 
             while(rs.next()){
@@ -691,8 +677,7 @@ public class Database {
         DatabaseConnect();
         List<BerStat> bList = new ArrayList<>();
         try{
-            Connection conn = ods.getConnection(user,pass);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery("SELECT MAX("+GET_STAT_BER+"'"+max+"'"+"GROUP BY MUNKAKOR");
 
             while(rs.next()){
@@ -717,8 +702,7 @@ public class Database {
         DatabaseConnect();
         List<JelentkezokStat> jList = new ArrayList<>();
         try{
-            Connection conn = ods.getConnection(user,pass);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(GET_STAT_JELENTKEZOK);
 
             while(rs.next()){
@@ -743,8 +727,7 @@ public class Database {
         DatabaseConnect();
         List<AllasajanlatCegesAdatokkal> aList = new ArrayList<>();
         try{
-            Connection conn = ods.getConnection(user,pass);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
             rs = stmt.executeQuery(GET_ATLAGON_FELULI_ALLASAJANLAT);
 
             while (rs.next()) {

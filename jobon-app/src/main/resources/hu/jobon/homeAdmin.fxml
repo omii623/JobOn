@@ -4,25 +4,19 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.jobon.controller.HomeAdminController">
+<AnchorPane prefHeight="410.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.jobon.controller.HomeAdminController">
    <children>
-      <TabPane prefHeight="400.0" prefWidth="680.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="410.0" prefWidth="700.0" style="-fx-background-color: #778899;" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Állásajánlatok">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="tv1" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="650.0">
+                        <TableView fx:id="tv1" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="670.0">
                           <columns>
-<!--                            <TableColumn fx:id="munkaltatoCol" prefWidth="100" text="Munkáltató név" />-->
-<!--                            <TableColumn fx:id="oraberCol" prefWidth="70" text="Órabér" />-->
-<!--                            <TableColumn fx:id="pozicioCol" prefWidth="90" text="Pozíció" />-->
-<!--                            <TableColumn fx:id="munkakorCol" prefWidth="70" text="Munkakör" />-->
-<!--                            <TableColumn fx:id="leirasCol" prefWidth="291.142826625279" text="Leírás" />-->
-<!--                              <TableColumn fx:id="letrehozasCol" prefWidth="80" text="Létrehozás" />-->
                           </columns>
                         </TableView>
-                        <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazz" text="Listázz" />
+                        <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazz" style="-fx-background-color: #ADD8E6;" text="Listázz" />
                          </children>
                   </AnchorPane>
             </content>
@@ -31,17 +25,12 @@
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                         <children>
-                            <TableView fx:id="tv2" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="650.0">
+                            <TableView fx:id="tv2" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="670.0">
                                 <columns>
-                                    <!--                            <TableColumn fx:id="munkaltatoCol" prefWidth="100" text="Munkáltató név" />-->
-                                    <!--                            <TableColumn fx:id="oraberCol" prefWidth="70" text="Órabér" />-->
-                                    <!--                            <TableColumn fx:id="pozicioCol" prefWidth="90" text="Pozíció" />-->
-                                    <!--                            <TableColumn fx:id="munkakorCol" prefWidth="70" text="Munkakör" />-->
-                                    <!--                            <TableColumn fx:id="leirasCol" prefWidth="291.142826625279" text="Leírás" />-->
-                                    <!--                              <TableColumn fx:id="letrehozasCol" prefWidth="80" text="Létrehozás" />-->
-                                </columns>
+
+                                 </columns>
                             </TableView>
-                            <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzAllaskeresok" text="Listázz" />
+                            <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzAllaskeresok" style="-fx-background-color: #ADD8E6;" text="Listázz" />
                         </children>
                     </AnchorPane>
                 </content>
@@ -50,17 +39,12 @@
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                         <children>
-                            <TableView fx:id="tv3" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="650.0">
+                            <TableView fx:id="tv3" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="670.0">
                                 <columns>
-                                    <!--                            <TableColumn fx:id="munkaltatoCol" prefWidth="100" text="Munkáltató név" />-->
-                                    <!--                            <TableColumn fx:id="oraberCol" prefWidth="70" text="Órabér" />-->
-                                    <!--                            <TableColumn fx:id="pozicioCol" prefWidth="90" text="Pozíció" />-->
-                                    <!--                            <TableColumn fx:id="munkakorCol" prefWidth="70" text="Munkakör" />-->
-                                    <!--                            <TableColumn fx:id="leirasCol" prefWidth="291.142826625279" text="Leírás" />-->
-                                    <!--                              <TableColumn fx:id="letrehozasCol" prefWidth="80" text="Létrehozás" />-->
+
                                 </columns>
                             </TableView>
-                            <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzMunkaltatok" text="Listázz" />
+                            <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzMunkaltatok" style="-fx-background-color: #ADD8E6;" text="Listázz" />
                         </children>
                     </AnchorPane>
                 </content>
@@ -69,17 +53,12 @@
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                         <children>
-                            <TableView fx:id="tv4" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="650.0">
+                            <TableView fx:id="tv4" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="670.0">
                                 <columns>
-                                    <!--                            <TableColumn fx:id="munkaltatoCol" prefWidth="100" text="Munkáltató név" />-->
-                                    <!--                            <TableColumn fx:id="oraberCol" prefWidth="70" text="Órabér" />-->
-                                    <!--                            <TableColumn fx:id="pozicioCol" prefWidth="90" text="Pozíció" />-->
-                                    <!--                            <TableColumn fx:id="munkakorCol" prefWidth="70" text="Munkakör" />-->
-                                    <!--                            <TableColumn fx:id="leirasCol" prefWidth="291.142826625279" text="Leírás" />-->
-                                    <!--                              <TableColumn fx:id="letrehozasCol" prefWidth="80" text="Létrehozás" />-->
+
                                 </columns>
                             </TableView>
-                            <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzFelhasznalok" text="Listázz" />
+                            <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzFelhasznalok" style="-fx-background-color: #ADD8E6;" text="Listázz" />
                         </children>
                     </AnchorPane>
                 </content>
@@ -88,11 +67,11 @@
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                         <children>
-                            <TableView fx:id="tv5" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="650.0">
+                            <TableView fx:id="tv5" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="670.0">
                                 <columns>
                                 </columns>
                             </TableView>
-                            <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzstatszakma" text="Listázz" />
+                            <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzstatszakma" style="-fx-background-color: #ADD8E6;" text="Listázz" />
                         </children>
                     </AnchorPane>
                 </content>
@@ -101,11 +80,11 @@
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                         <children>
-                            <TableView fx:id="tv6" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="650.0">
+                            <TableView fx:id="tv6" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="670.0">
                                 <columns>
                                 </columns>
                             </TableView>
-                            <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzstatkor" text="Listázz" />
+                            <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzstatkor" style="-fx-background-color: #ADD8E6;" text="Listázz" />
                         </children>
                     </AnchorPane>
                 </content>
@@ -114,36 +93,36 @@
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                         <children>
-                            <TableView fx:id="tv7" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="650.0">
+                            <TableView fx:id="tv7" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="670.0">
                                 <columns>
                                 </columns>
                             </TableView>
-                            <Button layoutX="20.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzminber" text="Min_bér" />
-                            <TextField fx:id="berTF" promptText="Informatikus" layoutX="100.0" layoutY="344.0" />
-                            <Button layoutX="270.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzmaxber" text="Max_bér" />
+                            <Button layoutX="20.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzminber" style="-fx-background-color: #ADD8E6;" text="Min_bér" />
+                            <TextField fx:id="berTF" layoutX="100.0" layoutY="344.0" promptText="Informatikus" />
+                            <Button layoutX="270.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzmaxber" style="-fx-background-color: #ADD8E6;" text="Max_bér" />
                         </children>
                     </AnchorPane>
                 </content>
             </Tab>
-          <Tab text="Profilom">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <TextField fx:id="email" layoutX="226.0" layoutY="122.0" />
-                        <TextField fx:id="pass" layoutX="226.0" layoutY="160.0" />
-                        <Label layoutX="244.0" layoutY="38.0" text="Profilom">
-                           <font>
-                              <Font size="30.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="158.0" layoutY="126.0" text="E-mail cím" />
-                        <Label layoutX="181.0" layoutY="164.0" text="Jelszó" />
-                        <Button layoutX="264.0" layoutY="212.0" mnemonicParsing="false" onAction="#modositas" text="Módosítás" />
-                        <Button layoutX="402.0" layoutY="148.0" mnemonicParsing="false" onAction="#adataim" text="Adataim" />
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
+            <Tab text="Profilom">
+                <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <children>
+                            <TextField fx:id="email" layoutX="260.0" layoutY="131.0" />
+                            <TextField fx:id="pass" layoutX="260.0" layoutY="178.0" />
+                            <Label layoutX="278.0" layoutY="60.0" text="Profilom">
+                                <font>
+                                    <Font size="30.0" />
+                                </font>
+                            </Label>
+                            <Label layoutX="185.0" layoutY="138.0" text="E-mail cím" />
+                            <Label layoutX="210.0" layoutY="182.0" text="Jelszó" />
+                            <Button layoutX="299.0" layoutY="235.0" mnemonicParsing="false" onAction="#modositas" style="-fx-background-color: #ADD8E6;" text="Módosítás" />
+                            <Button layoutX="457.0" layoutY="156.0" mnemonicParsing="false" onAction="#adataim" style="-fx-background-color: #ADD8E6;" text="Adataim" />
+                        </children>
+                    </AnchorPane>
+                </content>
+            </Tab>
         </tabs>
       </TabPane>
    </children>

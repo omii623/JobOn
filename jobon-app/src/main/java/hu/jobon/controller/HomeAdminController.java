@@ -53,16 +53,20 @@ public class HomeAdminController {
     public void initialize(){
         TableColumn munkaltatoCol = new TableColumn("felhasznalo_ID");
         munkaltatoCol.setCellValueFactory(new PropertyValueFactory<>("felhasznalo_ID"));
+        munkaltatoCol.setMinWidth(120);
         TableColumn oraberCol = new TableColumn("oraber");
         oraberCol.setCellValueFactory(new PropertyValueFactory<>("oraber"));
         TableColumn pozicioCol = new TableColumn("pozicio");
         pozicioCol.setCellValueFactory(new PropertyValueFactory<>("pozicio"));
+        pozicioCol.setMinWidth(150);
         TableColumn munkakorCol = new TableColumn("munkakor");
         munkakorCol.setCellValueFactory(new PropertyValueFactory<>("munkakor"));
         TableColumn leirasCol = new TableColumn("leiras");
         leirasCol.setCellValueFactory(new PropertyValueFactory<>("leiras"));
+        leirasCol.setMinWidth(180);
         TableColumn letrehozasCol = new TableColumn("letrehozas_ideje");
         letrehozasCol.setCellValueFactory(new PropertyValueFactory<>("letrehozas_ideje"));
+        letrehozasCol.setMinWidth(130);
         tv1.getColumns().addAll(munkaltatoCol, oraberCol, pozicioCol, munkakorCol, leirasCol, letrehozasCol);
 
 
@@ -70,12 +74,15 @@ public class HomeAdminController {
         allaskeresoCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
         TableColumn nevCol = new TableColumn("teljes_nev");
         nevCol.setCellValueFactory(new PropertyValueFactory<>("teljes_nev"));
+        nevCol.setMinWidth(120);
         TableColumn szulCol = new TableColumn("szuletesi_datum");
         szulCol.setCellValueFactory(new PropertyValueFactory<>("szuletesi_datum"));
+        szulCol.setMinWidth(130);
         TableColumn varosCol = new TableColumn("varos");
         varosCol.setCellValueFactory(new PropertyValueFactory<>("varos"));
         TableColumn cimCol = new TableColumn("cim");
         cimCol.setCellValueFactory(new PropertyValueFactory<>("cim"));
+        cimCol.setMinWidth(150);
         tv2.getColumns().addAll(allaskeresoCol, nevCol, szulCol, varosCol, cimCol);
 
 
@@ -83,16 +90,21 @@ public class HomeAdminController {
         munkaltatoidCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
         TableColumn cegnevCol = new TableColumn("cegnev");
         cegnevCol.setCellValueFactory(new PropertyValueFactory<>("cegnev"));
+        cegnevCol.setMinWidth(130);
         TableColumn telCol = new TableColumn("telefonszam");
         telCol.setCellValueFactory(new PropertyValueFactory<>("telefonszam"));
+        telCol.setMinWidth(120);
         TableColumn varosmCol = new TableColumn("varos");
         varosmCol.setCellValueFactory(new PropertyValueFactory<>("varos"));
         TableColumn cimmCol = new TableColumn("cim");
         cimmCol.setCellValueFactory(new PropertyValueFactory<>("cim"));
+        cimCol.setMinWidth(150);
         TableColumn megalapitasCol = new TableColumn("megalapitas_eve");
         megalapitasCol.setCellValueFactory(new PropertyValueFactory<>("megalapitas_eve"));
+        megalapitasCol.setMinWidth(130);
         TableColumn hiv_emailCol = new TableColumn("email_cim_hivatalos");
         hiv_emailCol.setCellValueFactory(new PropertyValueFactory<>("email_cim_hivatalos"));
+        hiv_emailCol.setMinWidth(140);
         tv3.getColumns().addAll(munkaltatoidCol, cegnevCol, telCol, varosmCol, cimmCol, megalapitasCol, hiv_emailCol);
 
 
@@ -100,14 +112,15 @@ public class HomeAdminController {
         felhasznaloidCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
         TableColumn emailCol = new TableColumn("email_cim");
         emailCol.setCellValueFactory(new PropertyValueFactory<>("email_cim"));
+        emailCol.setMinWidth(140);
         TableColumn jelszoCol = new TableColumn("jelszo");
         jelszoCol.setCellValueFactory(new PropertyValueFactory<>("jelszo"));
+        jelszoCol.setMinWidth(120);
         TableColumn tipusCol = new TableColumn("tipus");
         tipusCol.setCellValueFactory(new PropertyValueFactory<>("tipus"));
         TableColumn actionCol = new TableColumn("action");
         actionCol.setCellFactory(param -> new TableCell<>() {
             private final Button deleteBtn = new Button("Delete");
-//            private final Button editBtn = new Button("Edit");
 
             {
                 deleteBtn.setOnAction(event -> {
@@ -116,11 +129,12 @@ public class HomeAdminController {
                     ActionEvent actionEvent = new ActionEvent();
                     listazzFelhasznalok(actionEvent);
                 });
-
+                if(felhasznaloidCol.getCellValueFactory()!=null){
                 HBox container = new HBox();
                 container.getChildren().addAll(deleteBtn);
                 container.setSpacing(10.0);
                 setGraphic(container);
+                }
             }
 
 
@@ -129,8 +143,10 @@ public class HomeAdminController {
 
         TableColumn szakmaCol = new TableColumn("szakma");
         szakmaCol.setCellValueFactory(new PropertyValueFactory<>("szakma"));
+        szakmaCol.setMinWidth(110);
         TableColumn felhasznalok_szamaCol = new TableColumn("felhasznalok_szama");
         felhasznalok_szamaCol.setCellValueFactory(new PropertyValueFactory<>("felhasznalok_szama"));
+        felhasznalok_szamaCol.setMinWidth(120);
         tv5.getColumns().addAll(szakmaCol, felhasznalok_szamaCol);
 
         TableColumn korCol = new TableColumn("atlag_eletkor");

@@ -4,37 +4,37 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.jobon.controller.HomeAllaskeresoController">
+<AnchorPane prefHeight="410.0" prefWidth="700.0" style="-fx-background-color: #778899;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.jobon.controller.HomeAllaskeresoController">
    <children>
-      <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="410.0" prefWidth="700.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Friss állásajánlatok">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <TableView fx:id="tv1" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="573.0">
-                          <columns>
-<!--                            <TableColumn fx:id="munkaltatoCol" prefWidth="100" text="Munkáltató név" />-->
-<!--                            <TableColumn fx:id="oraberCol" prefWidth="70" text="Órabér" />-->
-<!--                            <TableColumn fx:id="pozicioCol" prefWidth="90" text="Pozíció" />-->
-<!--                            <TableColumn fx:id="munkakorCol" prefWidth="70" text="Munkakör" />-->
-<!--                            <TableColumn fx:id="leirasCol" prefWidth="291.142826625279" text="Leírás" />-->
-<!--                              <TableColumn fx:id="letrehozasCol" prefWidth="80" text="Létrehozás" />-->
-                          </columns>
-                        </TableView>
-                        <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazz" text="Listázz" />
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
+<!--          <Tab text="Friss állásajánlatok">-->
+<!--            <content>-->
+<!--              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" >-->
+<!--                     <children>-->
+<!--                        <TableView fx:id="tv1" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="670.0">-->
+<!--                          <columns>-->
+<!--                          </columns>-->
+<!--                        </TableView>-->
+<!--                        <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazz" style="-fx-background-color: #ADD8E6;" text="Listázz" />-->
+<!--                     </children>-->
+<!--                  </AnchorPane>-->
+<!--            </content>-->
+<!--          </Tab>-->
           <Tab text="Megfelelő állásajánlatok">
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                         <children>
-                            <TableView fx:id="tv2" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="573.0">
+                            <TableView fx:id="tv2" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="670.0">
                                 <columns>
                                 </columns>
                             </TableView>
+                            <Button layoutX="10.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzmallasokat" style="-fx-background-color: #ADD8E6;" text="Listázz" />
+                            <Button layoutX="70.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzAtlagonFeluli" style="-fx-background-color: #ADD8E6;" text="Átlagon felüli" />
+                            <Button layoutX="200.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzeszerintm" style="-fx-background-color: #ADD8E6;" text="Szűrés munkakörre" />
+                            <Button layoutX="325.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzeszerintv" style="-fx-background-color: #ADD8E6;" text="Szűrés városra" />
+                            <Button layoutX="425.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzeszerinto" style="-fx-background-color: #ADD8E6;" text="Min órabér" />
+                            <TextField fx:id="searchTF" layoutX="515.0" layoutY="344.0" prefHeight="26.0" prefWidth="157.0" promptText="Informatikus/Szeged/2000" />
                             <Button layoutX="10.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzmallasokat" text="Listázz" />
                             <Button layoutX="70.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzAtlagonFeluli" text="Átlagon felüli" />
                             <Button layoutX="200.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzeszerintm" text="Szűrés munkakörre" />
@@ -50,18 +50,11 @@
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                         <children>
-                            <TableView fx:id="tv3" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="573.0">
+                            <TableView fx:id="tv3" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="670.0">
                                 <columns>
-                                    <!--                            <TableColumn fx:id="munkaltatoCol" prefWidth="100" text="Munkáltató név" />-->
-                                    <!--                            <TableColumn fx:id="oraberCol" prefWidth="70" text="Órabér" />-->
-                                    <!--                            <TableColumn fx:id="pozicioCol" prefWidth="90" text="Pozíció" />-->
-                                    <!--                            <TableColumn fx:id="munkakorCol" prefWidth="70" text="Munkakör" />-->
-                                    <!--                            <TableColumn fx:id="leirasCol" prefWidth="291.142826625279" text="Leírás" />-->
-                                    <!--                              <TableColumn fx:id="letrehozasCol" prefWidth="80" text="Létrehozás" />-->
                                 </columns>
                             </TableView>
-                            <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzJelentkezeseim" text="Listázz" />
-<!--                            <Button fx:id="denyBtn" layoutX="100.0" layoutY="344.0" mnemonicParsing="false"  text="Lemond" />-->
+                            <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazzJelentkezeseim" style="-fx-background-color: #ADD8E6;" text="Listázz" />
                         </children>
                     </AnchorPane>
                 </content>
