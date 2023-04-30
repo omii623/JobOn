@@ -6,10 +6,9 @@ import hu.jobon.database.model.Felhasznalo;
 import hu.jobon.database.model.Munkaltato;
 import hu.jobon.database.model.*;
 import hu.jobon.database.servicemodel.*;
-import hu.jobon.user.User;
+import hu.jobon.User;
 import hu.jobon.database.model.*;
 import hu.jobon.database.servicemodel.*;
-import hu.jobon.user.User;
 import oracle.jdbc.pool.OracleDataSource;
 
 import java.sql.*;
@@ -47,14 +46,14 @@ public class Database {
     private final String GET_STAT_KOR_FELHASZNALO = "SELECT AVG(EXTRACT(YEAR FROM CURRENT_DATE)-EXTRACT(YEAR FROM SZULETESI_DATUM)) AS atlageletkor, SZAKMA FROM C##SAELDC.ALLASKERESO, C##SAELDC.SZAKMA WHERE ALLASKERESO.ID=SZAKMA.FID GROUP BY  SZAKMA ORDER BY atlageletkor";
     private final String GET_STAT_JELENTKEZOK = "SELECT POZICIO, COUNT(*) AS jelentkezok_szama FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.JELENTKEZES WHERE ALLASAJANLAT.ID=JELENTKEZES.AID AND ALLASAJANLAT.FID="+felhasznalo.getID()+" GROUP BY POZICIO ORDER BY Jelentkezok_szama";
     private final String GET_STAT_BER = "ORABER) AS ber, MUNKAKOR FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.MUNKALTATO WHERE ALLASAJANLAT.FID=MUNKALTATO.ID AND MUNKAKOR=";
-   private final String REGIST_USER = "INSERT INTO C##SAELDC.FELHASZNALO (ID,EMAIL_CIM,JELSZO,TIPUS) VALUES (";
+    private final String REGIST_USER = "INSERT INTO C##SAELDC.FELHASZNALO (ID,EMAIL_CIM,JELSZO,TIPUS) VALUES (";
     private final String NEW_ALLASAJANLAT = "INSERT INTO C##SAELDC.ALLASAJANLAT (ID,FID,ORABER,POZICIO,MUNKAKOR,LETREHOZAS_IDEJE, LEIRAS) VALUES (";
     private final String NEW_JELENTKEZES = "INSERT INTO C##SAELDC.JELENTKEZES (AID,FID) VALUES (";
-   private final String REGIST_MUNKALTATO = "INSERT INTO C##SAELDC.MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) VALUES (";
+    private final String REGIST_MUNKALTATO = "INSERT INTO C##SAELDC.MUNKALTATO (ID,CEGNEV,TELEFONSZAM,EMAIL_CIM_HIVATALOS,MEGALAPITAS_EVE,VAROS,CIM) VALUES (";
     private final String REGIST_ALLASKERESO = "INSERT INTO C##SAELDC.ALLASKERESO (ID,TELJES_NEV,SZULETESI_DATUM,VAROS,CIM,UTOLSO_BELEPES) VALUES (";
     private final String MAX_ID_FELHASZNALO = "SELECT MAX(ID) FROM C##SAELDC.FELHASZNALO";
     private final String MAX_ID_ALLASAJANLAT = "SELECT MAX(ID) FROM C##SAELDC.ALLASAJANLAT";
-     private final String DELETE_FELHASZNALO = "DELETE FROM C##SAELDC.FELHASZNALO WHERE ID=";
+    private final String DELETE_FELHASZNALO = "DELETE FROM C##SAELDC.FELHASZNALO WHERE ID=";
     private final String DELETE_ALLASAJANLAT = "DELETE FROM C##SAELDC.ALLASAJANLAT WHERE ID=";
     private final String DELETE_JELENTKEZESEIM = "DELETE FROM C##SAELDC.JELENTKEZES WHERE AID=";
 
@@ -353,7 +352,6 @@ public class Database {
         return false;
     }
 
-
     public List<Allasajanlat> getFrissAllasajanlatAll(){
         DatabaseConnect();
         List<Allasajanlat> aList = new ArrayList<>();
@@ -382,7 +380,6 @@ public class Database {
         DatabaseDisconnect();
         return aList;
     }
-
 
     public List<AllasajanlatCegesAdatokkal> getMAllasajanlat(String text, int i) {
         DatabaseConnect();
@@ -425,7 +422,6 @@ public class Database {
         return aList;
     }
 
-
     public List<AllasajanlatCegesAdatokkal> getMAllasajanlatAll() {
         DatabaseConnect();
         List<AllasajanlatCegesAdatokkal> aList = new ArrayList<>();
@@ -458,9 +454,6 @@ public class Database {
         DatabaseDisconnect();
         return aList;
     }
-
-
-
 
     public void newAllasajanlat(Allasajanlat a) {
         DatabaseConnect();
@@ -511,7 +504,6 @@ public class Database {
         DatabaseDisconnect();
     }
 
-
     public List<JelentkezokMunkaltatonkent> getJelentkezok() {
         DatabaseConnect();
         List<JelentkezokMunkaltatonkent> jList = new ArrayList<>();
@@ -540,7 +532,6 @@ public class Database {
         DatabaseDisconnect();
         return jList;
     }
-
 
     public List<Jelentkezeseim> getJelentkezeseim() {
         DatabaseConnect();
@@ -646,7 +637,6 @@ public class Database {
         DatabaseDisconnect();
         return kList;
     }
-
 
     public List<BerStat> getStatMinBer(String min) {
         DatabaseConnect();
@@ -755,5 +745,5 @@ public class Database {
         DatabaseDisconnect();
         return aList;
     }
-    
+
 }

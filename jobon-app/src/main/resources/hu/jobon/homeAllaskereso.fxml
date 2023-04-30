@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="410.0" prefWidth="700.0" style="-fx-background-color: #778899;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.jobon.controller.HomeAllaskeresoController">
    <children>
@@ -84,6 +91,24 @@
                   </AnchorPane>
             </content>
           </Tab>
+            <Tab text="CV">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="80.0" layoutY="36.0" text="CV">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Label>
+                        <ImageView fx:id="cvImage" fitHeight="340.0" fitWidth="400.0" layoutX="193.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@./img/1503.png" />
+                           </image></ImageView>
+                        <Button layoutX="37.0" layoutY="105.0" mnemonicParsing="false" onAction="#choseButton" text="Kép kiválasztása" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
         </tabs>
       </TabPane>
    </children>

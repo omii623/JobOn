@@ -33,13 +33,8 @@ public class LoginController {
                 felhasznalo.setEmail_cim(f.getEmail_cim());
                 felhasznalo.setJelszo(f.getJelszo());
                 felhasznalo.setTipus(f.getTipus());
-//                System.out.println(felhasznalo.getEmail_cim());
                 if(f.getTipus() == 1) {
                     App.setRoot("homeAdmin");
-//                    List<Allasajanlat> allasok = db.getAllasajanlatAll();
-//                    for (Allasajanlat allas : allasok) {
-//                        System.out.println(allas.getMunkakor());
-//                    }
                 }
                 else if(f.getTipus() == 2) {
                     App.setRoot("homeAllaskereso");

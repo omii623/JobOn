@@ -14,9 +14,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
-
+import javafx.stage.FileChooser;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
+import javax.imageio.ImageIO;
 import java.io.IOException;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.Files;
+import java.io.File;
 import java.util.List;
+import java.util.Objects;
 
 import static hu.jobon.controller.LoginController.felhasznalo;
 
@@ -41,10 +48,32 @@ public class HomeAllaskeresoController {
     public TextField szakmaa;
 
     public static Szakma szakma = new Szakma();
+    @FXML
+    public ImageView cvImage;
 
     Database db = new Database();
     @FXML
     public void initialize(){
+        int fileNameInt = LoginController.felhasznalo.getID();
+        String fileName = String.valueOf(fileNameInt) + ".jpg";
+        Image image = new Image("./img/" + fileName);
+        cvImage.setImage(image);
+        System.out.println("Képbetöltés sikeres. Path: " + image.getUrl());
+
+
+        TableColumn munkaltatoCol = new TableColumn("felhasznalo_ID");
+        munkaltatoCol.setCellValueFactory(new PropertyValueFactory<>("felhasznalo_ID"));
+        TableColumn oraberCol = new TableColumn("oraber");
+        oraberCol.setCellValueFactory(new PropertyValueFactory<>("oraber"));
+        TableColumn pozicioCol = new TableColumn("pozicio");
+        pozicioCol.setCellValueFactory(new PropertyValueFactory<>("pozicio"));
+        TableColumn munkakorCol = new TableColumn("munkakor");
+        munkakorCol.setCellValueFactory(new PropertyValueFactory<>("munkakor"));
+        TableColumn leirasCol = new TableColumn("leiras");
+        leirasCol.setCellValueFactory(new PropertyValueFactory<>("leiras"));
+        TableColumn letrehozasCol = new TableColumn("letrehozas_ideje");
+        letrehozasCol.setCellValueFactory(new PropertyValueFactory<>("letrehozas_ideje"));
+        tv1.getColumns().addAll(munkaltatoCol, oraberCol, pozicioCol, munkakorCol, leirasCol, letrehozasCol);
 
         TableColumn IdCol = new TableColumn("ID");
         IdCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
@@ -182,5 +211,43 @@ public class HomeAllaskeresoController {
 
     public void kijelentkezes(ActionEvent event) throws IOException {
         App.setRoot("login");
+    }
+    
+    @FXML
+    void choseButton(ActionEvent event){
+
+        int fileNameInt = LoginController.felhasznalo.getID();
+        String fileName = String.valueOf(fileNameInt) + ".jpg";
+
+        FileChooser fileChooser = new FileChooser();
+
+        FileChooser.ExtensionFilter extFilterjpg = new FileChooser.ExtensionFilter("jpg files (*.jpg)", "*.jpg");
+        fileChooser.getExtensionFilters().addAll(extFilterjpg);
+
+        File file = fileChooser.showOpenDialog(null);
+        File destFile = new File("src/main/resources/img/"+fileName);
+        File file2 = new File("/img/"+fileName);
+
+        //System.out.println("path: "+getClass().toString());
+
+        if (file != null) {
+        //if (true) {
+
+            try {
+                Files.copy(file.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }//létrehozva az id-re a kép
+
+
+            //Image image = new Image(file2.toURI().toString());
+            Image image = new Image("./img/" + fileName);
+
+            cvImage.setImage(image);
+            System.out.println("Képbetöltés sikeres. Path: " + image.getUrl());
+            System.out.println("Képbetöltés sikeres. Path2: " + cvImage.getImage().getUrl());
+        }else{
+            System.out.println("Képbetöltési hiba.");
+        }
     }
 }
