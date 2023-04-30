@@ -210,7 +210,110 @@ a másik 3 táblában is minden másodlagos attribútum teljesen függ bármely 
   <img src="https://raw.githubusercontent.com/omii623/JobOn/master/Diagrams/egyed_esemeny/egyed_esemeny.png" width="400">
 </div>
 
-## Funkció megadása:
+## Megvalósított összetett lekérdezések:
+<br>
+1.
+<div>
+SELECT AVG(EXTRACT(YEAR FROM CURRENT_DATE)-EXTRACT(YEAR FROM SZULETESI_DATUM)) AS atlageletkor, SZAKMA
+<br>
+FROM "C##SAELDC"."ALLASKERESO", "C##SAELDC"."SZAKMA"
+<br>
+WHERE ALLASKERESO.ID=SZAKMA.FID
+<br>
+GROUP BY SZAKMA
+<br>
+ORDER BY atlageletkor;
+</div>
+<br>
+<div>
+Helye a programkódban: jobon-app/src/main/java/hu/jobon/database/Database.java 46.sor
+</div>
+<br>
+<div>
+Statisztika az átlagéletkorról szakmánként
+</div>
+
+<br>
+2.
+<div>
+SELECT MIN(ORABER), MUNKAKOR
+<br>
+FROM "C##SAELDC"."ALLASAJANLAT", "C##SAELDC"."MUNKALTATO"
+<br>
+WHERE "C##SAELDC"."ALLASAJANLAT"."FID" = "C##SAELDC"."MUNKALTATO"."ID" AND VAROS='varos'
+<br>
+GROUP BY MUNKAKOR; 
+</div>
+<br>
+<div>
+Helye a programkódban: jobon-app/src/main/java/hu/jobon/database/Database.java 48.sor és 646.sor
+</div>
+<br>
+<div>
+Statisztika a minimum órabérekről munkakörök szerint a választott városban
+</div>
+
+<br>
+3.
+<div>
+SELECT MAX(ORABER), MUNKAKOR
+<br>
+FROM "C##SAELDC"."ALLASAJANLAT", "C##SAELDC"."MUNKALTATO"
+<br>
+WHERE "C##SAELDC"."ALLASAJANLAT"."FID" = "C##SAELDC"."MUNKALTATO"."ID" AND VAROS='varos'
+<br>
+GROUP BY MUNKAKOR; 
+</div>
+<br>
+<div>
+Helye a programkódban: jobon-app/src/main/java/hu/jobon/database/Database.java 48.sor és 671.sor
+</div>
+<br>
+<div>
+Statisztika a maximum órabérekről munkakörök szerint a választott városban
+</div>
+
+<br>
+4.
+<div>
+SELECT POZICIO, COUNT(*) AS jelentkezok_szama
+<br>
+FROM "C##SAELDC"."JELENTKEZES", "C##SAELDC"."ALLASAJANLAT"
+<br>
+WHERE "C##SAELDC"."JELENTKEZES".AID="C##SAELDC"."ALLASAJANLAT".ID AND "C##SAELDC"."ALLASAJANLAT"."FID"=felhasznalo.getID()
+<br>
+GROUP BY POZICIO
+<br>
+ORDER BY Jelentkezok_szama;  
+</div>
+<br>
+<div>
+Helye a programkódban: jobon-app/src/main/java/hu/jobon/database/Database.java 47.sor
+</div>
+<br>
+<div>
+Statisztika a jelentkezők számáról pozíció szerint az adott munkáltatónál
+</div>
+
+<br>
+5.
+<div>
+SELECT  *
+FROM "C##SAELDC"."ALLASAJANLAT", "C##SAELDC"."MUNKALTATO", "C##SAELDC"."ALLASKERESO"
+<br>
+WHERE "C##SAELDC"."ALLASAJANLAT"."FID"="C##SAELDC"."MUNKALTATO"."ID" AND "C##SAELDC"."ALLASKERESO"."ID"=felhasznalo.getID() 
+<br>
+AND ORABER> (SELECT AVG(ORABER) FROM "C##SAELDC"."ALLASAJANLAT") AND "C##SAELDC"."MUNKALTATO"."VAROS"="C##SAELDC"."ALLASKERESO"."VAROS";
+
+</div>
+<br>
+<div>
+Helye a programkódban: jobon-app/src/main/java/hu/jobon/database/Database.java 38.sor
+</div>
+<br>
+<div>
+Statisztika az átlagtól jobban fizető munkakörökről a felhasznaló városában
+</div>
 
 ## Egyéb:
 
