@@ -315,6 +315,107 @@ Helye a programkódban: jobon-app/src/main/java/hu/jobon/database/Database.java 
 Statisztika az átlagtól jobban fizető munkakörökről a felhasznaló városában
 </div>
 
-## Egyéb:
+<br>
+6.
+<div>
+SELECT COUNT(*), VAROS
+<br>
+FROM "C##SAELDC"."FELHASZNALO", "C##SAELDC"."ALLASKERESO"
+<br>
+WHERE "C##SAELDC"."FELHASZNALO"."ID"="C##SAELDC"."ALLASKERESO"."ID" 
+<br>
+GROUP BY VAROS;
+</div>
+<br>
+<div>
+Helye a programkódban: jobon-app/src/main/java/hu/jobon/database/Database.java 59.sor
+</div>
+<br>
+<div>
+Statisztika az álláskeresők számáról városonként 
+</div>
 
+## Függvények/eljárások és triggerek:
+<br>
+1F.
+<div>
+CREATE FUNCTION szakmabeliekSzama(p_szakma IN C##SAELDC.SZAKMA.szakma%TYPE)RETURN NUMBER
+<br>
+IS
+<br>
+szam NUMBER :=0;
+<br>
+BEGIN
+<br>
+SELECT COUNT(*) INTO szam
+<br>
+FROM C##SAELDC.SZAKMA
+<br>
+WHERE p_szakma=SZAKMA.szakma; 
+<br>
+RETURN szam;
+<br>
+END;
+</div>
 
+<br>
+2E.
+<div>
+CREATE OR REPLACE PROCEDURE newSzakma(p_id IN NUMBER, p_szakma IN VARCHAR2)
+<br>
+IS BEGIN
+<br>
+INSERT INTO "C##SAELDC"."SZAKMA" (SZAKMA,FID) values (p_szakma, p_id);
+<br>
+END;
+</div>
+
+<br>
+1T.
+<div>
+CREATE OR REPLACE TRIGGER log_trigger
+<br>
+AFTER UPDATE OR INSERT OF ALLASKERESO ON 'utolsó belépés'
+<br>
+FOR EACH ROW
+<br>
+WHEN (OLD.'utolsó belépés' != NEW.'utolsó belépés')
+<br>
+BEGIN
+<br>
+      INSERT INTO log_table (id, login) VALUES (NEW.id, NEW.'utolsó belépés')
+<br>
+END;
+<br>
+/
+</div>
+
+<br>
+2T.
+<div>
+CREATE OR REPLACE TRIGGER off_trigger
+<br>
+BEFORE DELETE OR INSERT OR UPDATE
+<br>
+ON JELENTKEZES
+<br>
+BEGIN
+<br>
+     IF TO_CHAR(SYSDATE, 'HH24:MI') < '08:00' THEN  
+     <br>
+     RAISE_APPLICATION_ERROR(-20111, 'Nem lehet jelenleg módosítani.');
+     <br>
+     END IF;
+     <br>
+     IF TO_CHAR(SYSDATE, 'HH24:MI') > '20:00' THEN  
+     <br>
+     RAISE_APPLICATION_ERROR(-20111, 'Nem lehet jelenleg módosítani.');
+     <br>
+     END IF;
+     <br>
+END;
+<br>
+/
+</div>
+
+## Fordításhoz/futtatáshoz szükséges eszközök:
