@@ -27,6 +27,9 @@ public class LoginController {
         List<Felhasznalo> AllFelhasznalo = db.getFelhasznaloAll();
         for (Felhasznalo f : AllFelhasznalo) {
             System.out.println(f.getEmail_cim() + " - " + f.getJelszo() + " - " + f.getTipus());
+            if(f.getEmail_cim() == null){
+                continue;
+            }
             if(f.getEmail_cim().equals(userTextFiled.getText()) && f.getJelszo().equals(passPassFiled.getText())){
                 System.out.println("sikeres belépés");
                 felhasznalo.setID(f.getID());
