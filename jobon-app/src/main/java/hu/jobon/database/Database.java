@@ -45,7 +45,7 @@ public class Database {
     private final String GET_STAT_SZAKMA_FELHASZNALO = "SELECT SZAKMA FROM C##SAELDC.ALLASKERESO, C##SAELDC.SZAKMA WHERE ALLASKERESO.ID=SZAKMA.FID GROUP BY SZAKMA";
     private final String GET_STAT_KOR_FELHASZNALO = "SELECT AVG(EXTRACT(YEAR FROM CURRENT_DATE)-EXTRACT(YEAR FROM SZULETESI_DATUM)) AS atlageletkor, SZAKMA FROM C##SAELDC.ALLASKERESO, C##SAELDC.SZAKMA WHERE ALLASKERESO.ID=SZAKMA.FID GROUP BY  SZAKMA ORDER BY atlageletkor";
     private final String GET_STAT_JELENTKEZOK = "SELECT POZICIO, COUNT(*) AS jelentkezok_szama FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.JELENTKEZES WHERE ALLASAJANLAT.ID=JELENTKEZES.AID AND ALLASAJANLAT.FID="+felhasznalo.getID()+" GROUP BY POZICIO ORDER BY Jelentkezok_szama";
-    private final String GET_STAT_BER = "ORABER) AS ber, MUNKAKOR FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.MUNKALTATO WHERE ALLASAJANLAT.FID=MUNKALTATO.ID AND MUNKAKOR=";
+    private final String GET_STAT_BER = "ORABER) AS ber, MUNKAKOR FROM C##SAELDC.ALLASAJANLAT, C##SAELDC.MUNKALTATO WHERE ALLASAJANLAT.FID=MUNKALTATO.ID AND VAROS=";
     private final String REGIST_USER = "INSERT INTO C##SAELDC.FELHASZNALO (ID,EMAIL_CIM,JELSZO,TIPUS) VALUES (";
     private final String NEW_ALLASAJANLAT = "INSERT INTO C##SAELDC.ALLASAJANLAT (ID,FID,ORABER,POZICIO,MUNKAKOR,LETREHOZAS_IDEJE, LEIRAS) VALUES (";
     private final String NEW_JELENTKEZES = "INSERT INTO C##SAELDC.JELENTKEZES (AID,FID) VALUES (";
@@ -56,7 +56,7 @@ public class Database {
     private final String DELETE_FELHASZNALO = "DELETE FROM C##SAELDC.FELHASZNALO WHERE ID=";
     private final String DELETE_ALLASAJANLAT = "DELETE FROM C##SAELDC.ALLASAJANLAT WHERE ID=";
     private final String DELETE_JELENTKEZESEIM = "DELETE FROM C##SAELDC.JELENTKEZES WHERE AID=";
-
+    private final String GET_ALLASKERESOK_SZAMA ="SELECT COUNT(*) as allaskeresok_szama, VAROS FROM C##SAELDC.ALLASKERESO, C##SAELDC.FELHASZNALO WHERE C##SAELDC.ALLASKERESO.ID=C##SAELDC.FELHASZNALO.ID GROUP BY VAROS";
 
     public Database(){
        
@@ -746,4 +746,28 @@ public class Database {
         return aList;
     }
 
+    public List<VarosStat> getStatVarosFelhasznalo() {
+        DatabaseConnect();
+        List<VarosStat> vList = new ArrayList<>();
+        try{
+            stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            rs = stmt.executeQuery(GET_ALLASKERESOK_SZAMA);
+
+            while(rs.next()){
+                VarosStat v = new VarosStat();
+                v.setAllaskeresok_szama(rs.getInt("allaskeresok_szama"));
+                v.setVaros(rs.getString("VAROS"));
+                vList.add(v);
+            }
+
+            System.out.println("INFO: Sikeres lekérés (statkor)");
+        }catch(Exception e){
+            System.out.println("ERROR: Sikertelen lekérés (statkor)");
+            System.err.print(e);
+            DatabaseDisconnect();
+            return null;
+        }
+        DatabaseDisconnect();
+        return vList;
+    }
 }
