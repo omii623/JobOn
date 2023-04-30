@@ -102,6 +102,20 @@
     FOR EACH ROW
     WHEN (OLD.UTOLSO_BELEPES != NEW.UTOLSO_BELEPES)
     BEGIN
-	    INSERT INTO log_table (ID, login) VALUES (:NEW.id, :NEW.UTOLSO_BELEPES);
+        INSERT INTO log_table (ID, login) VALUES (:NEW.id, :NEW.UTOLSO_BELEPES);
+    END;
+    /
+
+    --2.trigger
+    CREATE OR REPLACE TRIGGER off_trigger
+    BEFORE DELETE OR INSERT OR UPDATE
+    ON JELENTKEZES
+    BEGIN
+        IF TO_CHAR(SYSDATE, 'HH24:MI') < '08:00' THEN  
+            RAISE_APPLICATION_ERROR(-20111, 'Nem lehet jelenleg módosítani.');
+        END IF;
+        IF TO_CHAR(SYSDATE, 'HH24:MI') > '20:00' THEN  
+            RAISE_APPLICATION_ERROR(-20111, 'Nem lehet jelenleg módosítani.');
+        END IF;
     END;
     /

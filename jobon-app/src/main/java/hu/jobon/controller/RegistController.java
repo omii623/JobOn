@@ -109,8 +109,6 @@ public class RegistController implements Initializable {
     }
     @FXML
     void regist() throws IOException {
-        //System.out.println("-"+dateP.getValue().toString()+"-");
-
         if(employer.isSelected()){
             Munkaltato m = new Munkaltato(0,passReg.getText(),emailReg.getText(), nameE.getText(),
                     phoneE.getText(),emailE.getText(),dateE.getValue().toString(), cityE.getText(),addresE.getText());
@@ -124,10 +122,7 @@ public class RegistController implements Initializable {
             db.registFelhasznalo(a);
 
             App.setRoot("homeAllaskereso");
-             //  App.setRoot("home");
-        }//*/
-    
-
+        }
     }
 
     @FXML
