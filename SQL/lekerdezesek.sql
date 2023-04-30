@@ -88,16 +88,6 @@
 
     --1.trigger
     CREATE OR REPLACE TRIGGER log_trigger
-    AFTER UPDATE OR INSERT OF ALLASKERESO ON 'utolsó belépés'
-    FOR EACH ROW
-    WHEN (OLD.'utolsó belépés' != NEW.'utolsó belépés')
-    BEGIN
-        INSERT INTO log_table (id, login) VALUES (NEW.id, NEW.'utolsó belépés')
-    END;
-    /
-    
-    --2.trigger
-    CREATE OR REPLACE TRIGGER log_trigger
     AFTER UPDATE OF UTOLSO_BELEPES ON ALLASKERESO
     FOR EACH ROW
     WHEN (OLD.UTOLSO_BELEPES != NEW.UTOLSO_BELEPES)
