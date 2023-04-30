@@ -6,6 +6,7 @@ import hu.jobon.database.model.*;
 import hu.jobon.database.servicemodel.BerStat;
 import hu.jobon.database.servicemodel.KorStat;
 import hu.jobon.database.servicemodel.SzakmaStat;
+import hu.jobon.database.servicemodel.VarosStat;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -37,6 +38,8 @@ public class HomeAdminController {
     public TextField berTF;
     @FXML
     public TableView tv7;
+    @FXML
+    public TableView tv8;
 
     Database db = new Database();
     @FXML
@@ -123,6 +126,13 @@ public class HomeAdminController {
         TableColumn szakma2Col = new TableColumn("szakma");
         szakma2Col.setCellValueFactory(new PropertyValueFactory<>("szakma"));
         tv6.getColumns().addAll(korCol, szakma2Col);
+
+        TableColumn szamCol = new TableColumn("allaskeresok_szama");
+        szamCol.setCellValueFactory(new PropertyValueFactory<>("allaskeresok_szama"));
+        szamCol.setMinWidth(120);
+        TableColumn varos2Col = new TableColumn("varos");
+        varos2Col.setCellValueFactory(new PropertyValueFactory<>("varos"));
+        tv8.getColumns().addAll(szamCol, varos2Col);
 
         TableColumn berCol = new TableColumn("ber");
         berCol.setCellValueFactory(new PropertyValueFactory<>("ber"));
@@ -233,5 +243,13 @@ public class HomeAdminController {
 
     public void kijelentkezes(ActionEvent event) throws IOException {
         App.setRoot("login");
+    }
+
+    public void listazzstatvaros(ActionEvent event) {
+        List<VarosStat> varosok = db.getStatVarosFelhasznalo();
+        tv8.getItems().clear();
+        for (VarosStat varos : varosok) {
+            tv8.getItems().add(varos);
+        }
     }
 }

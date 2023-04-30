@@ -14,10 +14,11 @@
     ORDER BY atlageletkor;                                -- statisztika: átlagéletkor szakmánként
 
     --2.összetett lekérdezés
-    SELECT COUNT(*), SZAKMA
-    FROM "C##SAELDC"."ALLASKERESO", "C##SAELDC"."SZAKMA"
-    WHERE ALLASKERESO.ID=SZAKMA.FID
-    GROUP BY SZAKMA;                 -- statisztika: milyen szakmából hány ember
+    SELECT COUNT(*), VAROS
+    FROM "C##SAELDC"."FELHASZNALO", "C##SAELDC"."ALLASKERESO"
+    WHERE "C##SAELDC"."FELHASZNALO"."ID"="C##SAELDC"."ALLASKERESO"."ID" 
+    GROUP BY VAROS;                 -- statisztika: milyen városból hány álláskereső
+
 
     --1.függvény
     CREATE FUNCTION szakmabeliekSzama(p_szakma IN C##SAELDC.SZAKMA.szakma%TYPE)RETURN NUMBER
@@ -63,7 +64,7 @@
     --5.összetett lekérdezés
     SELECT POZICIO, COUNT(*) AS jelentkezok_szama
     FROM "C##SAELDC"."JELENTKEZES", "C##SAELDC"."ALLASAJANLAT"
-    WHERE "C##SAELDC"."JELENTKEZES".AID="C##SAELDC"."ALLASAJANLAT".ID
+    WHERE "C##SAELDC"."JELENTKEZES"."AID"="C##SAELDC"."ALLASAJANLAT"."ID" AND "C##SAELDC"."ALLASAJANLAT"."FID"=felhasznalo.getID()
     GROUP BY POZICIO
     ORDER BY Jelentkezok_szama;                                         --statisztika: melyik pozícióra hányan jelentkeztek
 
