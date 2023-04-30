@@ -1,5 +1,6 @@
 package hu.jobon.controller;
 
+import hu.jobon.App;
 import hu.jobon.database.Database;
 import hu.jobon.database.model.*;
 import hu.jobon.database.servicemodel.BerStat;
@@ -11,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 
+import java.io.IOException;
 import java.util.List;
 
 import static hu.jobon.controller.LoginController.felhasznalo;
@@ -22,18 +24,6 @@ public class HomeAdminController {
     public TableView tv2;
     @FXML
     public TableView tv3;
-    @FXML
-    public TableColumn munkaltatoCol;
-    @FXML
-    public TableColumn oraberCol;
-    @FXML
-    public TableColumn pozicioCol;
-    @FXML
-    public TableColumn munkakorCol;
-    @FXML
-    public TableColumn leirasCol;
-    @FXML
-    public TableColumn letrehozasCol;
     @FXML
     public TextField email;
     @FXML
@@ -118,28 +108,7 @@ public class HomeAdminController {
         jelszoCol.setMinWidth(120);
         TableColumn tipusCol = new TableColumn("tipus");
         tipusCol.setCellValueFactory(new PropertyValueFactory<>("tipus"));
-        TableColumn actionCol = new TableColumn("action");
-        actionCol.setCellFactory(param -> new TableCell<>() {
-            private final Button deleteBtn = new Button("Delete");
-
-            {
-                deleteBtn.setOnAction(event -> {
-                    Felhasznalo f = (Felhasznalo) getTableRow().getItem();
-                    deleteFelhasznalo(f);
-                    ActionEvent actionEvent = new ActionEvent();
-                    listazzFelhasznalok(actionEvent);
-                });
-                if(felhasznaloidCol.getCellValueFactory()!=null){
-                HBox container = new HBox();
-                container.getChildren().addAll(deleteBtn);
-                container.setSpacing(10.0);
-                setGraphic(container);
-                }
-            }
-
-
-        });
-        tv4.getColumns().addAll(felhasznaloidCol, emailCol, jelszoCol, tipusCol, actionCol);
+        tv4.getColumns().addAll(felhasznaloidCol, emailCol, jelszoCol, tipusCol);
 
         TableColumn szakmaCol = new TableColumn("szakma");
         szakmaCol.setCellValueFactory(new PropertyValueFactory<>("szakma"));
@@ -162,8 +131,13 @@ public class HomeAdminController {
         tv7.getColumns().addAll(berCol, munkakor2Col);
     }
 
-    private void deleteFelhasznalo(Felhasznalo f) {
+    @FXML
+    private void deleteFelhasznalo() {
+
+        Felhasznalo f = (Felhasznalo) tv4.getSelectionModel().getSelectedItem();;
         db.deleteFelhasznalo(f);
+        ActionEvent actionEvent = new ActionEvent();
+        listazzFelhasznalok(actionEvent);
     }
 
 
@@ -255,5 +229,9 @@ public class HomeAdminController {
         for (BerStat ber : berek) {
             tv7.getItems().add(ber);
         }
+    }
+
+    public void kijelentkezes(ActionEvent event) throws IOException {
+        App.setRoot("login");
     }
 }
