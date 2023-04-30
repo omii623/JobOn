@@ -1,5 +1,6 @@
 package hu.jobon.controller;
 
+import hu.jobon.App;
 import hu.jobon.database.Database;
 import hu.jobon.database.model.Allasajanlat;
 import hu.jobon.database.model.Allaskereso;
@@ -14,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 
+import java.io.IOException;
 import java.util.List;
 
 import static hu.jobon.controller.LoginController.felhasznalo;
@@ -31,7 +33,10 @@ public class HomeAllaskeresoController {
     public TableView<Jelentkezeseim> tv3;
     @FXML
     public Button denyBtn;
+    @FXML
     public TextField searchTF;
+    @FXML
+    public Button applyBtn;
     @FXML
     public TextField szakmaa;
 
@@ -40,23 +45,6 @@ public class HomeAllaskeresoController {
     Database db = new Database();
     @FXML
     public void initialize(){
-//        TableColumn munkaltatoCol = new TableColumn("felhasznalo_ID");
-//        munkaltatoCol.setCellValueFactory(new PropertyValueFactory<>("felhasznalo_ID"));
-//        TableColumn oraberCol = new TableColumn("oraber");
-//        oraberCol.setCellValueFactory(new PropertyValueFactory<>("oraber"));
-//        TableColumn pozicioCol = new TableColumn("pozicio");
-//        pozicioCol.setCellValueFactory(new PropertyValueFactory<>("pozicio"));
-//        pozicioCol.setMinWidth(150);
-//        TableColumn munkakorCol = new TableColumn("munkakor");
-//        munkakorCol.setCellValueFactory(new PropertyValueFactory<>("munkakor"));
-//        TableColumn leirasCol = new TableColumn("leiras");
-//        leirasCol.setCellValueFactory(new PropertyValueFactory<>("leiras"));
-//        leirasCol.setMinWidth(180);
-//        TableColumn letrehozasCol = new TableColumn("letrehozas_ideje");
-//        letrehozasCol.setCellValueFactory(new PropertyValueFactory<>("letrehozas_ideje"));
-//        leirasCol.setMinWidth(130);
-//        tv1.getColumns().addAll(munkaltatoCol, oraberCol, pozicioCol, munkakorCol, leirasCol, letrehozasCol);
-
 
         TableColumn IdCol = new TableColumn("ID");
         IdCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
@@ -77,33 +65,9 @@ public class HomeAllaskeresoController {
         mmunkakorCol.setCellValueFactory(new PropertyValueFactory<>("munkakor"));
         TableColumn mleirasCol = new TableColumn("leiras");
         mleirasCol.setCellValueFactory(new PropertyValueFactory<>("leiras"));
-        mleirasCol.setMinWidth(180);
-        TableColumn actionCol = new TableColumn("action");
-        actionCol.setCellFactory(param -> new TableCell<>() {
-            private final Button applyBtn = new Button("Apply");
+        mleirasCol.setMinWidth(200);
 
-            {
-
-
-                applyBtn.setOnAction(event -> {
-                   AllasajanlatCegesAdatokkal a = tv2.getSelectionModel().getSelectedItem();
-                    applyAllasajanlat(a.getID(), felhasznalo.getID());
-                    listazz();
-                });
-//                System.out.println(IdCol.getCellData(i));
-
-//                if(IdCol.getCellData(i)!=null){
-                HBox container = new HBox();
-                container.getChildren().addAll(applyBtn);
-                container.setSpacing(10.0);
-                setGraphic(container);
-//                }
-//                i++;
-            }
-
-
-        });
-        tv2.getColumns().addAll(IdCol, cegnevCol, varosCol, cimCol, moraberCol, mpozicioCol, mmunkakorCol, mleirasCol, actionCol);
+        tv2.getColumns().addAll(IdCol, cegnevCol, varosCol, cimCol, moraberCol, mpozicioCol, mmunkakorCol, mleirasCol);
 
         TableColumn allasIDCol = new TableColumn("AID");
         allasIDCol.setCellValueFactory(new PropertyValueFactory<>("AID"));
@@ -116,50 +80,24 @@ public class HomeAllaskeresoController {
         munkakor2Col.setCellValueFactory(new PropertyValueFactory<>("munkakor"));
         TableColumn leiras2Col = new TableColumn("leiras");
         leiras2Col.setCellValueFactory(new PropertyValueFactory<>("leiras"));
-        leiras2Col.setMinWidth(180);
-        TableColumn actionCol2 = new TableColumn("action");
-        actionCol2.setCellFactory(param -> new TableCell<>() {
-            private final Button denyBtn = new Button("Deny");
-
-            {
-                denyBtn.setOnAction(event -> {
-                    Jelentkezeseim j = tv3.getSelectionModel().getSelectedItem();
-                    deleteJelentkezeseim(j.getAID());
-                    listazzJelentkezeseim();
-                });
-//                System.out.println(allasIDCol.getCellData(k));
-//                if(allasIDCol.getCellData(k)!=null){
-                    HBox container = new HBox();
-                    container.getChildren().addAll(denyBtn);
-                    container.setSpacing(10.0);
-                    setGraphic(container);
-//                }
-//                k++;
-            }
-
-        });
-
-        tv3.getColumns().addAll(allasIDCol, oraber2Col, pozicio2Col, munkakor2Col, leiras2Col, actionCol2);
+        leiras2Col.setMinWidth(200);
+        tv3.getColumns().addAll(allasIDCol, oraber2Col, pozicio2Col, munkakor2Col, leiras2Col);
 
     }
 
     @FXML
-    private void deleteJelentkezeseim(int AID) {
-        db.deleteJelentkezeseim(AID);
-    }
+    private void deleteJelentkezeseim() {
+        Jelentkezeseim j = tv3.getSelectionModel().getSelectedItem();
+        db.deleteJelentkezeseim(j.getAID());
+        listazzJelentkezeseim();
 
-    private void applyAllasajanlat(int aid, int fid) {
-        db.applyAllasajanlat(aid, fid);
     }
 
     @FXML
-    void listazz() {
-        List<Allasajanlat> allasok = db.getFrissAllasajanlatAll();
-        tv1.getItems().clear();
-        for (Allasajanlat allas : allasok) {
-//            System.out.println(allas.getMunkakor());
-            tv1.getItems().add(allas);
-        }
+    private void applyAllasajanlat() {
+        AllasajanlatCegesAdatokkal a = tv2.getSelectionModel().getSelectedItem();
+        db.applyAllasajanlat(a.getID(), felhasznalo.getID());
+//        listazzmallasokat();
     }
 
     public void adataim(ActionEvent actionEvent) {
@@ -242,4 +180,7 @@ public class HomeAllaskeresoController {
         }
     }
 
+    public void kijelentkezes(ActionEvent event) throws IOException {
+        App.setRoot("login");
+    }
 }

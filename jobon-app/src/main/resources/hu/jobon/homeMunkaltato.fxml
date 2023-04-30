@@ -18,6 +18,7 @@
                         </TableView>
                         <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazz" style="-fx-background-color: #ADD8E6;" text="Listázz" />
                         <Button layoutX="81.0" layoutY="344.0" mnemonicParsing="false" onAction="#ujallasajanlat" style="-fx-background-color: #ADD8E6;" text="Új állásajánlat" />
+                        <Button fx:id="deleteBtn" layoutX="185.0" layoutY="344.0" mnemonicParsing="false" style="-fx-background-color: #ADD8E6;" text="Törlés" />
                      </children>
                   </AnchorPane>
             </content>
@@ -63,6 +64,7 @@
                         <Label layoutX="210.0" layoutY="182.0" text="Jelszó" />
                         <Button layoutX="299.0" layoutY="235.0" mnemonicParsing="false" onAction="#modositas" style="-fx-background-color: #ADD8E6;" text="Módosítás" />
                         <Button layoutX="457.0" layoutY="156.0" mnemonicParsing="false" onAction="#adataim" style="-fx-background-color: #ADD8E6;" text="Adataim" />
+                         <Button layoutX="294.0" layoutY="290.0" mnemonicParsing="false" onAction="#kijelentkezes" style="-fx-background-color: #ADD8E6;" text="Kijelentkezés" />
                      </children>
                   </AnchorPane>
             </content>

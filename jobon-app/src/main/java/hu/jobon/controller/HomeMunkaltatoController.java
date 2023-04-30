@@ -32,6 +32,8 @@ public class HomeMunkaltatoController {
     public TextField pass;
     @FXML
     public TableView tv3;
+    @FXML
+    public Button deleteBtn;
 
 
     Database db = new Database();
@@ -54,40 +56,7 @@ public class HomeMunkaltatoController {
         TableColumn letrehozasCol = new TableColumn("letrehozas_ideje");
         letrehozasCol.setCellValueFactory(new PropertyValueFactory<>("letrehozas_ideje"));
         letrehozasCol.setMinWidth(130);
-        TableColumn actionCol = new TableColumn("action");
-        actionCol.setCellFactory(param -> new TableCell<>() {
-            private final Button deleteBtn = new Button("Delete");
-//            private final Button editBtn = new Button("Edit");
-
-            {
-                deleteBtn.setOnAction(event -> {
-                    Allasajanlat a = tv1.getSelectionModel().getSelectedItem();
-                    deleteAllasajanlat(a.getID());
-                    listazz();
-
-                });
-
-//                editBtn.setOnAction(event -> {
-//                    Allasajanlat a = tv1.getSelectionModel().getSelectedItem();
-//                    deleteAllasajanlat(a.getID());
-//                    try {
-//                        ujallasajanlat();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-
-//                });
-                HBox container = new HBox();
-                container.getChildren().addAll( deleteBtn);
-                container.setSpacing(10.0);
-                setGraphic(container);
-            }
-
-
-        });
-        actionCol.setMinWidth(140);
-
-        tv1.getColumns().addAll(IdCol, munkaltatoCol, oraberCol, pozicioCol, munkakorCol, leirasCol, letrehozasCol, actionCol);
+        tv1.getColumns().addAll(IdCol, munkaltatoCol, oraberCol, pozicioCol, munkakorCol, leirasCol, letrehozasCol);
 
         TableColumn pozCol = new TableColumn("pozicio");
         pozCol.setCellValueFactory(new PropertyValueFactory<>("pozicio"));
@@ -165,5 +134,9 @@ public class HomeMunkaltatoController {
         for (JelentkezokStat jelentkezes : jelentkezesek) {
             tv3.getItems().add(jelentkezes);
         }
+    }
+
+    public void kijelentkezes(ActionEvent event) throws IOException {
+        App.setRoot("login");
     }
 }
