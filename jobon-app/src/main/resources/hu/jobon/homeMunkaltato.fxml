@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="410.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.jobon.controller.HomeMunkaltatoController">
+<AnchorPane prefHeight="410.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.jobon.controller.HomeMunkaltatoController">
    <children>
       <TabPane prefHeight="410.0" prefWidth="700.0" style="-fx-background-color: #778899;" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Állásajánlataim">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="600.0" >
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="600.0">
                      <children>
                         <TableView fx:id="tv1" layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="670.0">
                           <columns>
@@ -18,7 +23,7 @@
                         </TableView>
                         <Button layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#listazz" style="-fx-background-color: #ADD8E6;" text="Listázz" />
                         <Button layoutX="81.0" layoutY="344.0" mnemonicParsing="false" onAction="#ujallasajanlat" style="-fx-background-color: #ADD8E6;" text="Új állásajánlat" />
-                        <Button fx:id="deleteBtn" layoutX="185.0" layoutY="344.0" mnemonicParsing="false" style="-fx-background-color: #ADD8E6;" text="Törlés" />
+                        <Button fx:id="deleteBtn" layoutX="199.0" layoutY="344.0" mnemonicParsing="false" onAction="#deleteAllasajanlat" style="-fx-background-color: #ADD8E6;" text="Törlés" />
                      </children>
                   </AnchorPane>
             </content>

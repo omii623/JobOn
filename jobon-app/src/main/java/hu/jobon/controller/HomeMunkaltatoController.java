@@ -115,9 +115,11 @@ public class HomeMunkaltatoController {
 
     }
 
-    private void deleteAllasajanlat(int ID) {
-        System.out.println("Info: "+ID);
-        db.deleteAllasajanlat(ID);
+    @FXML
+    private void deleteAllasajanlat() {
+        Allasajanlat a =  tv1.getSelectionModel().getSelectedItem();;
+        db.deleteAllasajanlat(a.getID());
+        listazz();
     }
 
     public void listazzJelentkezok(ActionEvent event) {

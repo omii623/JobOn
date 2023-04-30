@@ -73,7 +73,6 @@ public class HomeAllaskeresoController {
         leirasCol.setCellValueFactory(new PropertyValueFactory<>("leiras"));
         TableColumn letrehozasCol = new TableColumn("letrehozas_ideje");
         letrehozasCol.setCellValueFactory(new PropertyValueFactory<>("letrehozas_ideje"));
-        //tv1.getColumns().addAll(munkaltatoCol, oraberCol, pozicioCol, munkakorCol, leirasCol, letrehozasCol);
 
         TableColumn IdCol = new TableColumn("ID");
         IdCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
