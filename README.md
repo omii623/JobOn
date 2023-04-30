@@ -419,3 +419,9 @@ END;
 </div>
 
 ## Fordításhoz/futtatáshoz szükséges eszközök:
+
+Apache Maven version 3.6.3
+
+Java version: 11.0.18, vendor: Ubuntu, runtime: /usr/lib/jvm/java-11-openjdk-amd64
+
+OS name: "linux", version: "5.19.0-41-generic", arch: "amd64", family: "unix"
