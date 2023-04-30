@@ -6,8 +6,6 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -86,29 +84,13 @@
                         <TextField fx:id="szakmaa" layoutX="226.0" layoutY="287.0" />
                         <Label layoutX="159.0" layoutY="291.0" text="Új szakma" />
                         <Button layoutX="406.0" layoutY="287.0" mnemonicParsing="false" onAction="#szakmahozzaadas" style="-fx-background-color: #ADD8E6;" text="Hozzáadás" />
-                            <Button layoutX="294.0" layoutY="290.0" mnemonicParsing="false" onAction="#kijelentkezes" style="-fx-background-color: #ADD8E6;" text="Kijelentkezés" />
+                        <Button layoutX="294.0" layoutY="290.0" mnemonicParsing="false" onAction="#kijelentkezes" style="-fx-background-color: #ADD8E6;" text="Kijelentkezés" />
+                        <Button layoutX="243.0" layoutY="322.0" mnemonicParsing="false" onAction="#choseButton" text="Kép kiválasztása" />
+                        <Label layoutX="184.0" layoutY="326.0" text="CV" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab text="CV">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <Label layoutX="80.0" layoutY="36.0" text="CV">
-                           <font>
-                              <Font size="30.0" />
-                           </font>
-                        </Label>
-                        <ImageView fx:id="cvImage" fitHeight="340.0" fitWidth="400.0" layoutX="193.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@./img/1503.png" />
-                           </image></ImageView>
-                        <Button layoutX="37.0" layoutY="105.0" mnemonicParsing="false" onAction="#choseButton" text="Kép kiválasztása" />
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
         </tabs>
       </TabPane>
    </children>

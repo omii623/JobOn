@@ -48,17 +48,17 @@ public class HomeAllaskeresoController {
     public TextField szakmaa;
 
     public static Szakma szakma = new Szakma();
-    @FXML
-    public ImageView cvImage;
+    //@FXML
+    //public ImageView cvImage;
 
     Database db = new Database();
     @FXML
     public void initialize(){
         int fileNameInt = LoginController.felhasznalo.getID();
         String fileName = String.valueOf(fileNameInt) + ".jpg";
-        Image image = new Image("./img/" + fileName);
-        cvImage.setImage(image);
-        System.out.println("Képbetöltés sikeres. Path: " + image.getUrl());
+        //Image image = new Image("./img/" + fileName);
+        //cvImage.setImage(image);
+        System.out.println("Képbetöltés sikeres. ");
 
 
         TableColumn munkaltatoCol = new TableColumn("felhasznalo_ID");
@@ -239,13 +239,10 @@ public class HomeAllaskeresoController {
                 e.printStackTrace();
             }//létrehozva az id-re a kép
 
-
             //Image image = new Image(file2.toURI().toString());
-            Image image = new Image("./img/" + fileName);
-
-            cvImage.setImage(image);
-            System.out.println("Képbetöltés sikeres. Path: " + image.getUrl());
-            System.out.println("Képbetöltés sikeres. Path2: " + cvImage.getImage().getUrl());
+            //Image image = new Image("./img/" + fileName);
+            //cvImage.setImage(image);
+            System.out.println("Képbetöltés sikeres.");
         }else{
             System.out.println("Képbetöltési hiba.");
         }
